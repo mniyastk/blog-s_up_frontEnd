@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
@@ -24,12 +25,12 @@ function Login() {
                 id="username"
                 name="username"
                 className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-                autocomplete="off"
+                autoComplete="off"
               />
             </div>
 
             <div className="mb-4">
-              <label for="password" className="block text-gray-600">
+              <label htmlFor="password" className="block text-gray-600">
                 Password
               </label>
               <input
@@ -37,7 +38,7 @@ function Login() {
                 id="password"
                 name="password"
                 className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-                autocomplete="off"
+                autoComplete="off"
               />
             </div>
 
@@ -48,7 +49,7 @@ function Login() {
                 name="remember"
                 className="text-blue-500"
               />
-              <label for="remember" className="text-gray-600 ml-2">
+              <label htmlFor="remember" className="text-gray-600 ml-2">
                 Remember Me
               </label>
             </div>
@@ -69,7 +70,7 @@ function Login() {
 
           <div className="mt-6 text-blue-500 text-center">
             <a href="#" className="hover:underline">
-              Sign up Here
+              <Link to={"/register"}> Sign up Here</Link>
             </a>
           </div>
         </div>
