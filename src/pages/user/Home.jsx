@@ -52,7 +52,7 @@ const contents = [
 const Home = () => {
   return (
     <div>
-      <section className="container mx-auto px-8 py-10 lg:py-28">
+      <section className="container mx-auto px-8 py-10 lg:py-2">
         <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-4">
           {contents.map(({ img, title, desc }) => (
             <BlogCard key={title} img={img} title={title} desc={desc} />
