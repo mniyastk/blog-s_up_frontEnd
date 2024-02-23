@@ -9,6 +9,7 @@ import Dashboard from "./pages/Author/Account/Dashboard";
 import Followers from "./pages/Author/Account/Followers";
 import Reports from "./pages/Author/Account/Reports";
 import Messages from "./pages/Author/Account/Messages";
+import NewBlog from "./pages/Author/Account/NewBlog";
 
 function App() {
   return (
@@ -20,11 +21,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/author" element={<AuthorLayout />}>
-          <Route   path="/author/blogs" element={<Blogs />} />
+          <Route path="/author/blogs" element={<Blogs />} />
           <Route index path="/author" element={<Dashboard />} />
           <Route path="/author/followers" element={<Followers />} />
           <Route path="/author/reports" element={<Reports />} />
           <Route path="/author/messages" element={<Messages />} />
+          <Route path="/author/newblog" element={<NewBlog />} />
         </Route>
       </Routes>
     </div>
