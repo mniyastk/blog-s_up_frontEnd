@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Login() {
+  const [formValues, setFormValues] = useState({});
+  const [formErrors, setFormErrors] = useState({});
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    if (!values.email) {
+      errors.email = "Email is required";
+    } else if (!regex.test(values.email)) {
+      errors.email = " Invalid Email ";
+    }
+    if (!values.password) {
+      errors.password = "Password is Required";
+    }
+    return errors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setFormErrors(validate(formValues));
+  };
+
   return (
     <>
       <div className="bg-gray-100 flex justify-center items-center h-screen">
         <div className="w-1/2 h-screen hidden lg:block">
           <img
             src="https://placehold.co/800x/667fff/ffffff.png?text=Your+Image&font=Montserrat"
-            alt="Placeholder Image"
+            alt="Placeholder  "
             className="object-cover w-full h-full"
           />
         </div>
@@ -18,12 +46,13 @@ function Login() {
           <form action="#" method="POST">
             <div className="mb-4">
               <label htmlFor="username" className="block text-gray-600">
-                Username
+                Email <span className=" ml-2 text-red-600"> {formErrors.email}</span>
               </label>
               <input
                 type="text"
-                id="username"
-                name="username"
+                onChange={handleOnChange}
+                id="email"
+                name="email"
                 className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
                 autoComplete="off"
               />
@@ -31,10 +60,12 @@ function Login() {
 
             <div className="mb-4">
               <label htmlFor="password" className="block text-gray-600">
-                Password
+                Password{" "}
+                <span className=" ml-2 text-red-600"> {formErrors.password}</span>
               </label>
               <input
                 type="password"
+                onChange={handleOnChange}
                 id="password"
                 name="password"
                 className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
@@ -55,13 +86,12 @@ function Login() {
             </div>
 
             <div className="mb-6 text-blue-500">
-              <a href="#" className="hover:underline">
-                Forgot Password?
-              </a>
+              <Link className="hover:underline">Forgot Password?</Link>
             </div>
 
             <button
               type="submit"
+              onClick={handleSubmit}
               className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
             >
               Login
@@ -69,9 +99,9 @@ function Login() {
           </form>
 
           <div className="mt-6 text-blue-500 text-center">
-            <a href="#" className="hover:underline">
+            <Link className="hover:underline">
               <Link to={"/register"}> Sign up Here</Link>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
