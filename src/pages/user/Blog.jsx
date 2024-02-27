@@ -26,13 +26,7 @@ const Blog = () => {
                       Graphic Designer, educator
                     </p>
                     <p className="text-base text-gray-500 dark:text-gray-400">
-                      <time
-                        pubdate
-                        datetime="2022-02-08"
-                        title="February 8th, 2022"
-                      >
-                        Feb. 8, 2022
-                      </time>
+                      Feb 20, 2024
                     </p>
                   </div>
                 </div>
@@ -84,13 +78,7 @@ const Blog = () => {
                       Helene Engels
                     </p>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
-                      <time
-                        pubdate
-                        datetime="2022-06-23"
-                        title="June 23rd, 2022"
-                      >
-                        Jun. 23, 2022
-                      </time>
+                      Feb 20, 2024
                     </p>
                   </div>
                 </footer>
