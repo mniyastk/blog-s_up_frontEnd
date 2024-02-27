@@ -5,16 +5,21 @@ const Header = () => {
   const [showDiv, setShowDiv] = useState(false);
   const [showMainBar, setShowMainBar] = useState(false);
   const componentRef = React.useRef(null);
+  const componentRef2 = React.useRef(null);
+
+  useClickAway(componentRef2, () => {
+    setShowDiv(false);
+  });
 
   useClickAway(componentRef, () => {
-    setShowDiv(false);
     setShowMainBar(false);
   });
+
   return (
     <div>
       <nav class="bg-white border-gray-200 dark:bg-gray-900 ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a
+          <p
             href="https://flowbite.com/"
             class="flex items-center space-x-3 rtl:space-x-reverse"
           >
@@ -24,7 +29,7 @@ const Header = () => {
               alt=""
             />
             <span className=" text-lg font-bold">Blog's Up</span>
-          </a>
+          </p>
           <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button
               type="button"
@@ -39,7 +44,7 @@ const Header = () => {
               />
             </button>
             <div
-              ref={componentRef}
+              ref={componentRef2}
               class={`z-50 ${
                 showDiv ? " block" : "hidden"
               }   text-base list-none absolute bg-white right-5 top-16 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
@@ -49,7 +54,7 @@ const Header = () => {
                   Bonnie Green
                 </span>
                 <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                  name@flowbite.com
+                  name@gmail.com
                 </span>
               </div>
               <ul class="py-2" aria-labelledby="user-menu-button">
@@ -58,7 +63,7 @@ const Header = () => {
                     href="#"
                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
-                    Dashboard
+                    Account
                   </a>
                 </li>
                 <li>

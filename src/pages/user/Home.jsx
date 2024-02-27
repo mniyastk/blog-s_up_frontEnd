@@ -3,9 +3,9 @@ import BlogCard from "../../components/BlogCard";
 
 const contents = [
   {
-    img: "https://www.material-tailwind.com/image/blog-11.jpeg",
-    title: "Search and Discovery",
-    desc: "Website visitors today demand a frictionless user expericence — especially when using search. Because of the hight standards we tend to offer.",
+    img: "https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp",
+    title: "Android Fragmentation state. Did Google fix it?",
+    desc: "In Android 13 a new feature called Photo Picker appeared. It allows applications to access individual user photos and video swithout giving them full access to the photo/video",
   },
   {
     img: "https://www.material-tailwind.com/image/blog-10.jpeg",

@@ -10,6 +10,7 @@ import Followers from "./pages/Author/Account/Followers";
 import Reports from "./pages/Author/Account/Reports";
 import Messages from "./pages/Author/Account/Messages";
 import NewBlog from "./pages/Author/Account/NewBlog";
+import Blog from "./pages/user/Blog";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<UserLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/Blog" element={<Blog/>} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
