@@ -16,7 +16,7 @@ const Blog = () => {
                   />
                   <div>
                     <a
-                      href="#"
+                      href="*"
                       rel="author"
                       className="text-xl font-bold text-gray-900 dark:text-white"
                     >
