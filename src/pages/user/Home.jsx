@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import BlogCard from "../../components/BlogCard";
+import { myContext } from "../../App";
 
 const contents = [
   {
@@ -50,6 +51,8 @@ const contents = [
 ];
 
 const Home = () => {
+  const first = useContext(myContext);
+  console.log(first);
   return (
     <div>
       <section className="container mx-auto px-8 py-10 lg:py-2">

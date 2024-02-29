@@ -1,4 +1,5 @@
 import React from "react";
+import Immutable from "../../components/Immutable";
 
 const Blog = () => {
   return (
@@ -92,6 +93,7 @@ const Blog = () => {
           </div>
         </div>
       </main>
+      <Immutable/>
     </div>
   );
 };
