@@ -11,14 +11,13 @@ import Reports from "./pages/Author/Account/Reports";
 import Messages from "./pages/Author/Account/Messages";
 import NewBlog from "./pages/Author/Account/NewBlog";
 import Blog from "./pages/user/Blog";
-import React, { createContext, useState } from "react";
+import React, { createContext } from "react";
 export const myContext = createContext();
 
 function App() {
-  const [first, setfirst] = useState("second");
   return (
     <div>
-      <myContext.Provider value={first}>
+      <myContext.Provider value={{}}>
         <Routes>
           <Route path="/" element={<UserLayout />}>
             <Route path="/" element={<Home />} />

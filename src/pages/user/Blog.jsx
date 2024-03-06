@@ -1,5 +1,5 @@
 import React from "react";
-import Immutable from "../../components/Immutable";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   return (
@@ -16,13 +16,13 @@ const Blog = () => {
                     alt="Jese Leos"
                   />
                   <div>
-                    <a
+                    <Link
                       href="#"
                       rel="author"
                       className="text-xl font-bold text-gray-900 dark:text-white"
                     >
                       Kirill Rozov
-                    </a>
+                    </Link>
                     <p className="text-base text-gray-500 dark:text-gray-400">
                       Graphic Designer, educator
                     </p>
@@ -93,7 +93,6 @@ const Blog = () => {
           </div>
         </div>
       </main>
-      <Immutable/>
     </div>
   );
 };

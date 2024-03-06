@@ -1,67 +1,71 @@
-import React, { useContext } from "react";
-import BlogCard from "../../components/BlogCard";
-import { myContext } from "../../App";
-
-const contents = [
-  {
-    img: "https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp",
-    title: "Android Fragmentation state. Did Google fix it?",
-    desc: "In Android 13 a new feature called Photo Picker appeared. It allows applications to access individual user photos and video swithout giving them full access to the photo/video",
-  },
-  {
-    img: "https://www.material-tailwind.com/image/blog-10.jpeg",
-    title: "Search and Discovery",
-    desc: "Website visitors today demand a frictionless user expericence — especially when using search. Because of the hight standards we tend to offer.",
-  },
-  {
-    img: "https://demos.creative-tim.com/material-kit-pro/assets/img/examples/card-blog2.jpg",
-    title: "Search and Discovery",
-    desc: "Website visitors today demand a frictionless user expericence — especially when using search. Because of the hight standards we tend to offer.",
-  },
-  {
-    img: "https://demos.creative-tim.com/material-kit-pro/assets/img/examples/card-blog2.jpg",
-    title: "Search and Discovery",
-    desc: "Website visitors today demand a frictionless user expericence — especially when using search. Because of the hight standards we tend to offer.",
-  },
-  {
-    img: "https://demos.creative-tim.com/material-kit-pro/assets/img/examples/card-blog2.jpg",
-    title: "Search and Discovery",
-    desc: "Website visitors today demand a frictionless user expericence — especially when using search. Because of the hight standards we tend to offer.",
-  },
-  {
-    img: "https://demos.creative-tim.com/material-kit-pro/assets/img/examples/card-blog2.jpg",
-    title: "Search and Discovery",
-    desc: "Website visitors today demand a frictionless user expericence — especially when using search. Because of the hight standards we tend to offer.",
-  },
-  {
-    img: "https://demos.creative-tim.com/material-kit-pro/assets/img/examples/card-blog2.jpg",
-    title: "Search and Discovery",
-    desc: "Website visitors today demand a frictionless user expericence — especially when using search. Because of the hight standards we tend to offer.",
-  },
-  {
-    img: "https://demos.creative-tim.com/material-kit-pro/assets/img/examples/card-blog2.jpg",
-    title: "Search and Discovery",
-    desc: "Website visitors today demand a frictionless user expericence — especially when using search. Because of the hight standards we tend to offer.",
-  },
-  {
-    img: "https://demos.creative-tim.com/material-kit-pro/assets/img/examples/card-blog2.jpg",
-    title: "Search and Discovery",
-    desc: "Website visitors today demand a frictionless user expericence — especially when using search. Because of the hight standards we tend to offer.",
-  },
-];
+import React, { useEffect, useState } from "react";
 
 const Home = () => {
-  const first = useContext(myContext);
-  console.log(first);
+  const [topic, setTopic] = useState({});
+  const handleClick = (title) => {
+    setTopic(title);
+    content.forEach((element) => {
+      if (element.title === title) {
+        setTopic(element);
+      }
+    });
+  };
+
+  useEffect(() => {
+    setTopic(content[0]);
+  },[]);
+
+  const content = [
+    {
+      title: "Android Fragmentation state.  Google fix it?",
+      img: "https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_fsDA8PjcIgubaadRbg0gLQ_empomv.png",
+    },
+    {
+      title: "Querying a network of knowledge knowledge",
+      img: "https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_laK-KCPGdxkkypNWjgUHrw_cufk96.jpg",
+    },
+    {
+      title: "Android Fragmentation state",
+      img: "https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_PAvNFdbeSoWluxfc8CNCDQ_y6oy4m.jpg",
+    },
+    {
+      title: "Android Fragmentation state. Did fix it?",
+      img: "https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp",
+    },
+  ];
+  console.log(topic);
   return (
-    <div>
-      <section className="container mx-auto px-8 py-10 lg:py-2">
-        <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-4">
-          {contents.map(({ img, title, desc }) => (
-            <BlogCard key={title} img={img} title={title} desc={desc} />
-          ))}
+    <div className=" flex justify-center">
+      <div className=" mt-10 bg w-[88%] min-h-screen ">
+        <div className=" flex shadow-md w-full h-[75%]">
+          <div className=" w-4/6">
+            <div
+              style={{
+                backgroundImage: `url(${topic.img})`,
+              }}
+              className="h-full bg-cover flex flex-col justify-end p-4 relative"
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+              <p className="text-4xl w-5/6 text-white relative z-10">
+                {topic.title}
+              </p>
+            </div>
+          </div>
+          <div className="  bg-red-400 flex-1">
+            {content.map((item,index) => {
+              return (
+                <button
+                  key={index}
+                  onClick={() => handleClick(item.title)}
+                  className="shadow-lg h-1/4  focus:bg-white focus:shadow-lg focus:border-l-8 focus:border-l-[#0F94F5] bg-gray-100  w-full px-10 text-start"
+                >
+                  {item.title}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
