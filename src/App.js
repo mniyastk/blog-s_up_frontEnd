@@ -11,14 +11,16 @@ import Reports from "./pages/Author/Account/Reports";
 import Messages from "./pages/Author/Account/Messages";
 import NewBlog from "./pages/Author/Account/NewBlog";
 import Blog from "./pages/user/Blog";
+import LandingPage from "./pages/user/LandingPage";
 
 function App() {
   return (
     <div>
       <Routes>
+        <Route path="/landing" element={<LandingPage />} />
         <Route path="/" element={<UserLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/Blog" element={<Blog/>} />
+          <Route path="/Blog" element={<Blog />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
