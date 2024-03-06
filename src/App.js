@@ -12,6 +12,7 @@ import Messages from "./pages/Author/Account/Messages";
 import NewBlog from "./pages/Author/Account/NewBlog";
 import Blog from "./pages/user/Blog";
 import LandingPage from "./pages/user/LandingPage";
+import './App.css'
 
 function App() {
   return (

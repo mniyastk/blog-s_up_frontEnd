@@ -1,19 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import pic from "../../Assets/Images/Ellipse 2trending-img.png";
+import pic2 from "../../Assets/Images/Screenshot 2024-02-29 162345 1.png";
+import pic3 from "../../Assets/Icons/save-instagram.png";
 
 function LandingPage() {
   return (
-    <div>
-      <div className="bg-[#FF00A8]">
-        <header className=" h-[100px] flex items-center  border-b-[2px] border-b-[#000]  ">
+    <div className=" ">
+      <div className="bg-[#FF00A8] border-b-[2px] border-b-[#000]">
+        <header className=" h-[110px] flex items-center  border-b-[2px] border-b-[#000]  ">
           <div className=" flex w-full justify-between  px-[80px] items-center content-center">
             <div>
-              <span className=" text-[40px] font-bold">Blog'sUp</span>
+              <span className=" text-[40px] font-bold cursor-pointer">
+                Blog'sUp
+              </span>
             </div>
             <div>
-              <Link className=" text-[20px] font-medium hover:text-red-500">
-                Write
-              </Link>
+              <Link className=" text-[20px] font-medium  ">Write</Link>
               <Link className=" text-[20px] ml-5">Sign in</Link>
               <Link className=" text-[20px] ml-5 px-5 py-3 bg-black rounded-3xl text-white ">
                 Get started
@@ -34,6 +37,103 @@ function LandingPage() {
             </button>
           </div>
         </section>
+      </div>
+      <div className=" border-b-[1px] border-b-[#000]">
+        <div className=" px-[80px] my-12 h-auto  font-serif">
+          <h4 className=" text-[30px] font-medium">Trending</h4>
+          <div className=" mt-10 flex justify-between flex-wrap w-full ">
+            <div className=" w-[30%] mr-5 ">
+              <div className="flex items-center">
+                <img src={pic} alt="trending images" />
+                <span className=" ml-4">Admiral Cloudberg</span>
+              </div>
+              <p className=" font-semibold ">
+                Querying a network of knowledge with llama-index-networks
+              </p>
+              <span className=" text-gray-700">Feb 28, 2024</span>
+            </div>
+            <div className="w-[30%] mr-5 ">
+              <div className="flex items-center">
+                <img src={pic} alt="trending images" />
+                <span className=" ml-4">Admiral Cloudberg</span>
+              </div>
+              <p className=" font-semibold">
+                Querying a network of knowledge with llama-index-networks
+              </p>
+              <span className=" text-gray-700">Feb 28, 2024</span>
+            </div>
+            <div className="w-[30%] mr-5 ">
+              <div className="flex items-center">
+                <img src={pic} alt="trending images" />
+                <span className=" ml-4">Admiral Cloudberg</span>
+              </div>
+              <p className=" font-semibold">
+                Querying a network of knowledge with llama-index-networks
+              </p>
+              <span className=" text-gray-700">Feb 28, 2024</span>
+            </div>
+            <div className="w-[30%] mr-5 ">
+              <div className="flex items-center">
+                <img src={pic} alt="trending images" />
+                <span className=" ml-4">Admiral Cloudberg</span>
+              </div>
+              <p className=" font-semibold">
+                Querying a network of knowledge with llama-index-networks
+              </p>
+              <span className=" text-gray-700">Feb 28, 2024</span>
+            </div>
+            <div className="w-[30%] mr-5 ">
+              <div className="flex items-center">
+                <img src={pic} alt="trending images" />
+                <span className=" ml-4">Admiral Cloudberg</span>
+              </div>
+              <p className=" font-semibold">
+                Querying a network of knowledge with llama-index-networks
+              </p>
+              <span className=" text-gray-700">Feb 28, 2024</span>
+            </div>
+            <div className="w-[30%] mr-5 ">
+              <div className="flex items-center">
+                <img src={pic} alt="trending images" />
+                <span className=" ml-4">Admiral Cloudberg</span>
+              </div>
+              <p className=" font-semibold">
+                Querying a network of knowledge with llama-index-networks
+              </p>
+              <span className=" text-gray-700">Feb 28, 2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className=" px-[80px] ">
+        <div className=" flex justify-between mt-11">
+          <div className="  mr-5 flex justify-between    ">
+            <div>
+              <div className="flex items-center">
+                <img src={pic} alt="trending images" />
+                <span className=" ml-4">Admiral Cloudberg</span>
+              </div>
+              <p className=" font-semibold">
+                Querying a network of knowledge with llama-index-networks
+              </p>
+              <span>A fringe-dweller's story about making </span> <br />
+              <div className=" flex justify-between">
+                <span className=" text-gray-700">Feb 28, 2024</span>
+                <img src={pic3} alt="pic3" />
+              </div>
+            </div>
+            <div className=" ml-4">
+              <img className=" w-[150px] h-[100px]" src={pic2} alt="pic2" />
+            </div>
+          </div>
+
+          <div>
+            <div>
+              Discover More
+            </div>
+            <div className=" bg-[#F3F4F6] px-5 py-2 rounded-3xl ">Programming</div>
+          </div>
+        </div>
       </div>
     </div>
   );
