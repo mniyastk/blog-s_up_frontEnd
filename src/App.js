@@ -11,30 +11,28 @@ import Reports from "./pages/Author/Account/Reports";
 import Messages from "./pages/Author/Account/Messages";
 import NewBlog from "./pages/Author/Account/NewBlog";
 import Blog from "./pages/user/Blog";
-import React, { createContext } from "react";
-export const myContext = createContext();
+import LandingPage from "./pages/user/LandingPage";
 
 function App() {
   return (
     <div>
-      <myContext.Provider value={{}}>
-        <Routes>
-          <Route path="/" element={<UserLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/Blog" element={<Blog />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/author" element={<AuthorLayout />}>
-            <Route path="/author/blogs" element={<Blogs />} />
-            <Route index path="/author" element={<Dashboard />} />
-            <Route path="/author/followers" element={<Followers />} />
-            <Route path="/author/reports" element={<Reports />} />
-            <Route path="/author/messages" element={<Messages />} />
-            <Route path="/author/newblog" element={<NewBlog />} />
-          </Route>
-        </Routes>
-      </myContext.Provider>
+      <Routes>
+        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/" element={<UserLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/Blog" element={<Blog />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/author" element={<AuthorLayout />}>
+          <Route path="/author/blogs" element={<Blogs />} />
+          <Route index path="/author" element={<Dashboard />} />
+          <Route path="/author/followers" element={<Followers />} />
+          <Route path="/author/reports" element={<Reports />} />
+          <Route path="/author/messages" element={<Messages />} />
+          <Route path="/author/newblog" element={<NewBlog />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
