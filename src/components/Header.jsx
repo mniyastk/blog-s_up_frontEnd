@@ -25,7 +25,7 @@ const Header = () => {
   console.log(showDiv);
   return (
     <div>
-      <nav class="bg-white border-b dark:bg-gray-900 ">
+      <nav class="bg-white border-b dark:bg-gray-900  text-l">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <p class="flex items-center   w-3/4 md:w-fit">
             <img
