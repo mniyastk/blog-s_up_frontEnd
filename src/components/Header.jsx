@@ -35,7 +35,7 @@ const Header = () => {
             />
             <form
               onClick={() => setShowSearch(true)}
-              class="max-w-md mx-3  w-full"
+              class=" mx-3  w-full"
             >
               <label
                 for="default-search"
@@ -184,7 +184,7 @@ const Header = () => {
         </div>
       </nav>
       {showSearch && (
-        <form class="max-w-md ml-3 mr-3  w-full md:hidden mt-5">
+        <form class=" ml-3 mr-3 md:hidden mt-5">
           <label
             for="default-search"
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
