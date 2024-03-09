@@ -25,7 +25,7 @@ const Header = () => {
   console.log(showDiv);
   return (
     <div>
-      <nav class="bg-white border-b dark:bg-gray-900 ">
+      <nav class="bg-white border-b dark:bg-gray-900  text-l">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <p class="flex items-center   w-3/4 md:w-fit">
             <img
@@ -35,7 +35,7 @@ const Header = () => {
             />
             <form
               onClick={() => setShowSearch(true)}
-              class="max-w-md mx-3  w-full"
+              class=" mx-3  w-full"
             >
               <label
                 for="default-search"
@@ -184,7 +184,7 @@ const Header = () => {
         </div>
       </nav>
       {showSearch && (
-        <form class="max-w-md ml-3 mr-3  w-full md:hidden mt-5">
+        <form class=" ml-3 mr-3 md:hidden mt-5">
           <label
             for="default-search"
             class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
