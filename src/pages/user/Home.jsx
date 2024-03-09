@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const Home = () => {
   const [topic, setTopic] = useState({});
-  const [selectedDiv, setSelectedDiv] = useState(0);
+  const [selectedDiv, setSelectedDiv] = useState("For you");
   const [selectedTopic, setSelectedTopic] = useState(0);
 
   const handleClickDiv = (index) => {
@@ -73,7 +73,7 @@ const Home = () => {
                   <div className=" md:hidden max-w-20">
                     <img className=" h-full" src={item.img} alt="" />
                   </div>
-                  <p className=" text-xs md:text-xl ml-2  font-extrabold  ">
+                  <p className=" text-xs md:text-xl ml-4  font-bold  ">
                     {item.title}
                   </p>
                 </div>
@@ -83,155 +83,63 @@ const Home = () => {
         </div>
         <div className="  mt-10  flex space-x-4 ">
           <div className="md:w-2/3 relative">
-            <div className="flex space-x-4 text-center  border-b mb-8 border-gray-400">
-              {[0, 1, 2, 3, 4].map((index) => (
-                <div
-                  key={index}
-                  className={`w-1/3 cursor-pointer ${
-                    selectedDiv === index ? "border-b border-black " : ""
-                  }`}
-                  onClick={() => handleClickDiv(index)}
-                >
-                  <p className=" font-bold text-sm sm:text-lg ">For you</p>
-                </div>
-              ))}
+            <div className="flex space-x-10 border-b mb-8 border-gray-200 ">
+              {["For you", "Technology", "Software", "Travel",  ].map(
+                (index) => (
+                  <div
+                    key={index}
+                    className={` cursor-pointer ${
+                      selectedDiv === index ? "border-b border-black pb-5" : ""
+                    }`}
+                    onClick={() => handleClickDiv(index)}
+                  >
+                    <p className=" font-bold text-sm sm:text-[14px] ">
+                      {index}
+                    </p>
+                  </div>
+                )
+              )}
             </div>
-            <div className="  mt-5  relative z-40 mb-8">
-              <div className=" flex space-x-3 md:mb-3">
-                <div
-                  className=" rounded-full w-6 h-6  bg-cover "
-                  style={{
-                    backgroundImage:
-                      "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                  }}
-                ></div>
-                <p className=" text-sm sm:text-l ">Bijeesh M</p>
-
-                <p className=" text-gray-500 text-sm md:text-l">Mar 7, 2024</p>
-              </div>
-              <div className="flex overflow-hidden">
-                <div className=" w-2/3    flex flex-col justify-evenly">
-                  <p className=" text-md sm:text-2xl font-bold">
-                    Querying a network of knowledge knowledge
-                  </p>
-                  <p className=" hidden md:block ">
-                    But unseen barriers do — I’ve been a psychology professor
-                    since 2012. In the past six years, I’ve witnessed students
-                    of all ages procrastinate on papers, skip presentation days,
-                  </p>
+            {[1, 2, 3, 4, 5, 6].map((item) => {
+              return (
+                <div className="  mt-5  relative z-40 mb-8">
+                  <div className=" flex space-x-3 md:mb-1">
+                    <div
+                      className=" rounded-full w-6 h-6  bg-cover "
+                      style={{
+                        backgroundImage:
+                          "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
+                      }}
+                    ></div>
+                    <p className=" text-sm sm:text-l ">Bijeesh M</p>
+                    <p className=" text-gray-500 text-sm md:text-l">
+                      Mar 7, 2024
+                    </p>
+                  </div>
+                  <div className="flex overflow-hidden justify-between">
+                    <div className=" w-2/3    flex flex-col justify-evenly">
+                      <p className=" text-md sm:text-[20px] font-bold mb-2">
+                        Querying a network of knowledge knowledge
+                      </p>
+                      <p className=" hidden md:block text-[16px] font-[Times ]">
+                        But unseen barriers do — I’ve been a psychology
+                        professor since 2012. In the past six years, I’ve
+                        witnessed students of all ages procrastinate on papers,
+                        skip presentation days,
+                      </p>
+                    </div>
+                    <div className=" w-1/4 h-full sm:h-32 bg-red-300">
+                      <img
+                        className=" h-full w-full "
+                        src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <hr className=" mt-5" />
                 </div>
-                <div className=" w-1/3 h-full sm:h-32 bg-red-300">
-                  <img
-                    className=" h-full w-full "
-                    src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <hr className=" mt-5" />
-            </div>
-            <div className="  mt-5  relative z-40 mb-8">
-              <div className=" flex space-x-3 md:mb-3">
-                <div
-                  className=" rounded-full w-6 h-6  bg-cover "
-                  style={{
-                    backgroundImage:
-                      "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                  }}
-                ></div>
-                <p className=" text-sm sm:text-l ">Bijeesh M</p>
-
-                <p className=" text-gray-500 text-sm md:text-l">Mar 7, 2024</p>
-              </div>
-              <div className="flex overflow-hidden">
-                <div className=" w-2/3    flex flex-col justify-evenly">
-                  <p className=" text-md sm:text-2xl font-bold">
-                    Querying a network of knowledge knowledge
-                  </p>
-                  <p className=" hidden md:block  ">
-                    But unseen barriers do — I’ve been a psychology professor
-                    since 2012. In the past six years, I’ve witnessed students
-                    of all ages procrastinate on papers, skip presentation days,
-                  </p>
-                </div>
-                <div className=" w-1/3 h-full sm:h-32 bg-red-300">
-                  <img
-                    className=" h-full w-full "
-                    src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <hr className=" mt-5" />
-            </div>
-            <div className="  mt-5  relative z-40 mb-8">
-              <div className=" flex space-x-3 md:mb-3">
-                <div
-                  className=" rounded-full w-6 h-6  bg-cover "
-                  style={{
-                    backgroundImage:
-                      "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                  }}
-                ></div>
-                <p className=" text-sm sm:text-l ">Bijeesh M</p>
-
-                <p className=" text-gray-500 text-sm md:text-l">Mar 7, 2024</p>
-              </div>
-              <div className="flex overflow-hidden">
-                <div className=" w-2/3    flex flex-col justify-evenly">
-                  <p className=" text-md sm:text-2xl font-bold">
-                    Querying a network of knowledge knowledge
-                  </p>
-                  <p className=" hidden md:block  ">
-                    But unseen barriers do — I’ve been a psychology professor
-                    since 2012. In the past six years, I’ve witnessed students
-                    of all ages procrastinate on papers, skip presentation days,
-                  </p>
-                </div>
-                <div className=" w-1/3 h-full sm:h-32 bg-red-300">
-                  <img
-                    className=" h-full w-full "
-                    src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <hr className=" mt-5" />
-            </div>
-            <div className="  mt-5  relative z-40 mb-8">
-              <div className=" flex space-x-3 md:mb-3">
-                <div
-                  className=" rounded-full w-6 h-6  bg-cover "
-                  style={{
-                    backgroundImage:
-                      "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                  }}
-                ></div>
-                <p className=" text-sm sm:text-l ">Bijeesh M</p>
-
-                <p className=" text-gray-500 text-sm md:text-l">Mar 7, 2024</p>
-              </div>
-              <div className="flex overflow-hidden">
-                <div className=" w-2/3    flex flex-col justify-evenly">
-                  <p className=" text-md sm:text-2xl font-bold">
-                    Querying a network of knowledge knowledge
-                  </p>
-                  <p className=" hidden md:block  ">
-                    But unseen barriers do — I’ve been a psychology professor
-                    since 2012. In the past six years, I’ve witnessed students
-                    of all ages procrastinate on papers, skip presentation days,
-                  </p>
-                </div>
-                <div className=" w-1/3 h-full sm:h-32 bg-red-300">
-                  <img
-                    className=" h-full w-full "
-                    src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <hr className=" mt-5" />
-            </div>
+              );
+            })}
           </div>
           <div className=" hidden md:block w-1/3 ">
             <div className="flex items-center font-bold text-sm sm:text-lg  ">
@@ -242,114 +150,71 @@ const Home = () => {
                 <hr className="border-gray-400" />
               </div>
             </div>
-            <div className=" mt-5 p-3 w-full">
-              <div className=" mb-5  flex w-full h-full">
-                <div className=" w-2/3">
-                  <div className=" flex space-x-3">
-                    <div
-                      className=" rounded-full w-6 h-6  bg-cover "
-                      style={{
-                        backgroundImage:
-                          "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                      }}
-                    ></div>
-                    <p className=" text-sm">Bijeesh M</p>
+            <div className=" mt-5 w-full">
+              {[1, 2, 3, 4, 5, 6].map((item) => {
+                return (
+                  <div className=" mb-5  pl-3 flex w-full h-full">
+                    <div className=" w-2/3">
+                      <div className=" flex space-x-3">
+                        <div
+                          className=" rounded-full w-6 h-6  bg-cover "
+                          style={{
+                            backgroundImage:
+                              "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
+                          }}
+                        ></div>
+                        <p className=" text-sm">Bijeesh M</p>
+                      </div>
+                      <p className=" text-md font-bold ">
+                        Querying a network of knowledge
+                      </p>
+                    </div>
+                    <div className=" w-1/3 ">
+                      <img
+                        className=" "
+                        src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_E3kONRxJ8hFC3qowDOWUXg_cgstjz.jpg"
+                        alt=""
+                      />
+                    </div>
                   </div>
-                  <p className=" text-lg font-bold ">
-                    Querying a network of knowledge
-                  </p>
-                </div>
-                <div className=" w-1/3 ">
-                  <img
-                    className=" "
-                    src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_E3kONRxJ8hFC3qowDOWUXg_cgstjz.jpg"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className=" mb-5  flex w-full h-full">
-                <div className=" w-2/3">
-                  <div className=" flex space-x-3">
-                    <div
-                      className=" rounded-full w-6 h-6  bg-cover "
-                      style={{
-                        backgroundImage:
-                          "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                      }}
-                    ></div>
-                    <p className=" text-sm">Bijeesh M</p>
-                  </div>
-                  <p className=" text-lg font-bold ">
-                    Querying a network of knowledge
-                  </p>
-                </div>
-                <div className=" w-1/3 ">
-                  <img
-                    className=" "
-                    src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_E3kONRxJ8hFC3qowDOWUXg_cgstjz.jpg"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className=" mb-5  flex w-full h-full">
-                <div className=" w-2/3">
-                  <div className=" flex space-x-3">
-                    <div
-                      className=" rounded-full w-6 h-6  bg-cover "
-                      style={{
-                        backgroundImage:
-                          "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                      }}
-                    ></div>
-                    <p className=" text-sm">Bijeesh M</p>
-                  </div>
-                  <p className=" text-lg font-bold ">
-                    Querying a network of knowledge
-                  </p>
-                </div>
-                <div className=" w-1/3 ">
-                  <img
-                    className=" "
-                    src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_E3kONRxJ8hFC3qowDOWUXg_cgstjz.jpg"
-                    alt=""
-                  />
-                </div>
-              </div>
-              <div className=" mb-5  flex w-full h-full">
-                <div className=" w-2/3">
-                  <div className=" flex space-x-3">
-                    <div
-                      className=" rounded-full w-6 h-6  bg-cover "
-                      style={{
-                        backgroundImage:
-                          "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                      }}
-                    ></div>
-                    <p className=" text-sm">Bijeesh M</p>
-                  </div>
-                  <p className=" text-lg font-bold ">
-                    Querying a network of knowledge
-                  </p>
-                </div>
-                <div className=" w-1/3 ">
-                  <img
-                    className=" "
-                    src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_E3kONRxJ8hFC3qowDOWUXg_cgstjz.jpg"
-                    alt=""
-                  />
-                </div>
-              </div>
+                );
+              })}
             </div>
-            <div className=" ">
+            <div className=" mt-10 pl-3">
               <div>
                 <p className=" font-bold">RECOMMENDED TOPIC</p>
               </div>
-              <div className=" flex flex-wrap mt-3  justify-start gap-3">
-                <div className="bg-gray-200 rounded-full p-2  ">Technology</div>
-                <div className="bg-gray-200 rounded-full p-2  ">Web development</div>
-                <div className="bg-gray-200 rounded-full p-2  ">Sports</div>
-                <div className="bg-gray-200 rounded-full p-2  ">Travel</div>
-                <div className="bg-gray-200 rounded-full p-2  ">Gaming</div>
+              <div className=" flex flex-wrap mt-3  justify-start gap-2">
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Technology
+                </div>
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Web development
+                </div>
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Sports
+                </div>
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Travel
+                </div>
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Technology
+                </div>
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Gaming
+                </div>
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Sports
+                </div>
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Web development
+                </div>
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Travel
+                </div>
+                <div className="bg-gray-200 rounded-full px-3 py-2  ">
+                  Gaming
+                </div>
               </div>
             </div>
           </div>
