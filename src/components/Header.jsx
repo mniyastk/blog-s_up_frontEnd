@@ -62,9 +62,9 @@ const Header = () => {
                   </svg>
                 </div>
                 <input
-                  type="search"
+                  // type="Search"
                   id="default-search"
-                  class="hidden md:block w-full p-2.5 ps-10 text-sm rounded-full outline-none bg-gray-100"
+                  class="hidden md:block w-full p-2.5 ps-10 text-sm rounded-full border-none outline-none bg-gray-100"
                   placeholder="Search"
                   required
                 />
@@ -210,7 +210,7 @@ const Header = () => {
               </svg>
             </div>
             <input
-              type="search"
+              // type="search"
               id="default-search"
               class=" w-full p-2.5 ps-10 text-sm rounded-full outline-none bg-gray-100"
               placeholder="Search"

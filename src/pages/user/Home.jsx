@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const [topic, setTopic] = useState({});
   const [selectedDiv, setSelectedDiv] = useState("For you");
   const [selectedTopic, setSelectedTopic] = useState(0);
 
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location.hash]);
   const handleClickDiv = (index) => {
     setSelectedDiv(index);
   };
@@ -42,10 +53,10 @@ const Home = () => {
   ];
   console.log(topic);
   return (
-    <div className=" flex flex-col items-center justify-center px-[10px] sm:px-[80px]">
-      <div className=" md:mt-10 w-[88%] min-h-[3000px]  ">
+    <div className=" flex flex-col items-center justify-center px-[10px] sm:px-[10px] font-Sohnia">
+      <div className=" md:mt-10 w-[88%]   ">
         <div className="  shadow-md h-48  sm:w-full sm:h-[75%] hidden md:flex">
-          <div className=" w-4/6 bg-green-300 hidden md:block">
+          <div className=" w-4/6  bg-green-300 hidden md:block">
             <div
               style={{
                 backgroundImage: `url(${topic.img})`,
@@ -73,7 +84,7 @@ const Home = () => {
                   <div className=" md:hidden max-w-20">
                     <img className=" h-full" src={item.img} alt="" />
                   </div>
-                  <p className=" text-xs md:text-xl ml-4  font-bold  ">
+                  <p className=" text-xs md:text-xl mx-3   font-bold  ">
                     {item.title}
                   </p>
                 </div>
@@ -81,24 +92,20 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="  mt-10  flex space-x-4 ">
+        <div className="  mt-10  flex space-x-4 " id="scrollElement">
           <div className="md:w-2/3 relative">
-            <div className="flex space-x-10 border-b mb-8 border-gray-200 ">
-              {["For you", "Technology", "Software", "Travel",  ].map(
-                (index) => (
-                  <div
-                    key={index}
-                    className={` cursor-pointer ${
-                      selectedDiv === index ? "border-b border-black pb-5" : ""
-                    }`}
-                    onClick={() => handleClickDiv(index)}
-                  >
-                    <p className=" font-bold text-sm sm:text-[14px] ">
-                      {index}
-                    </p>
-                  </div>
-                )
-              )}
+            <div className="flex space-x-10 overflow-hidden border-b pt-2  mb-8 border-gray-200 ">
+              {["For you", "Technology", "Software", "Travel"].map((index) => (
+                <div
+                  key={index}
+                  className={` cursor-pointer min-w-fit ${
+                    selectedDiv === index ? "border-b border-black pb-4" : ""
+                  }`}
+                  onClick={() => handleClickDiv(index)}
+                >
+                  <p className=" font-bold text-sm sm:text-[14px] ">{index}</p>
+                </div>
+              ))}
             </div>
             {[1, 2, 3, 4, 5, 6].map((item) => {
               return (
@@ -111,17 +118,17 @@ const Home = () => {
                           "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
                       }}
                     ></div>
-                    <p className=" text-sm sm:text-l ">Bijeesh M</p>
-                    <p className=" text-gray-500 text-sm md:text-l">
+                    <p className=" text-sm sm:text-l font-Sohnia ">Bijeesh M</p>
+                    <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
                       Mar 7, 2024
                     </p>
                   </div>
                   <div className="flex overflow-hidden justify-between">
                     <div className=" w-2/3    flex flex-col justify-evenly">
-                      <p className=" text-md sm:text-[20px] font-bold mb-2">
+                      <p className=" text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
                         Querying a network of knowledge knowledge
                       </p>
-                      <p className=" hidden md:block text-[16px] font-[Times ]">
+                      <p className=" hidden md:block text-[16px] font-Georgia">
                         But unseen barriers do — I’ve been a psychology
                         professor since 2012. In the past six years, I’ve
                         witnessed students of all ages procrastinate on papers,
@@ -153,7 +160,7 @@ const Home = () => {
             <div className=" mt-5 w-full">
               {[1, 2, 3, 4, 5, 6].map((item) => {
                 return (
-                  <div className=" mb-5  pl-3 flex w-full h-full">
+                  <div className=" mb-5  pl-3 flex w-full h-full font-Sohnia">
                     <div className=" w-2/3">
                       <div className=" flex space-x-3">
                         <div
