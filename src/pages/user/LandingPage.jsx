@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import pic from "../../Assets/Images/Ellipse 2trending-img.png";
-import pic2 from "../../Assets/Images/Screenshot 2024-02-29 162345 1.png";
+import pic2 from "../../Assets/Images/0_FEP16gXObxcHgiVz.jpg";
 import pic3 from "../../Assets/Icons/save-instagram.png";
 
 function LandingPage() {
@@ -12,7 +12,7 @@ function LandingPage() {
   return (
     <div className=" ">
       <div className=" bg-[#FFC017] sm:bg-[#FF00A8] border-b-[2px]  border-b-[#000]">
-        <header className=" h-[110px] flex items-center  border-b-[2px] border-b-[#000]  ">
+        <header className="   h-[110px] flex items-center  border-b-[2px] border-b-[#000]  ">
           <div className=" flex w-full justify-between px-[40px]  sm:px-[80px] items-center content-center">
             <div>
               <span className="hidden sm:block text-[40px] font-bold cursor-pointer">
@@ -150,32 +150,127 @@ function LandingPage() {
           </div>
         </div>
       </div>
-      <div className=" px-[80px] ">
-        <div className=" flex justify-between mt-11">
-          <div className="  mr-5 flex justify-between    ">
-            <div>
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
+      <div className="px-[40px]   mb-5 sm:px-[80px] w-full  ">
+        <div className="   ">
+          <div className=" mt-5 mb-5    ">
+            <div className="   font-semibold">Discover More...</div>
+            <div className=" md:hidden    mt-4 ">
+              <div className=" flex justify-around flex-wrap cursor-pointer">
+                <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
+                  Programming
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Maths
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Self Improvment
+                </div>
+                <div className=" px-4 py-1   mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
+                  Politics
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Science
+                </div>
+                <div className=" px-4 py-1 mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Programming
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Maths
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Self Improvment
+                </div>
+                <div className=" px-4 py-1 mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Programming
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Maths
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Self Improvment
+                </div>
               </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span>A fringe-dweller's story about making </span> <br />
-              <div className=" flex justify-between">
-                <span className=" text-gray-700">Feb 28, 2024</span>
-                <img src={pic3} alt="pic3" />
+              <div className=" text-green-400 cursor-pointer inline-block">
+                See more topics
               </div>
-            </div>
-            <div className=" ml-4">
-              <img className=" w-[150px] h-[100px]" src={pic2} alt="pic2" />
             </div>
           </div>
-
-          <div>
-            <div>Discover More</div>
-            <div className=" bg-[#F3F4F6] px-5 py-2 rounded-3xl ">
-              Programming
+          <div className=" ">
+            <div className="flex  justify-between mb-5">
+              <div className="  ">
+                <div className="flex items-center   ">
+                  <img src={pic} alt="pic" />
+                  <div className=" ml-3">Dware Obassajo</div>
+                </div>
+                <p className="  font-semibold truncate max-w-[180px] mt-2 mb-2 ">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+                </p>
+                <div className=" flex justify-between ">
+                  <span>Feb 28, 2021</span>
+                  <img src={pic3} alt="pic3" />
+                </div>
+              </div>
+              <div className=" ml-3 ">
+                <img src={pic2} alt="pic2" />
+              </div>
+            </div>
+            <div className="flex  justify-between mb-5">
+              <div className="  ">
+                <div className="flex items-center   ">
+                  <img src={pic} alt="pic" />
+                  <div className=" ml-3">Dware Obassajo</div>
+                </div>
+                <p className="  font-semibold truncate max-w-[180px] mt-2 mb-2 ">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+                </p>
+                <div className=" flex justify-between ">
+                  <span>Feb 28, 2021</span>
+                  <img src={pic3} alt="pic3" />
+                </div>
+              </div>
+              <div className=" ml-3 ">
+                <img src={pic2} alt="pic2" />
+              </div>
+            </div>
+            <div className="hidden md:block    mt-4 ">
+              <div className=" flex justify-around flex-wrap cursor-pointer">
+                <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
+                  Programming
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Maths
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Self Improvment
+                </div>
+                <div className=" px-4 py-1   mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
+                  Politics
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Science
+                </div>
+                <div className=" px-4 py-1 mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Programming
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Maths
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Self Improvment
+                </div>
+                <div className=" px-4 py-1 mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Programming
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Maths
+                </div>
+                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
+                  Self Improvment
+                </div>
+              </div>
+              <div className=" text-green-400 cursor-pointer inline-block">
+                See more topics
+              </div>
             </div>
           </div>
         </div>
