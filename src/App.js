@@ -13,6 +13,7 @@ import NewBlog from "./pages/Author/Account/NewBlog";
 import Blog from "./pages/user/Blog";
 import LandingPage from "./pages/user/LandingPage";
 import './App.css'
+import Account from "./pages/user/Account";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/home" element={<UserLayout />}>
           <Route path="/home" element={<Home />} />
           <Route path="/home/blog" element={<Blog />} />
+          <Route path="/home/account" element={<Account />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

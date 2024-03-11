@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Home = () => {
   const [topic, setTopic] = useState({});
@@ -55,7 +55,7 @@ const Home = () => {
   return (
     <div className=" flex flex-col items-center justify-center px-[10px] sm:px-[10px] font-Sohnia">
       <div className=" md:mt-10 w-[88%]   ">
-        <div className="  shadow-md h-48  sm:w-full sm:h-[75%] hidden md:flex">
+        <div className="  shadow-md  sm:w-full sm:h-[70vh] 2xl:h-[80vh] hidden md:flex">
           <div className=" w-4/6  bg-green-300 hidden md:block">
             <div
               style={{
@@ -64,9 +64,11 @@ const Home = () => {
               className="h-full hidden bg-green-300  md:block  sm:bg-cover  p-4 relative"
             >
               <div className="absolute  inset-0 bg-gradient-to-t from-black to-transparent"></div>
-              <p className=" sm:text-4xl flex flex-col h-full justify-end w-5/6 text-white relative z-10">
-                {topic.title}
-              </p>
+              <Link to={"/home/blog"}>
+                <p className=" sm:text-4xl hover:text-red-100 flex flex-col h-full justify-end w-5/6 text-white relative z-10">
+                  {topic.title}
+                </p>
+              </Link>
             </div>
           </div>
           <div className="relative sm:static flex-1 ">
@@ -84,7 +86,7 @@ const Home = () => {
                   <div className=" md:hidden max-w-20">
                     <img className=" h-full" src={item.img} alt="" />
                   </div>
-                  <p className=" text-xs md:text-xl mx-3   font-bold  ">
+                  <p className=" text-xs md:text-xl mx-3 hover:text-blue-gray-500   font-bold  ">
                     {item.title}
                   </p>
                 </div>
