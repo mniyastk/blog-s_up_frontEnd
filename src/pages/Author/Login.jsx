@@ -33,9 +33,9 @@ function Login() {
   return (
     <>
       <div className="bg-gray-100 flex justify-center items-center h-screen">
-        <div className="w-1/2 h-screen hidden lg:block">
+        <div className="w-1/ 4h-screen hidden lg:block">
           <img
-            src="https://placehold.co/800x/667fff/ffffff.png?text=Your+Image&font=Montserrat"
+            src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708602018/b_zdbtfu.svg"
             alt="Placeholder  "
             className="object-cover w-full h-full"
           />
@@ -43,10 +43,11 @@ function Login() {
 
         <div className="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
           <h1 className="text-2xl font-semibold mb-4">Login</h1>
-          <form action="#" method="POST">
+          <form action="#" method="POST" className="   px-[30px] py-[20px] border-[2px] rounded-md border-blue-500">
             <div className="mb-4">
               <label htmlFor="username" className="block text-gray-600">
-                Email <span className=" ml-2 text-red-600"> {formErrors.email}</span>
+                Email{" "}
+                <span className=" ml-2 text-red-600"> {formErrors.email}</span>
               </label>
               <input
                 type="text"
@@ -61,7 +62,10 @@ function Login() {
             <div className="mb-4">
               <label htmlFor="password" className="block text-gray-600">
                 Password{" "}
-                <span className=" ml-2 text-red-600"> {formErrors.password}</span>
+                <span className=" ml-2 text-red-600">
+                  {" "}
+                  {formErrors.password}
+                </span>
               </label>
               <input
                 type="password"

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 const Blog = () => {
   const message = `hello
-world!`;
+world!`
+console.log(message);;
 
   return (
     <div className=" mx-[10px] md:mx-[300px] min-h-[2600px] mb-5  ">
