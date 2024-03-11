@@ -11,7 +11,7 @@ function LandingPage() {
   };
   return (
     <div className=" ">
-      <div className=" bg-[#FFC017] sm:bg-[#FF00A8] border-b-[2px]  border-b-[#000]">
+      <div className=" bg-[#ffc017] bg-gradient-to-br from-pink-300 via-transparent to-transparent border-b-[2px]  border-b-[#000]">
         <header className="   h-[110px] flex items-center  border-b-[2px] border-b-[#000]  ">
           <div className=" flex w-full justify-between px-[40px]  sm:px-[80px] items-center content-center">
             <div>
@@ -45,8 +45,13 @@ function LandingPage() {
 
             <div className={`hidden sm:block  `}>
               <Link className=" text-[20px] font-medium  ">Write</Link>
-              <Link className=" text-[20px] ml-5">Sign in</Link>
-              <Link className=" text-[20px] ml-5 px-5 py-3 bg-black rounded-3xl text-white ">
+              <Link to={"/login"} className=" text-[20px] ml-5">
+                Sign in
+              </Link>
+              <Link
+                to={"/login"}
+                className=" text-[20px] ml-5 px-5 py-3 bg-black rounded-3xl text-white "
+              >
                 Get started
               </Link>
             </div>
@@ -151,10 +156,10 @@ function LandingPage() {
         </div>
       </div>
       <div className="px-[40px]   mb-5 sm:px-[80px] w-full  ">
-        <div className="   ">
+        <div className="    ">
           <div className=" mt-5 mb-5    ">
             <div className="   font-semibold">Discover More...</div>
-            <div className=" md:hidden    mt-4 ">
+            <div className=" md:hidden     mt-4 ">
               <div className=" flex justify-around flex-wrap cursor-pointer">
                 <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
                   Programming
@@ -195,42 +200,85 @@ function LandingPage() {
               </div>
             </div>
           </div>
-          <div className=" ">
-            <div className="flex  justify-between mb-5">
-              <div className="  ">
-                <div className="flex items-center   ">
-                  <img src={pic} alt="pic" />
-                  <div className=" ml-3">Dware Obassajo</div>
+          <div className="sm:flex sm:justify-between ">
+            <div className="sm:flex sm:justify-between sm:flex-wrap sm:w-full">
+              {[1, 2, 3, 4, 5].map(() => {
+                return (
+                  <div className="flex sm:w-full sm:mr-4  justify-between mb-5">
+                    <div className="sm:w-full  ">
+                      <div className="flex items-center   ">
+                        <img src={pic} alt="pic" />
+                        <div className=" ml-3">Dware Obassajo</div>
+                      </div>
+                      <p className="  font-semibold line-clamp-2 max-w-[180px] sm:w-full mt-2 mb-2 ">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+                      </p>
+                      <div className=" flex justify-between ">
+                        <span>Feb 28, 2021</span>
+                        <img src={pic3} alt="pic3" />
+                      </div>
+                    </div>
+                    <div className=" ml-3 ">
+                      <img src={pic2} alt="pic2" />
+                    </div>
+                  </div>
+                );
+              })}
+              {/* <div className="flex  justify-between mb-5">
+                <div></div>
+                <div className="  ">
+                  <div className="flex items-center   ">
+                    <img src={pic} alt="pic" />
+                    <div className=" ml-3">Dware Obassajo</div>
+                  </div>
+                  <p className="  font-semibold truncate max-w-[180px] mt-2 mb-2 ">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+                  </p>
+                  <div className=" flex justify-between ">
+                    <span>Feb 28, 2021</span>
+                    <img src={pic3} alt="pic3" />
+                  </div>
                 </div>
-                <p className="  font-semibold truncate max-w-[180px] mt-2 mb-2 ">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-                </p>
-                <div className=" flex justify-between ">
-                  <span>Feb 28, 2021</span>
-                  <img src={pic3} alt="pic3" />
+                <div className=" ml-3 ">
+                  <img src={pic2} alt="pic2" />
                 </div>
-              </div>
-              <div className=" ml-3 ">
-                <img src={pic2} alt="pic2" />
-              </div>
-            </div>
-            <div className="flex  justify-between mb-5">
-              <div className="  ">
-                <div className="flex items-center   ">
-                  <img src={pic} alt="pic" />
-                  <div className=" ml-3">Dware Obassajo</div>
+              </div> */}
+              {/* <div className="flex  justify-between mb-5">
+                <div className="  ">
+                  <div className="flex items-center   ">
+                    <img src={pic} alt="pic" />
+                    <div className=" ml-3">Dware Obassajo</div>
+                  </div>
+                  <p className="  font-semibold truncate max-w-[180px] mt-2 mb-2 ">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+                  </p>
+                  <div className=" flex justify-between ">
+                    <span>Feb 28, 2021</span>
+                    <img src={pic3} alt="pic3" />
+                  </div>
                 </div>
-                <p className="  font-semibold truncate max-w-[180px] mt-2 mb-2 ">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
-                </p>
-                <div className=" flex justify-between ">
-                  <span>Feb 28, 2021</span>
-                  <img src={pic3} alt="pic3" />
+                <div className=" ml-3 ">
+                  <img src={pic2} alt="pic2" />
                 </div>
-              </div>
-              <div className=" ml-3 ">
-                <img src={pic2} alt="pic2" />
-              </div>
+              </div> */}
+              {/* <div className="flex  justify-between mb-5">
+                <div className="  ">
+                  <div className="flex items-center   ">
+                    <img src={pic} alt="pic" />
+                    <div className=" ml-3">Dware Obassajo</div>
+                  </div>
+                  <p className="  font-semibold truncate max-w-[180px] mt-2 mb-2 ">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+                  </p>
+                  <div className=" flex justify-between ">
+                    <span>Feb 28, 2021</span>
+                    <img src={pic3} alt="pic3" />
+                  </div>
+                </div>
+                <div className=" ml-3 ">
+                  <img src={pic2} alt="pic2" />
+                </div>
+              </div> */}
             </div>
             <div className="hidden md:block    mt-4 ">
               <div className=" flex justify-around flex-wrap cursor-pointer">

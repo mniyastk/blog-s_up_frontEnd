@@ -29,6 +29,7 @@ const Header = () => {
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <p class="flex items-center   w-3/4 md:w-fit">
             <img
+            className=" cursor-pointer"
               width={40}
               src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708602018/b_zdbtfu.svg"
               alt=""

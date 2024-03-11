@@ -40,8 +40,8 @@ function Register() {
   return (
     <div>
       <div className=" h-screen bg-[#667FFF] flex justify-center items-center">
-        <div className="lg:w-2/4 md:w-1/2">
-          <form className="bg-white p-10 rounded-lg shadow-lg min-w-full ">
+        <div className="lg:w-2/6 md:w-1/2">
+          <form className="bg-white p-10 rounded-lg shadow-lg  min-w-full ">
             <h1 className="text-center text-2xl mb-6 text-gray-600 font-bold font-sans">
               Blog'sUp
             </h1>
