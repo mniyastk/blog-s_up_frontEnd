@@ -13,7 +13,7 @@ const Header = () => {
   useClickAway(componentRef2, () => {
     setShowDiv(false);
   });
- 
+
   useClickAway(componentRef, () => {
     setShowMainBar(false);
   });
@@ -28,16 +28,14 @@ const Header = () => {
       <nav class="bg-white border-b dark:bg-gray-900  text-l">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <p class="flex items-center   w-3/4 md:w-fit">
-            <img
-            className=" cursor-pointer"
-              width={40}
-              src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708602018/b_zdbtfu.svg"
-              alt=""
-            />
-            <form
-              onClick={() => setShowSearch(true)}
-              class=" mx-3  w-full"
-            >
+            <Link to={"/home"}>
+              <img
+                width={40}
+                src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708602018/b_zdbtfu.svg"
+                alt=""
+              />
+            </Link>
+            <form onClick={() => setShowSearch(true)} class=" mx-3  w-full">
               <label
                 for="default-search"
                 class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -81,9 +79,8 @@ const Header = () => {
             >
               <span className="sr-only">Open user menu</span>
               <img
-                className="w-8 h-8 rounded-full"
-                src="https://demos.creative-tim.com/material-kit-pro/assets/img/examples/card-blog2.jpg"
-                alt="user"
+                className="w-8 h-8 rounded-full flex"
+                src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709975823/1228259_bjsgom.png"
               />
             </button>
             <div
@@ -103,7 +100,7 @@ const Header = () => {
               <ul className="py-2" aria-labelledby="user-menu-button">
                 <li>
                   <Link
-                   to={'/author'}
+                    to={"/author"}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Account

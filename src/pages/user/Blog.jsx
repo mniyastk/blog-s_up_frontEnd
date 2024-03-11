@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Blog = () => {
-  const message = `hello
-world!`
-console.log(message);;
+  const [isFollow, setIsFollow] = useState("Follow");
+  const [isFollowClicked, setIsFollowClicked] = useState(false);
+
+  const handleFollow = () => {
+    setIsFollowClicked(!isFollowClicked);
+  };
+
+  useEffect(() => {
+    if (isFollowClicked) {
+      setIsFollow("Following");
+    } else {
+      setIsFollow("Follow");
+    }
+  }, [isFollowClicked]);
 
   return (
-    <div className=" mx-[10px] md:mx-[300px] min-h-[2600px] mb-5  ">
+    <div className=" mx-[10px] mt-20 md:mx-[300px] min-h-[2600px] mb-5  ">
       <div className="  mt-5 flex ">
         <div
           className=" w-20 h-20  rounded-full bg-cover bg-center"
@@ -19,7 +30,14 @@ console.log(message);;
         <div className="  ml-5 my-1 ">
           <div className=" flex gap-5">
             <p className=" text-lg">Kirill Rozov</p>
-            <p className=" text-green-500 text-lg">Follow</p>
+            <p
+              onClick={handleFollow}
+              className={` cursor-pointer ${
+                isFollow === "Follow" ? "text-green-500" : "text-gray-500"
+              }  text-lg`}
+            >
+              {isFollow}
+            </p>
           </div>
           <p className=" text-[#616161] text-sm">Graphic Designer, educator</p>
           <p className=" text-[#616161] text-sm">Feb 20, 2024</p>
