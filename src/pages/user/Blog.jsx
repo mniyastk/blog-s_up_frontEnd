@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const Blog = () => {
   const [isFollow, setIsFollow] = useState("Follow");
   const [isFollowClicked, setIsFollowClicked] = useState(false);
+  const [isSave, setIsSave] = useState(false);
 
   const handleFollow = () => {
     setIsFollowClicked(!isFollowClicked);
@@ -56,11 +57,21 @@ const Blog = () => {
           <span>100</span>
         </div>
         <div className=" flex-1 flex justify-evenly items-center">
-          <img
-            className=" h-5"
-            src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719788/3994430_bookmark_label_ribbon_save_web_icon_lrv92h.svg"
-            alt="save"
-          />
+          {!isSave ? (
+            <img
+              onClick={() => setIsSave(!isSave)}
+              className=" h-5 cursor-pointer"
+              src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719788/3994430_bookmark_label_ribbon_save_web_icon_lrv92h.svg"
+              alt="save"
+            />
+          ) : (
+            <img
+              onClick={() => setIsSave(!isSave)}
+              className=" h-7 cursor-pointer"
+              src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719786/save_opmlal.svg"
+              alt="save"
+            />
+          )}
           <img
             className=" h-5"
             src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719788/8666719_share_icon_fzsucc.svg"
