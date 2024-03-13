@@ -1,5 +1,8 @@
 import Login from "./pages/Author/Login";
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Home from "./pages/user/Home";
 import UserLayout from "./components/layout/UserLayout";
 import Register from "./pages/Author/Register";
@@ -18,6 +21,7 @@ import Account from "./pages/user/Account";
 function App() {
   return (
     <div>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<UserLayout />}>
