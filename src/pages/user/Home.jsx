@@ -31,7 +31,7 @@ const Home = () => {
 
   useEffect(() => {
     setTopic(content[0]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const content = [
@@ -110,9 +110,9 @@ const Home = () => {
                 </div>
               ))}
             </div>
-            {[1, 2, 3, 4, 5, 6].map((item) => {
+            {[1, 2, 3, 4, 5, 6].map((item, index) => {
               return (
-                <div className="  mt-5  relative z-40 mb-8">
+                <div key={index} className="  mt-5  relative z-40 mb-8">
                   <div className=" flex space-x-3 md:mb-1">
                     <div
                       className=" rounded-full w-6 h-6  bg-cover "
@@ -161,9 +161,12 @@ const Home = () => {
               </div>
             </div>
             <div className=" mt-5 w-full">
-              {[1, 2, 3, 4, 5, 6].map((item) => {
+              {[1, 2, 3, 4, 5, 6].map((item, index) => {
                 return (
-                  <div className=" mb-5  pl-3 flex w-full h-full font-Sohnia">
+                  <div
+                    key={index}
+                    className=" mb-5  pl-3 flex w-full h-full font-Sohnia"
+                  >
                     <div className=" w-2/3">
                       <div className=" flex space-x-3">
                         <div

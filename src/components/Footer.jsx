@@ -46,7 +46,7 @@ const Footer = () => {
                   <span class="block uppercase text-blue-gray-500 text-sm font-semibold mb-2">
                     Useful Links
                   </span>
-                  <ul class="list-unstyled text-blue-gray-500">
+                  <ul class="list-unstyled text-blue-gray-500 cursor-pointer">
                     <li>About Us</li>
                     <li>Blog</li>
                     <li>Github</li>

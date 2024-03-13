@@ -79,6 +79,7 @@ const Header = () => {
             >
               <span className="sr-only">Open user menu</span>
               <img
+              alt="pic"
                 className="w-8 h-8 rounded-full flex"
                 src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709975823/1228259_bjsgom.png"
               />
