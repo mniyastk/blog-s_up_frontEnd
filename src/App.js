@@ -12,7 +12,7 @@ import Messages from "./pages/Author/Account/Messages";
 import NewBlog from "./pages/Author/Account/NewBlog";
 import Blog from "./pages/user/Blog";
 import LandingPage from "./pages/user/LandingPage";
-import './App.css'
+import "./App.css";
 import Account from "./pages/user/Account";
 
 function App() {
@@ -35,9 +35,22 @@ function App() {
           <Route path="/author/messages" element={<Messages />} />
           <Route path="/author/newblog" element={<NewBlog />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );
 }
+
+const PageNotFound = () => {
+  return (
+    <div className=" w-screen h-screen flex flex-col justify-center items-center text-5xl font-bold space-y-5">
+      <img
+        src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710239599/icons8-page-not-found-66_ej06uy.png"
+        alt="not fond"
+      />
+      <p> 404 Page not found!</p>
+    </div>
+  );
+};
 
 export default App;
