@@ -153,9 +153,12 @@ const Home = () => {
               </div>
             </div>
             <div className=" mt-5 w-full">
-              {[1, 2, 3, 4, 5, 6].map((item) => {
+              {[1, 2, 3, 4, 5, 6].map((item, index) => {
                 return (
-                  <div className=" mb-5  pl-3 flex w-full h-full font-Sohnia">
+                  <div
+                    key={index}
+                    className=" mb-5  pl-3 flex w-full h-full font-Sohnia"
+                  >
                     <div className=" w-2/3">
                       <div className=" flex space-x-3">
                         <div
