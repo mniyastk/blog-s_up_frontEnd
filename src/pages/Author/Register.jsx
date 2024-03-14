@@ -51,7 +51,9 @@ function Register() {
                 htmlFor="username"
               >
                 Username{" "}
-                <span className=" ml-2 text-red-600">{formErrors.username}</span>
+                <span className=" ml-2 text-red-600">
+                  {formErrors.username}
+                </span>
               </label>
               <input
                 className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
@@ -67,7 +69,8 @@ function Register() {
                 className="text-gray-800 font-semibold block my-3 text-md"
                 htmlFor="email"
               >
-                Email <span className="ml-2 text-red-600">{formErrors.email}</span>
+                Email{" "}
+                <span className="ml-2 text-red-600">{formErrors.email}</span>
               </label>
               <input
                 className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
@@ -100,7 +103,8 @@ function Register() {
                 className="text-gray-800 font-semibold block my-3 text-md"
                 htmlFor="phone"
               >
-                Phone <span className="ml-2 text-red-600">{formErrors.phone}</span>
+                Phone{" "}
+                <span className="ml-2 text-red-600">{formErrors.phone}</span>
               </label>
               <input
                 className="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
