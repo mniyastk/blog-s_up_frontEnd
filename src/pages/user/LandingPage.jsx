@@ -13,13 +13,13 @@ function LandingPage() {
   };
   useEffect(() => {
     axios
-      .get("http://localhost:3005/user/blogs")
-      .then((data) => setBlogData(data))
+      .get("user/blogs")
+      .then((data) => setBlogData(data.data))
       .catch((err) => {
         console.log(err);
       });
   }, []);
-  console.log(blogData);
+
   return (
     <div className=" ">
       <div className=" bg-[#ffc017] bg-gradient-to-br from-pink-300 via-transparent to-transparent border-b-[2px]  border-b-[#000]">
@@ -105,66 +105,24 @@ function LandingPage() {
         <div className=" sm:px-[80px] px-[40px] my-12 h-auto   ">
           <h4 className=" text-[30px] font-medium">Trending</h4>
           <div className=" mt-10 sm:flex  justify-between flex-wrap w-full ">
-            <div className=" sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className="  font-semibold ">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
+            {blogData?.slice(0, 6).map((data) => {
+              return (
+                <div key={data._id} className=" sm:w-[30%] mr-5 mb-8 ">
+                  <div className="flex items-center">
+                    <img
+                      className=" h-[35px] w-[35px] rounded-full"
+                      src={data.image}
+                      alt="trending images"
+                    />
+                    <span className=" ml-4">{data.title}</span>
+                  </div>
+                  <p className="   font-semibold line-clamp-3 ">
+                    <Link to={"/login"}> {data.content}</Link>
+                  </p>
+                  <span className=" text-gray-700">Feb 28, 2024</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

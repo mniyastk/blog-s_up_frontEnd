@@ -56,7 +56,7 @@ function Login() {
           <form
             action="#"
             method="POST"
-            className=" sm:w-[500px]   px-[30px] py-[20px] border-[2px] rounded-md border-blue-500"
+            className="   px-[30px] py-[20px] border-[2px] rounded-md border-blue-500"
           >
             <div className="mb-4">
               <label htmlFor="username" className="block text-gray-600">
