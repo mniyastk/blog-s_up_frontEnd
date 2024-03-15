@@ -17,6 +17,10 @@ import Blog from "./pages/user/Blog";
 import LandingPage from "./pages/user/LandingPage";
 import "./App.css";
 import Account from "./pages/user/Account";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:3005/";
+axios.defaults.withCredentials = true
 
 function App() {
   return (
