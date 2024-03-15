@@ -20,7 +20,7 @@ const Home = () => {
       .catch((err) => {
         console.log(err);
       });
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (location.hash) {
@@ -47,7 +47,6 @@ const Home = () => {
     setTopic(blogs[0]);
   }, [blogs]);
 
-  
   return (
     <div className=" flex flex-col items-center justify-center px-[10px] sm:px-[10px] font-Sohnia">
       <div className=" md:mt-10 w-[88%]   ">
@@ -105,7 +104,7 @@ const Home = () => {
                 </div>
               ))}
             </div>
-            {blogs.map((item,index) => {
+            {blogs.map((item, index) => {
               return (
                 <div key={index} className="  mt-5  relative z-40 mb-8">
                   <div className=" flex space-x-3 md:mb-1">
@@ -122,15 +121,15 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="flex overflow-hidden justify-between">
-                    <div className=" w-2/3    flex flex-col justify-evenly">
-                      <p className=" text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
+                    <div className=" w-3/4    flex flex-col justify-evenly">
+                      <p className="  text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
                         {item.title}
                       </p>
-                      <p className=" hidden md:block text-[16px] font-Georgia line-clamp-2">
+                      <p className=" w-full hidden md:block text-[16px] font-Georgia max-h-12  overflow-hidden">
                         {item.content}
                       </p>
                     </div>
-                    <div className=" w-1/4 h-full sm:h-32 bg-red-300">
+                    <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
                       <img
                         className=" h-full w-full "
                         src={item.image}
