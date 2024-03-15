@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -26,8 +27,17 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const errors = validate(formValues);
 
     setFormErrors(validate(formValues));
+    if (Object.keys(errors).length === 0) {
+      axios
+        .post("http://localhost:3005/user/login", formValues)
+        .then((res) => console.log(res.data))
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -43,7 +53,11 @@ function Login() {
 
         <div className="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
           <h1 className="text-2xl font-semibold mb-4">Login</h1>
-          <form action="#" method="POST" className=" sm:w-[500px]   px-[30px] py-[20px] border-[2px] rounded-md border-blue-500">
+          <form
+            action="#"
+            method="POST"
+            className=" sm:w-[500px]   px-[30px] py-[20px] border-[2px] rounded-md border-blue-500"
+          >
             <div className="mb-4">
               <label htmlFor="username" className="block text-gray-600">
                 Email
@@ -63,7 +77,6 @@ function Login() {
               <label htmlFor="password" className="block text-gray-600">
                 Password
                 <span className=" ml-2 text-red-600">
-               
                   {formErrors.password}
                 </span>
               </label>
@@ -90,21 +103,23 @@ function Login() {
             </div>
 
             <div className="mb-6 text-blue-500">
-              <Link className="hover:underline">Forgot Password?</Link>
+              <Link to={""} className="hover:underline">
+                Forgot Password?
+              </Link>
             </div>
 
             <button
               type="submit"
               onClick={handleSubmit}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
+              className="bg-blue-500 mt-9 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
             >
               Login
             </button>
           </form>
 
           <div className="mt-6 text-blue-500 text-center">
-            <Link className="hover:underline">
-              <Link to={"/register"}> Sign up Here</Link>
+            <Link to={"/register"} className="hover:underline">
+              Sign up Here
             </Link>
           </div>
         </div>

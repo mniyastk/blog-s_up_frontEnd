@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import pic from "../../Assets/Images/Ellipse 2trending-img.png";
 import pic2 from "../../Assets/Images/0_FEP16gXObxcHgiVz.jpg";
 import pic3 from "../../Assets/Icons/save-instagram.png";
+import axios from "axios";
 
 function LandingPage() {
+  const [blogData, setBlogData] = useState([]);
   const [toggle, setToggle] = useState(false);
   const handleMenu = () => {
     setToggle(!toggle);
   };
+  useEffect(() => {
+    axios
+      .get("http://localhost:3005/user/blogs")
+      .then((data) => setBlogData(data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  console.log(blogData);
   return (
     <div className=" ">
       <div className=" bg-[#ffc017] bg-gradient-to-br from-pink-300 via-transparent to-transparent border-b-[2px]  border-b-[#000]">
@@ -84,7 +95,7 @@ function LandingPage() {
 
             <div className="   ">
               <button className=" text-[20px] flex justify-center   px-7 py-3 bg-black hover:bg-[#413535] rounded-3xl mt-6 text-white ">
-                Start reading
+                <Link to={"/login"}>Start reading</Link>
               </button>
             </div>
           </div>
