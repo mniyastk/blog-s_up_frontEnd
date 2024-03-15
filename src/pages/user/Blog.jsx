@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Blog = () => {
   const [isFollow, setIsFollow] = useState("Follow");
@@ -13,17 +14,15 @@ const Blog = () => {
   };
 
   const { blogId } = useParams();
-  console.log(blogId);
 
   useEffect(() => {
     axios
       .get(`user/blog/${blogId}`)
       .then((res) => {
         setBlog(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error('Error ')
       });
   }, []);
 

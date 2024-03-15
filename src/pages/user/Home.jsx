@@ -30,6 +30,7 @@ const Home = () => {
       }
     }
   }, [location.hash]);
+  
   const handleClickDiv = (index) => {
     setSelectedDiv(index);
   };
