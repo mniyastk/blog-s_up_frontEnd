@@ -116,7 +116,7 @@ function LandingPage() {
                     />
                     <span className=" ml-4">{data.title}</span>
                   </div>
-                  <p className="   font-semibold line-clamp-3 ">
+                  <p className="   font-semibold line-clamp-3   ">
                     <Link to={"/login"}> {data.content}</Link>
                   </p>
                   <span className=" text-gray-700">Feb 28, 2024</span>
