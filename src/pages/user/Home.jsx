@@ -59,7 +59,7 @@ const Home = () => {
               className="h-full hidden  md:block  bg-cover  p-4 relative"
             >
               <div className="absolute  inset-0 bg-gradient-to-t from-black to-transparent"></div>
-              <Link to={"/home/blog"}>
+              <Link to={`/home/blog/${topic?._id}`}>
                 <p className=" sm:text-4xl hover:text-red-100 flex flex-col h-full justify-end w-5/6 text-white relative z-10">
                   {topic?.title}
                 </p>
@@ -67,7 +67,7 @@ const Home = () => {
             </div>
           </div>
           <div className="relative sm:static flex-1 ">
-            {blogs.slice(0, 4).map((item, index) => {
+            {blogs?.slice(0, 4).map((item, index) => {
               return (
                 <div
                   key={index}
