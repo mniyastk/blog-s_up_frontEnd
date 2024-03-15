@@ -13,19 +13,19 @@ const Blog = () => {
   };
 
   const { blogId } = useParams();
-  console.log(blogId);
+  
 
   useEffect(() => {
     axios
       .get(`user/blog/${blogId}`)
       .then((res) => {
         setBlog(res.data);
-        console.log(res.data);
+         
       })
       .catch((err) => {
-        console.log(err);
+         
       });
-  }, []);
+  }, [blogId]);
 
   useEffect(() => {
     if (isFollowClicked) {
@@ -46,7 +46,7 @@ const Blog = () => {
         ></div>
         <div className="  ml-5 my-1 ">
           <div className=" flex gap-5">
-            <p className=" text-lg">Kirill Rozov</p>
+            <p className=" text-lg">{blog.authorId}</p>
             <p
               onClick={handleFollow}
               className={` cursor-pointer ${

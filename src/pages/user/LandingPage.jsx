@@ -117,9 +117,11 @@ function LandingPage() {
                     <span className=" ml-4">{data.title}</span>
                   </div>
                   <p className="   font-semibold line-clamp-3   ">
-                    <Link to={"/login"}> {data.content}</Link>
+                  <Link to={`/home/blog/${data?._id}`}> {data.content}</Link>
                   </p>
-                  <span className=" text-gray-700">Feb 28, 2024</span>
+                  <span className=" text-gray-700">
+                    {new Date(data?.createdAt).toDateString().slice(4)}
+                  </span>
                 </div>
               );
             })}
@@ -173,27 +175,36 @@ function LandingPage() {
           </div>
           <div className="sm:flex  sm:justify-between ">
             <div className="sm:flex sm:justify-between sm:flex-wrap sm:w-full">
-              {[1, 2, 3, 4, 5].map((arr, index) => {
+              {blogData.slice(0, 5).map((data) => {
                 return (
                   <div
-                    key={index}
+                    key={data._id}
                     className="flex sm:w-full   sm:mr-5  justify-between mb-5"
                   >
                     <div className="sm:w-full  ">
+                    <Link to={`/home/blog/${data?._id}`}>
                       <div className="flex items-center   ">
-                        <img className="" src={pic} alt="pic" />
-                        <div className=" ml-3">Dware Obassajo</div>
+                        <img
+                          className=" h-[35px] w-[35px] rounded-full"
+                          src={data.image}
+                          alt="trending images"
+                        />
+                        <div className=" ml-3">{data.category}</div>
                       </div>
-                      <p className="  font-semibold line-clamp-2 max-w-[180px] sm:w-full mt-2 mb-2 ">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+                      <p className=" w-full    font-semibold line-clamp-2 sm:line-clamp-3 sm:max-w-[380px]   max-w-[180px]  mt-2 mb-2 ">
+                        {data.content}
                       </p>
                       <div className=" flex justify-between ">
-                        <span>Feb 28, 2021</span>
+                        <span>
+                           
+                          {new Date(data?.createdAt).toDateString().slice(4)}
+                        </span>
                         <img src={pic3} alt="pic3" />
                       </div>
+                      </Link>
                     </div>
                     <div className=" w-[200px] ml-3 ">
-                      <img src={pic2} alt="pic2" />
+                      <img src={data.image} alt="pic2" />
                     </div>
                   </div>
                 );
