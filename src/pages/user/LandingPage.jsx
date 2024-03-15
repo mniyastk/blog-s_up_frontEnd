@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import pic from "../../Assets/Images/Ellipse 2trending-img.png";
 import pic2 from "../../Assets/Images/0_FEP16gXObxcHgiVz.jpg";
 import pic3 from "../../Assets/Icons/save-instagram.png";
+import axios from "axios";
 
 function LandingPage() {
+  const [blogData, setBlogData] = useState([]);
   const [toggle, setToggle] = useState(false);
   const handleMenu = () => {
     setToggle(!toggle);
   };
+  useEffect(() => {
+    axios
+      .get("user/blogs")
+      .then((data) => setBlogData(data.data))
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className=" ">
       <div className=" bg-[#ffc017] bg-gradient-to-br from-pink-300 via-transparent to-transparent border-b-[2px]  border-b-[#000]">
@@ -84,7 +95,7 @@ function LandingPage() {
 
             <div className="   ">
               <button className=" text-[20px] flex justify-center   px-7 py-3 bg-black hover:bg-[#413535] rounded-3xl mt-6 text-white ">
-                Start reading
+                <Link to={"/login"}>Start reading</Link>
               </button>
             </div>
           </div>
@@ -94,66 +105,26 @@ function LandingPage() {
         <div className=" sm:px-[80px] px-[40px] my-12 h-auto   ">
           <h4 className=" text-[30px] font-medium">Trending</h4>
           <div className=" mt-10 sm:flex  justify-between flex-wrap w-full ">
-            <div className=" sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className="  font-semibold ">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
-            <div className="sm:w-[30%] mr-5 mb-8 ">
-              <div className="flex items-center">
-                <img src={pic} alt="trending images" />
-                <span className=" ml-4">Admiral Cloudberg</span>
-              </div>
-              <p className=" font-semibold">
-                Querying a network of knowledge with llama-index-networks
-              </p>
-              <span className=" text-gray-700">Feb 28, 2024</span>
-            </div>
+            {blogData?.slice(0, 6).map((data) => {
+              return (
+                <div key={data._id} className=" sm:w-[30%] mr-5 mb-8 ">
+                  <div className="flex items-center">
+                    <img
+                      className=" h-[35px] w-[35px] rounded-full"
+                      src={data.image}
+                      alt="trending images"
+                    />
+                    <span className=" ml-4">{data.title}</span>
+                  </div>
+                  <p className="   font-semibold line-clamp-3   ">
+                  <Link to={`/home/blog/${data?._id}`}> {data.content}</Link>
+                  </p>
+                  <span className=" text-gray-700">
+                    {new Date(data?.createdAt).toDateString().slice(4)}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -204,27 +175,36 @@ function LandingPage() {
           </div>
           <div className="sm:flex  sm:justify-between ">
             <div className="sm:flex sm:justify-between sm:flex-wrap sm:w-full">
-              {[1, 2, 3, 4, 5].map((arr, index) => {
+              {blogData.slice(0, 5).map((data) => {
                 return (
                   <div
-                    key={index}
+                    key={data._id}
                     className="flex sm:w-full   sm:mr-5  justify-between mb-5"
                   >
                     <div className="sm:w-full  ">
+                    <Link to={`/home/blog/${data?._id}`}>
                       <div className="flex items-center   ">
-                        <img className="" src={pic} alt="pic" />
-                        <div className=" ml-3">Dware Obassajo</div>
+                        <img
+                          className=" h-[35px] w-[35px] rounded-full"
+                          src={data.image}
+                          alt="trending images"
+                        />
+                        <div className=" ml-3">{data.category}</div>
                       </div>
-                      <p className="  font-semibold line-clamp-2 max-w-[180px] sm:w-full mt-2 mb-2 ">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.{" "}
+                      <p className=" w-full    font-semibold line-clamp-2 sm:line-clamp-3 sm:max-w-[380px]   max-w-[180px]  mt-2 mb-2 ">
+                        {data.content}
                       </p>
                       <div className=" flex justify-between ">
-                        <span>Feb 28, 2021</span>
+                        <span>
+                           
+                          {new Date(data?.createdAt).toDateString().slice(4)}
+                        </span>
                         <img src={pic3} alt="pic3" />
                       </div>
+                      </Link>
                     </div>
                     <div className=" w-[200px] ml-3 ">
-                      <img src={pic2} alt="pic2" />
+                      <img src={data.image} alt="pic2" />
                     </div>
                   </div>
                 );

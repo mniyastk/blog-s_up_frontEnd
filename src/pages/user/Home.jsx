@@ -15,10 +15,10 @@ const Home = () => {
       .get("user/blogs")
       .then((res) => {
         setBlogs(res.data);
-        console.log(res.data);
+        
       })
       .catch((err) => {
-        console.log(err);
+         
       });
   }, []);
 
