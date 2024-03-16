@@ -1,6 +1,8 @@
 import axios from "axios";
+import { set } from "immutable";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useFullscreen } from "react-use";
 
 const Home = () => {
@@ -10,6 +12,7 @@ const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [blogCategory, setBlogCategory] = useState("For you");
   const [blogByCategory, setBlogByCategory] = useState([]);
+  const [width, setWidth] = useState(0);
 
   const location = useLocation();
 
@@ -21,10 +24,9 @@ const Home = () => {
         const category = res.data.map((item) => item.category);
         setCategory(category);
         category.unshift("For you");
-        console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("error");
       });
   }, []);
 
@@ -33,10 +35,9 @@ const Home = () => {
       .get(`user/blogs/${blogCategory}`)
       .then((res) => {
         setBlogByCategory(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("error");
       });
   }, [blogCategory]);
 
@@ -65,6 +66,19 @@ const Home = () => {
   useEffect(() => {
     setTopic(blogs[0]);
   }, [blogs]);
+
+  const handleLeft = () => {
+    if (width > 0) {
+      setWidth((pre) => pre - 1);
+    }
+  };
+  const handleRight = () => {
+    if (width < category.length) {
+      setWidth((pre) => pre + 1);
+    }
+  };
+
+  console.log(width);
 
   return (
     <div className=" flex flex-col items-center justify-center px-[10px] sm:px-[10px] font-Sohnia">
@@ -108,9 +122,34 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="  mt-10  flex space-x-4 " id="scrollElement">
-          <div className="md:w-2/3 relative">
-            <div className="flex space-x-10 overflow-hidden border-b pt-2  mb-8 border-gray-200 ">
+        <div className="  mt-10   flex space-x-4 " id="scrollElement">
+          <div className=""></div>
+          <div className="  sm:w-2/3  relative overflow-clip">
+            <div className=" absolute w-full  flex justify-between">
+              <div
+                className={` border ${
+                  width === 0 ? "invisible" : "visible"
+                }   rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl  z-10  max-sm:left-0 `}
+                onClick={handleLeft}
+              >
+                <img
+                  className=" "
+                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710579475/left-arrow_x5u6ka.svg"
+                  alt="leftArrow"
+                />
+              </div>{" "}
+              <div
+                className="  border  rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl z-10 max-sm:right-0 "
+                onClick={handleRight}
+              >
+                <img
+                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710579475/right-arrow_k6taae.svg"
+                  alt="rightArrow"
+                />
+              </div>
+            </div>
+            <div className=" border-b  ">
+            <div className="flex   space-x-10    pt-2   border-gray-200 translate-x-1 duration-1000  " style={{ transform: `translateX(-${width * 10}%)` }}>
               {category.map((category, index) => (
                 <div
                   key={index}
@@ -126,6 +165,7 @@ const Home = () => {
                   </p>
                 </div>
               ))}
+            </div>
             </div>
             {blogByCategory && blogCategory !== "For you"
               ? blogByCategory.map((item, index) => {
