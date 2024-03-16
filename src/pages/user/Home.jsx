@@ -21,12 +21,10 @@ const Home = () => {
       .get("user/blogs")
       .then((res) => {
         setBlogs(res.data);
-        const category = res.data.map((item) => item.category);
-        setCategory(category);
-        category.unshift("For you");
+        
       })
       .catch((err) => {
-        toast.error("error");
+         
       });
   }, []);
 
