@@ -24,7 +24,7 @@ const Blog = () => {
       .catch((err) => {
         toast.error('Error ')
       });
-  }, []);
+  }, [blogId]);
 
   useEffect(() => {
     if (isFollowClicked) {
@@ -45,7 +45,7 @@ const Blog = () => {
         ></div>
         <div className="  ml-5 my-1 ">
           <div className=" flex gap-5">
-            <p className=" text-lg">Kirill Rozov</p>
+            <p className=" text-lg">{blog.authorId}</p>
             <p
               onClick={handleFollow}
               className={` cursor-pointer ${

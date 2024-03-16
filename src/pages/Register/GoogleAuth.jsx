@@ -10,11 +10,11 @@ function GoogleAuth() {
         <GoogleOAuthProvider clientId="843361358325-a5irfh33b7nt663i647slfmnpf35l67v.apps.googleusercontent.com">
           <GoogleLogin
             onSuccess={(credentialResponse) => {
-              console.log("credentialResponse");
+              
               history("/home");
             }}
             onError={() => {
-              console.log("Login Failed");
+               
             }}
           />
         </GoogleOAuthProvider>
