@@ -1,12 +1,18 @@
 import axios from "axios";
+import { set } from "immutable";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useFullscreen } from "react-use";
 
 const Home = () => {
   const [topic, setTopic] = useState({});
-  const [selectedDiv, setSelectedDiv] = useState("For you");
+  const [category, setCategory] = useState(["For you"]);
   const [selectedTopic, setSelectedTopic] = useState(0);
   const [blogs, setBlogs] = useState([]);
+  const [blogCategory, setBlogCategory] = useState("For you");
+  const [blogByCategory, setBlogByCategory] = useState([]);
+  const [width, setWidth] = useState(0);
 
   const location = useLocation();
 
@@ -15,12 +21,25 @@ const Home = () => {
       .get("user/blogs")
       .then((res) => {
         setBlogs(res.data);
-        console.log(res.data);
+        const category = res.data.map((item) => item.category);
+        setCategory(category);
+        category.unshift("For you");
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("error");
       });
   }, []);
+
+  useEffect(() => {
+    axios
+      .get(`user/blogs/${blogCategory}`)
+      .then((res) => {
+        setBlogByCategory(res.data);
+      })
+      .catch((err) => {
+        toast.error("error");
+      });
+  }, [blogCategory]);
 
   useEffect(() => {
     if (location.hash) {
@@ -30,9 +49,9 @@ const Home = () => {
       }
     }
   }, [location.hash]);
-  
-  const handleClickDiv = (index) => {
-    setSelectedDiv(index);
+
+  const handleClickDiv = (category) => {
+    setBlogCategory(category);
   };
 
   const handleClickTopic = (title, index) => {
@@ -47,6 +66,19 @@ const Home = () => {
   useEffect(() => {
     setTopic(blogs[0]);
   }, [blogs]);
+
+  const handleLeft = () => {
+    if (width > 0) {
+      setWidth((pre) => pre - 1);
+    }
+  };
+  const handleRight = () => {
+    if (width < category.length) {
+      setWidth((pre) => pre + 1);
+    }
+  };
+
+  console.log(width);
 
   return (
     <div className=" flex flex-col items-center justify-center px-[10px] sm:px-[10px] font-Sohnia">
@@ -90,58 +122,134 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="  mt-10  flex space-x-4 " id="scrollElement">
-          <div className="md:w-2/3 relative">
-            <div className="flex space-x-10 overflow-hidden border-b pt-2  mb-8 border-gray-200 ">
-              {["For you", "Technology", "Software", "Travel"].map((index) => (
+        <div className="  mt-10   flex space-x-4 " id="scrollElement">
+          <div className=""></div>
+          <div className="  sm:w-2/3  relative overflow-clip">
+            <div className=" absolute w-full  flex justify-between">
+              <div
+                className={` border ${
+                  width === 0 ? "invisible" : "visible"
+                }   rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl  z-10  max-sm:left-0 `}
+                onClick={handleLeft}
+              >
+                <img
+                  className=" "
+                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710579475/left-arrow_x5u6ka.svg"
+                  alt="leftArrow"
+                />
+              </div>{" "}
+              <div
+                className="  border  rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl z-10 max-sm:right-0 "
+                onClick={handleRight}
+              >
+                <img
+                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710579475/right-arrow_k6taae.svg"
+                  alt="rightArrow"
+                />
+              </div>
+            </div>
+            <div className=" border-b  ">
+            <div className="flex   space-x-10    pt-2   border-gray-200 translate-x-1 duration-1000  " style={{ transform: `translateX(-${width * 10}%)` }}>
+              {category.map((category, index) => (
                 <div
                   key={index}
                   className={` cursor-pointer min-w-fit ${
-                    selectedDiv === index ? "border-b border-black pb-4" : ""
+                    blogCategory === category
+                      ? "border-b border-black pb-4"
+                      : ""
                   }`}
-                  onClick={() => handleClickDiv(index)}
+                  onClick={() => handleClickDiv(category)}
                 >
-                  <p className=" font-bold text-sm sm:text-[14px] ">{index}</p>
+                  <p className=" font-bold text-sm sm:text-[14px] ">
+                    {category}
+                  </p>
                 </div>
               ))}
             </div>
-            {blogs.map((item, index) => {
-              return (
-                <div key={index} className="  mt-5  relative z-40 mb-8">
-                  <div className=" flex space-x-3 md:mb-1">
-                    <div
-                      className=" rounded-full w-6 h-6  bg-cover "
-                      style={{
-                        backgroundImage:
-                          "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                      }}
-                    ></div>
-                    <p className=" text-sm sm:text-l font-Sohnia ">Bijeesh M</p>
-                    <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
-                      Mar 7, 2024
-                    </p>
-                  </div>
-                  <div className="flex overflow-hidden justify-between">
-                    <div className=" w-3/4    flex flex-col justify-evenly">
-                      <p className="  text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
-                        {item.title}
-                      </p>
-                      <p className=" w-full hidden md:block text-[16px] font-Georgia max-h-12  overflow-hidden">
-                        {item.content}
-                      </p>
+            </div>
+            {blogByCategory && blogCategory !== "For you"
+              ? blogByCategory.map((item, index) => {
+                  return (
+                    <div key={index} className="  mt-5  relative z-40 mb-8">
+                      <div className=" flex space-x-3 md:mb-1 items-center">
+                        <div
+                          className=" rounded-full w-6 h-6  bg-cover "
+                          style={{
+                            backgroundImage:
+                              "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
+                          }}
+                        ></div>
+                        <p className=" text-sm sm:text-l font-Sohnia ">
+                          Bijeesh M
+                        </p>
+                        <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
+                          {new Date(item.createdAt).toDateString().slice(4)}
+                        </p>
+                      </div>
+                      <Link to={`/home/blog/${item._id}`}>
+                        <div className="flex overflow-hidden justify-between">
+                          <div className=" w-3/4    flex flex-col justify-evenly">
+                            <p className="  text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
+                              {item.title}
+                            </p>
+                            <p className=" w-full hidden md:block text-[16px] font-Georgia max-h-12  overflow-hidden">
+                              {item.content}
+                            </p>
+                          </div>
+                          <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
+                            <img
+                              className=" h-full w-full "
+                              src={item.image}
+                              alt="topic"
+                            />
+                          </div>
+                        </div>
+                      </Link>
+                      <hr className=" mt-5" />
                     </div>
-                    <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
-                      <img
-                        className=" h-full w-full "
-                        src={item.image}
-                        alt="topic"
-                      />
+                  );
+                })
+              : blogs.map((item, index) => {
+                  return (
+                    <div key={index} className="  mt-5  relative z-40 mb-8">
+                      <div className=" flex space-x-3 md:mb-1 items-center">
+                        <div
+                          className=" rounded-full w-6 h-6  bg-cover "
+                          style={{
+                            backgroundImage:
+                              "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
+                          }}
+                        ></div>
+                        <p className=" text-sm sm:text-l font-Sohnia ">
+                          Bijeesh M
+                        </p>
+                        <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
+                          {new Date(item.createdAt).toDateString().slice(4)}
+                        </p>
+                      </div>
+                      <Link to={`/home/blog/${item._id}`}>
+                        <div className="flex overflow-hidden justify-between">
+                          <div className=" w-3/4    flex flex-col justify-evenly">
+                            <p className="  text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
+                              {item.title}
+                            </p>
+                            <p className=" w-full hidden md:block text-[16px] font-Georgia max-h-12  overflow-hidden">
+                              {item.content}
+                            </p>
+                          </div>
+                          <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
+                            <img
+                              className=" h-full w-full "
+                              src={item.image}
+                              alt="topic"
+                            />
+                          </div>
+                        </div>
+                      </Link>
+                      <hr className=" mt-5" />
                     </div>
-                  </div>
-                  <hr className=" mt-5" />
-                </div>
-              );
-            })}
+                  );
+                })}
           </div>
           <div className=" hidden md:block w-1/3 ">
             <div className="flex items-center font-bold text-sm sm:text-lg  ">
@@ -153,7 +261,7 @@ const Home = () => {
               </div>
             </div>
             <div className=" mt-5 w-full">
-              {[1, 2, 3, 4, 5, 6].map((item, index) => {
+              {blogs.map((item, index) => {
                 return (
                   <div
                     key={index}
@@ -170,16 +278,19 @@ const Home = () => {
                         ></div>
                         <p className=" text-sm">Bijeesh M</p>
                       </div>
-                      <p className=" text-md font-bold ">
-                        Querying a network of knowledge
-                      </p>
+                      <Link to={`/home/blog/${item._id}`}>
+                        <p className=" text-md font-bold ">{item.title}</p>
+                      </Link>
                     </div>
-                    <div className=" w-1/3 ">
-                      <img
-                        className=" "
-                        src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_E3kONRxJ8hFC3qowDOWUXg_cgstjz.jpg"
-                        alt=""
-                      />
+
+                    <div className=" w-1/3 h-full sm:h-20 bg-red-500 ">
+                      <Link to={`/home/blog/${item._id}`}>
+                        <img
+                          className=" h-full w-full "
+                          src={item.image}
+                          alt=""
+                        />
+                      </Link>
                     </div>
                   </div>
                 );
