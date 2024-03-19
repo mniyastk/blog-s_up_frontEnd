@@ -2,7 +2,6 @@ import Login from "./pages/Author/Login";
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import Home from "./pages/user/Home";
 import UserLayout from "./components/layout/UserLayout";
 import Register from "./pages/Author/Register";
@@ -19,6 +18,7 @@ import "./App.css";
 import Account from "./pages/user/Account";
 import axios from "axios";
 import CreateBlog from "./pages/Blogs/CreateBlog";
+import BlogCatogories from "./pages/Blogs/BlogCatogories";
 
 axios.defaults.baseURL = "http://localhost:3005/";
 axios.defaults.withCredentials = true;
@@ -29,6 +29,7 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/category" element={<BlogCatogories />} />
         <Route path="/home" element={<UserLayout />}>
           <Route path="/home" element={<Home />} />
           <Route path="/home/blog/:blogId" element={<Blog />} />

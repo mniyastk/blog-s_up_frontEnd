@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Login() {
   const [formValues, setFormValues] = useState({});
   const [formErrors, setFormErrors] = useState({});
+  const history = useNavigate();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -33,9 +35,20 @@ function Login() {
     if (Object.keys(errors).length === 0) {
       axios
         .post("http://localhost:3005/user/login", formValues)
-        .then((res) => console.log(res.data))
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.accType === "user") {
+            localStorage.setItem("userToken", res.data.token);
+          } else {
+            localStorage.setItem("authorToken", res.data.token);
+          }
+
+          toast.success(res.data.Messg);
+          history("/home");
+        })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response.data);
+          toast.error(err.response.data.Messg);
         });
     }
   };
