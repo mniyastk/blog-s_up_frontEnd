@@ -1,9 +1,7 @@
 import axios from "axios";
-import { set } from "immutable";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useFullscreen } from "react-use";
 
 const Home = () => {
   const [topic, setTopic] = useState({});
@@ -12,7 +10,6 @@ const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [blogCategory, setBlogCategory] = useState("For you");
   const [blogByCategory, setBlogByCategory] = useState([]);
-  const [width, setWidth] = useState(0);
 
   const location = useLocation();
 
@@ -67,21 +64,30 @@ const Home = () => {
     setTopic(blogs[0]);
   }, [blogs]);
 
+  const iconVisibility = () => {
+    const tabMenu = document.getElementById("scrollTab");
+    const leftBtn = document.getElementById("btnLeft");
+    const rightBtn = document.getElementById("btnRight");
+    const scrollLeftValue = Math.ceil(tabMenu.scrollLeft);
+    const scrollableWidth = tabMenu.scrollWidth - tabMenu.clientWidth;
+    leftBtn.style.visibility = scrollLeftValue > 0 ? "visible" : "hidden";
+    rightBtn.style.visibility =
+      scrollableWidth === scrollLeftValue ? "hidden" : "visible";
+  };
+
   const handleLeft = () => {
-    if (width > 0) {
-      setWidth((pre) => pre - 1);
-    }
+    const tabMenu = document.getElementById("scrollTab");
+    tabMenu.scrollLeft -= 150;
+    iconVisibility();
   };
   const handleRight = () => {
-    if (width < category.length) {
-      setWidth((pre) => pre + 1);
-    }
+    const tabMenu = document.getElementById("scrollTab");
+    tabMenu.scrollLeft += 150;
+    iconVisibility();
   };
 
-  console.log(width);
-
   return (
-    <div className=" flex flex-col items-center justify-center px-[10px] sm:px-[10px] font-Sohnia">
+    <div className=" flex  flex-col items-center justify-center px-[10px] sm:px-[10px] font-Sohnia">
       <div className=" md:mt-10 w-[88%]   ">
         <div className="  shadow-md  sm:w-full sm:h-[70vh] 2xl:h-[80vh] hidden md:flex">
           <div className=" w-4/6   hidden md:block">
@@ -123,13 +129,11 @@ const Home = () => {
           </div>
         </div>
         <div className="  mt-10   flex space-x-4 " id="scrollElement">
-          <div className=""></div>
-          <div className="  sm:w-2/3  relative overflow-clip">
-            <div className=" absolute w-full  flex justify-between">
+          <div className="  sm:w-2/3  relative ">
+            <div className=" absolute w-full  flex justify-between ">
               <div
-                className={` border ${
-                  width === 0 ? "invisible" : "visible"
-                }   rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl  z-10  max-sm:left-0 `}
+                id="btnLeft"
+                className={` border invisible rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl  z-10  max-sm:left-0 `}
                 onClick={handleLeft}
               >
                 <img
@@ -139,6 +143,7 @@ const Home = () => {
                 />
               </div>{" "}
               <div
+                id="btnRight"
                 className="  border  rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl z-10 max-sm:right-0 "
                 onClick={handleRight}
               >
@@ -148,15 +153,20 @@ const Home = () => {
                 />
               </div>
             </div>
-            <div className=" border-b  ">
-            <div className="flex   space-x-10    pt-2   border-gray-200 translate-x-1 duration-1000  " style={{ transform: `translateX(-${width * 10}%)` }}>
+            <div
+              id="scrollTab"
+              className="flex  space-x-10 pt-2 border-gray-200 overflow-x-auto "
+              style={{
+                transform: `translateX(-${0 * 20}%)`,
+              }}
+            >
               {category.map((category, index) => (
                 <div
                   key={index}
-                  className={` cursor-pointer min-w-fit ${
+                  className={`  min-w-fit cursor-pointer  ${
                     blogCategory === category
                       ? "border-b border-black pb-4"
-                      : ""
+                      : "none"
                   }`}
                   onClick={() => handleClickDiv(category)}
                 >
@@ -165,7 +175,6 @@ const Home = () => {
                   </p>
                 </div>
               ))}
-            </div>
             </div>
             {blogByCategory && blogCategory !== "For you"
               ? blogByCategory.map((item, index) => {
