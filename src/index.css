@@ -2,11 +2,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-#account,#scrollTab::-webkit-scrollbar {
+#account::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }
-#tabMenu::-webkit-scrollbar {
+#scrollTab::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }

@@ -128,34 +128,34 @@ const Home = () => {
             })}
           </div>
         </div>
-        <div className="  mt-10   flex space-x-4 " id="scrollElement">
-          <div className="  sm:w-2/3  relative ">
+        <div className="  mt-10    flex space-x-4 " id="scrollElement">
+          <div className="  sm:w-2/3 w-full  relative ">
             <div className=" absolute w-full  flex justify-between ">
               <div
                 id="btnLeft"
-                className={` border invisible rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl  z-10  max-sm:left-0 `}
+                className={` border invisible select-none rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl  z-10  max-sm:left-0 `}
                 onClick={handleLeft}
               >
                 <img
                   className=" "
-                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710579475/left-arrow_x5u6ka.svg"
+                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710829474/left-arrow_1_oqixxp.svg"
                   alt="leftArrow"
                 />
               </div>{" "}
               <div
                 id="btnRight"
-                className="  border  rounded-full hover:cursor-pointer bg-white w-[35px] h-[35px] p-[10px] backdrop-blur-2xl z-10 max-sm:right-0 "
+                className=" select-none  border bg-white  rounded-full hover:cursor-pointer  bg-transparent w-[35px] h-[35px] p-[10px] backdrop-blur-3xl z-10 max-sm:right-0 "
                 onClick={handleRight}
               >
                 <img
-                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710579475/right-arrow_k6taae.svg"
+                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710829474/right-arrow_3_xb7i1y.svg"
                   alt="rightArrow"
                 />
               </div>
             </div>
             <div
               id="scrollTab"
-              className="flex  space-x-10 pt-2 border-gray-200 overflow-x-auto "
+              className="flex select-none    space-x-10 pt-2 sm:w-full  border-gray-200 overflow-x-auto "
               style={{
                 transform: `translateX(-${0 * 20}%)`,
               }}
@@ -176,89 +176,91 @@ const Home = () => {
                 </div>
               ))}
             </div>
-            {blogByCategory && blogCategory !== "For you"
-              ? blogByCategory.map((item, index) => {
-                  return (
-                    <div key={index} className="  mt-5  relative z-40 mb-8">
-                      <div className=" flex space-x-3 md:mb-1 items-center">
-                        <div
-                          className=" rounded-full w-6 h-6  bg-cover "
-                          style={{
-                            backgroundImage:
-                              "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                          }}
-                        ></div>
-                        <p className=" text-sm sm:text-l font-Sohnia ">
-                          Bijeesh M
-                        </p>
-                        <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
-                          {new Date(item.createdAt).toDateString().slice(4)}
-                        </p>
-                      </div>
-                      <Link to={`/home/blog/${item._id}`}>
-                        <div className="flex overflow-hidden justify-between">
-                          <div className=" w-3/4    flex flex-col justify-evenly">
-                            <p className="  text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
-                              {item.title}
-                            </p>
-                            <p className=" w-full hidden md:block text-[16px] font-Georgia max-h-12  overflow-hidden">
-                              {item.content}
-                            </p>
-                          </div>
-                          <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
-                            <img
-                              className=" h-full w-full "
-                              src={item.image}
-                              alt="topic"
-                            />
-                          </div>
+            <div className=" max-h-[1550px] overflow-y-auto">
+              {blogByCategory && blogCategory !== "For you"
+                ? blogByCategory.map((item, index) => {
+                    return (
+                      <div key={index} className="  mt-5  relative z-40 mb-8">
+                        <div className=" flex space-x-3 md:mb-1 items-center">
+                          <div
+                            className=" rounded-full w-6 h-6  bg-cover "
+                            style={{
+                              backgroundImage:
+                                "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
+                            }}
+                          ></div>
+                          <p className=" text-sm sm:text-l font-Sohnia ">
+                            Bijeesh M
+                          </p>
+                          <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
+                            {new Date(item.createdAt).toDateString().slice(4)}
+                          </p>
                         </div>
-                      </Link>
-                      <hr className=" mt-5" />
-                    </div>
-                  );
-                })
-              : blogs.map((item, index) => {
-                  return (
-                    <div key={index} className="  mt-5  relative z-40 mb-8">
-                      <div className=" flex space-x-3 md:mb-1 items-center">
-                        <div
-                          className=" rounded-full w-6 h-6  bg-cover "
-                          style={{
-                            backgroundImage:
-                              "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
-                          }}
-                        ></div>
-                        <p className=" text-sm sm:text-l font-Sohnia ">
-                          Bijeesh M
-                        </p>
-                        <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
-                          {new Date(item.createdAt).toDateString().slice(4)}
-                        </p>
+                        <Link to={`/home/blog/${item._id}`}>
+                          <div className="flex overflow-hidden justify-between">
+                            <div className=" w-3/4    flex flex-col justify-evenly">
+                              <p className="  text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
+                                {item.title}
+                              </p>
+                              <p className=" w-full hidden md:block text-[16px] font-Georgia max-h-12  overflow-hidden">
+                                {item.content}
+                              </p>
+                            </div>
+                            <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
+                              <img
+                                className=" h-full w-full "
+                                src={item.image}
+                                alt="topic"
+                              />
+                            </div>
+                          </div>
+                        </Link>
+                        <hr className=" mt-5" />
                       </div>
-                      <Link to={`/home/blog/${item._id}`}>
-                        <div className="flex overflow-hidden justify-between">
-                          <div className=" w-3/4    flex flex-col justify-evenly">
-                            <p className="  text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
-                              {item.title}
-                            </p>
-                            <p className=" w-full hidden md:block text-[16px] font-Georgia max-h-12  overflow-hidden">
-                              {item.content}
-                            </p>
-                          </div>
-                          <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
-                            <img
-                              className=" h-full w-full "
-                              src={item.image}
-                              alt="topic"
-                            />
-                          </div>
+                    );
+                  })
+                : blogs.map((item, index) => {
+                    return (
+                      <div key={index} className="  mt-5  relative z-40 mb-8">
+                        <div className=" flex space-x-3 md:mb-1 items-center">
+                          <div
+                            className=" rounded-full w-6 h-6  bg-cover "
+                            style={{
+                              backgroundImage:
+                                "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
+                            }}
+                          ></div>
+                          <p className=" text-sm sm:text-l font-Sohnia ">
+                            Bijeesh M
+                          </p>
+                          <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
+                            {new Date(item.createdAt).toDateString().slice(4)}
+                          </p>
                         </div>
-                      </Link>
-                      <hr className=" mt-5" />
-                    </div>
-                  );
-                })}
+                        <Link to={`/home/blog/${item._id}`}>
+                          <div className="flex overflow-hidden justify-between">
+                            <div className=" w-3/4    flex flex-col justify-evenly">
+                              <p className="  text-md sm:text-[20px] mb-2 font-Sohnia font-bold">
+                                {item.title}
+                              </p>
+                              <p className=" w-full hidden md:block text-[16px] font-Georgia max-h-12  overflow-hidden">
+                                {item.content}
+                              </p>
+                            </div>
+                            <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
+                              <img
+                                className=" h-full w-full "
+                                src={item.image}
+                                alt="topic"
+                              />
+                            </div>
+                          </div>
+                        </Link>
+                        <hr className=" mt-5" />
+                      </div>
+                    );
+                  })}
+            </div>
           </div>
           <div className=" hidden md:block w-1/3 ">
             <div className="flex items-center font-bold text-sm sm:text-lg  ">

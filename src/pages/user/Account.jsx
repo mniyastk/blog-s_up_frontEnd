@@ -16,9 +16,9 @@ const Account = () => {
           <div className=" border-gray-400  my-3 border-b ">
             <div className=" border-b pb-1 border-black w-fit">Saved</div>
           </div>
-          {[1, 2, 3, 4, 5, 6].map((item) => {
+          {[1, 2, 3, 4, 5, 6].map((item, index) => {
             return (
-              <>
+              <div key={index}>
                 <div className="  mt-10">
                   <div className="  w-full flex">
                     <div className=" w-2/3 mb-2">
@@ -63,7 +63,7 @@ const Account = () => {
                   </div>
                 </div>{" "}
                 <hr />
-              </>
+              </div>
             );
           })}
         </div>
