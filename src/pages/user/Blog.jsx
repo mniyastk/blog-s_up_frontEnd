@@ -8,6 +8,8 @@ const Blog = () => {
   const [isFollowClicked, setIsFollowClicked] = useState(false);
   const [isSave, setIsSave] = useState(false);
   const [blog, setBlog] = useState({});
+  const [blogs, setBlogs] = useState([]);
+  const [reloadFlag, setReloadFlag] = useState(false);
 
   const handleFollow = () => {
     setIsFollowClicked(!isFollowClicked);
@@ -22,9 +24,25 @@ const Blog = () => {
         setBlog(res.data);
       })
       .catch((err) => {
-        toast.error('Error ')
+        toast.error("Error ");
       });
   }, [blogId]);
+
+  useEffect(() => {
+    axios
+      .get(`user/blogs`)
+      .then((res) => {
+        console.log(res.data);
+        setBlogs(res.data);
+      })
+      .catch((err) => {
+        toast.error("Error ");
+      });
+  }, [blogId]);
+
+  useEffect(()=>{
+    // window.location.reload()
+  },[reloadFlag])
 
   useEffect(() => {
     if (isFollowClicked) {
@@ -127,13 +145,10 @@ const Blog = () => {
         </p>
       </div>
       <div className=" grid grid-cols-2 gap-8 ">
-        {[1, 2, 3, 4, 5, 6, 7].map((item) => {
+        {blogs.map((item) => {
           return (
             <div className=" ">
-              <img
-                src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_laK-KCPGdxkkypNWjgUHrw_cufk96.jpg"
-                alt="lsfj"
-              />
+              <img className=" h-1/2 w-full" src={item.image} alt="lsfj" />
               <div className=" flex my-3 items-center gap-2">
                 <div
                   className=" h-6 w-6 rounded-full bg-cover bg-center"
@@ -144,13 +159,13 @@ const Blog = () => {
                 ></div>
                 <p className=" text-sm">Francesco Franco</p>
               </div>
-              <p className=" my-2 text-lg font-extrabold">
-                What is a Variational Autoencoder (VAE)?
-              </p>
-              <p className=" text-[#616161] line-clamp-2">
-                Suppose that you have an image of a man with a mustache and one
-                of mustache and one of...
-              </p>
+              <Link
+                onClick={() => setReloadFlag(true)}
+                to={`/home/blog/${item._id}`}
+              >
+                <p className=" my-2 text-lg font-extrabold">{item.title}</p>
+                <p className=" text-[#616161] line-clamp-2">{item.content}</p>
+              </Link>
               <p className=" text-[#616161] text-sm my-2">Feb 12, 2024</p>
               <div className=" flex my-8 ">
                 <div className=" flex-1 flex items-center space-x-2">

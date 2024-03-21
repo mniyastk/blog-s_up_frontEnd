@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useClickAway } from "react-use";
+import { addUser } from "../redux/user/userSlice";
 
 const Header = () => {
   const [showDiv, setShowDiv] = useState(false);
@@ -9,6 +12,9 @@ const Header = () => {
   const componentRef = React.useRef(null);
   const componentRef2 = React.useRef(null);
   const componentRef3 = React.useRef(null);
+
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
 
   useClickAway(componentRef2, () => {
     setShowDiv(false);
@@ -22,7 +28,12 @@ const Header = () => {
     setShowSearch(false);
   });
 
-   
+  useEffect(() => {
+    const item = localStorage.getItem("user");
+    const user = JSON.parse(item);
+    dispatch(addUser(user));
+  }, []);
+
   return (
     <div>
       <nav className="bg-white border-b dark:bg-gray-900  text-l">
@@ -95,16 +106,16 @@ const Header = () => {
             >
               <div className="px-4 py-3">
                 <span className="block text-sm text-gray-900 dark:text-white">
-                  Bonnie Green
+                  {user?.username}
                 </span>
                 <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                  name@gmail.com
+                  {user?.email}
                 </span>
               </div>
               <ul className="py-2" aria-labelledby="user-menu-button">
                 <li>
                   <Link
-                    to={"/author"}
+                    to={`${user?.userId?"/home/account":"/author"}`}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Account
@@ -157,7 +168,10 @@ const Header = () => {
           >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                <Link className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                <Link
+                  to={"/home"}
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
                   Home
                 </Link>
               </li>
