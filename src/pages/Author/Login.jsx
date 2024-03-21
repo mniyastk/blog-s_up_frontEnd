@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { addUser } from "../../redux/user/userSlice";
 
 function Login() {
   const [formValues, setFormValues] = useState({});
@@ -12,6 +14,8 @@ function Login() {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   };
+
+  const dispatch = useDispatch();
 
   const validate = (values) => {
     const errors = {};
@@ -36,11 +40,12 @@ function Login() {
       axios
         .post("http://localhost:3005/user/login", formValues)
         .then((res) => {
-          console.log(res.data);
           if (res.data.accType === "user") {
-            localStorage.setItem("userToken", res.data.token);
+            const user = JSON.stringify(res.data.user)
+            localStorage.setItem("user", user);
           } else {
-            localStorage.setItem("authorToken", res.data.token);
+            const user = JSON.stringify(res.data.user)
+            localStorage.setItem("author", user);
           }
 
           toast.success(res.data.Messg);

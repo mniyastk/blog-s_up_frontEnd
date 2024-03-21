@@ -19,6 +19,7 @@ import Account from "./pages/user/Account";
 import axios from "axios";
 import CreateBlog from "./pages/Blogs/CreateBlog";
 import BlogCatogories from "./pages/Blogs/BlogCatogories";
+import Cursor from "./components/Cursor";
 
 axios.defaults.baseURL = "http://localhost:3005/";
 axios.defaults.withCredentials = true;
@@ -26,6 +27,7 @@ axios.defaults.withCredentials = true;
 function App() {
   return (
     <div>
+      {/* <Cursor /> */}
       <ToastContainer />
       <Routes>
         <Route path="/" element={<LandingPage />} />

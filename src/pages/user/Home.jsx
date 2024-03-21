@@ -10,8 +10,9 @@ const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [blogCategory, setBlogCategory] = useState("For you");
   const [blogByCategory, setBlogByCategory] = useState([]);
-
   const location = useLocation();
+
+  
 
   useEffect(() => {
     axios
@@ -77,7 +78,7 @@ const Home = () => {
 
   const handleLeft = () => {
     const tabMenu = document.getElementById("scrollTab");
-    tabMenu.scrollLeft -= 150;
+    tabMenu.scrollLeft = -150;
     iconVisibility();
   };
   const handleRight = () => {
@@ -176,7 +177,7 @@ const Home = () => {
                 </div>
               ))}
             </div>
-            <div className=" max-h-[1550px] overflow-y-auto">
+            <div className=" max-h-[1550px] overflow-y-auto" id="categoryDiv">
               {blogByCategory && blogCategory !== "For you"
                 ? blogByCategory.map((item, index) => {
                     return (
