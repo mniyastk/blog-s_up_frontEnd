@@ -41,10 +41,11 @@ function Login() {
         .post("http://localhost:3005/user/login", formValues)
         .then((res) => {
           if (res.data.accType === "user") {
-            const user = JSON.stringify(res.data.user)
+            const user = JSON.stringify(res.data.user);
             localStorage.setItem("user", user);
+            dispatch(addUser(res.data.user));
           } else {
-            const user = JSON.stringify(res.data.user)
+            const user = JSON.stringify(res.data.user);
             localStorage.setItem("author", user);
           }
 

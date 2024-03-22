@@ -1,6 +1,8 @@
 import Login from "./pages/Author/Login";
 import { Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/user/Home";
 import UserLayout from "./components/layout/UserLayout";
@@ -19,12 +21,40 @@ import Account from "./pages/user/Account";
 import axios from "axios";
 import CreateBlog from "./pages/Blogs/CreateBlog";
 import BlogCatogories from "./pages/Blogs/BlogCatogories";
-import Cursor from "./components/Cursor";
+// import Cursor from "./components/Cursor";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { addUser } from "./redux/user/userSlice";
 
 axios.defaults.baseURL = "http://localhost:3005/";
 axios.defaults.withCredentials = true;
 
 function App() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const item = localStorage.getItem("user");
+        if (item) {
+          const user = JSON.parse(item);
+          dispatch(addUser(user));
+        }
+      } catch (error) {
+        toast.error("error");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  if (loading) {
+    return <div className=" w-screen h-screen flex justify-center items-center">Loading...</div>;
+  }
+
   return (
     <div>
       {/* <Cursor /> */}
@@ -33,9 +63,15 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/category" element={<BlogCatogories />} />
         <Route path="/home" element={<UserLayout />}>
-          <Route path="/home" element={<Home />} />
-          <Route path="/home/blog/:blogId" element={<Blog />} />
-          <Route path="/home/account" element={<Account />} />
+          <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
+          <Route
+            path="/home/blog/:blogId"
+            element={<ProtectedRoute element={<Blog />} />}
+          />
+          <Route
+            path="/home/account"
+            element={<ProtectedRoute element={<Account />} />}
+          />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
