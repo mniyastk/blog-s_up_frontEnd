@@ -1,9 +1,11 @@
 import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useClickAway } from "react-use";
 import { addUser } from "../redux/user/userSlice";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const [showDiv, setShowDiv] = useState(false);
@@ -13,7 +15,8 @@ const Header = () => {
   const componentRef2 = React.useRef(null);
   const componentRef3 = React.useRef(null);
 
-  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   const user = useSelector((state) => state.user.user);
 
   useClickAway(componentRef2, () => {
@@ -28,11 +31,21 @@ const Header = () => {
     setShowSearch(false);
   });
 
-  useEffect(() => {
-    const item = localStorage.getItem("user");
-    const user = JSON.parse(item);
-    dispatch(addUser(user));
-  }, []);
+  
+
+  const handleSignOut = () => {
+    axios
+      .delete("user/signout")
+      .then((res) => {
+        console.log(res.data);
+        toast.success("Sign Out success");
+        localStorage.clear();
+        navigate('/')
+      })
+      .catch((err) => {
+        toast.error(err.response.data);
+      });
+  };
 
   return (
     <div>
@@ -115,7 +128,7 @@ const Header = () => {
               <ul className="py-2" aria-labelledby="user-menu-button">
                 <li>
                   <Link
-                    to={`${user?.userId?"/home/account":"/author"}`}
+                    to={`${user?.userId ? "/home/account" : "/author"}`}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Account
@@ -127,9 +140,12 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                  <div
+                    onClick={handleSignOut}
+                    className=" cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  >
                     Sign out
-                  </Link>
+                  </div>
                 </li>
               </ul>
             </div>
