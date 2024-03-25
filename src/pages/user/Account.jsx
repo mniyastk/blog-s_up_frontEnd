@@ -1,12 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Account = () => {
+  const user = useSelector((state) => state.user.user);
   return (
     <div className=" flex  h-screen">
       <div className=" w-2/3 py-10  h-screen overflow-y-scroll" id="account">
         <div className=" mx-32 ">
           <div className=" py-5  mb-20 flex justify-between items-center">
-            <p className=" text-4xl ">Bijeesh M</p>
+            <p className=" text-4xl ">{user.username}</p>
             <img
               className=" h-5 pr-10 cursor-pointer"
               src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719786/1976055_edit_edit_document_edit_file_edited_editing_icon_a9sji7.svg"
@@ -77,7 +79,7 @@ const Account = () => {
                 "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1709975816/944271_qdk7dw.png)",
             }}
           ></div>
-          <p className="  text-center my-4">Bijeesh M</p>
+          <p className="  text-center my-4">{user.username}</p>
         </div>
       </div>
     </div>
