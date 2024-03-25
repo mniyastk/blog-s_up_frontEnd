@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -11,10 +12,13 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [commentBox, setCommentBox] = useState(false);
   const [commentOption, setCommentOption] = useState(true);
+  const [comment, setComment] = useState("");
 
   const handleFollow = () => {
     setIsFollowClicked(!isFollowClicked);
   };
+
+  const user = useSelector((state) => state.user.user);
 
   const { blogId } = useParams();
 
@@ -23,7 +27,6 @@ const Blog = () => {
       .get(`user/blog/${blogId}`)
       .then((res) => {
         setBlog(res.data);
-        
       })
       .catch((err) => {
         toast.error("Error ");
@@ -67,12 +70,21 @@ const Blog = () => {
     setCommentBox(false);
   };
 
+  const handlePostComment = () => {
+    axios
+      .post(`user/comment/${blog._id}/${user._id}`,{comment})
+      .then((res) => {
+        toast.success("commented");
+      })
+      .catch((err) => toast.error("error"));
+  };
+
   return (
     <div className=" mx-[10px] mt-20 md:mx-[300px] min-h-[2600px] mb-5">
       <section
         className={` ${
           commentBox ? "block" : "hidden"
-        } bg-white  z-40 dark:bg-gray-900 w-[50%]   antialiased absolute border rounded-md`}
+        } bg-white  z-40 dark:bg-gray-900 w-full md:w-[50%]   antialiased absolute border rounded-md`}
       >
         <div
           onClick={handleCloseCommentBox}
@@ -94,12 +106,15 @@ const Blog = () => {
               <textarea
                 id="comment"
                 rows="6"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
                 className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
                 placeholder="Write a comment..."
                 required
               ></textarea>
             </div>
             <button
+              onClick={handlePostComment}
               type="submit"
               className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
             >
@@ -108,7 +123,6 @@ const Blog = () => {
           </form>
           <div className=" min-h-screen  scroll-m-0">
             {blog?.comments?.map((comment, index) => {
-              
               return (
                 <article className="p-6 text-base bg-white rounded-lg  dark:bg-gray-900">
                   <footer className="flex justify-between items-center mb-2">
@@ -176,8 +190,8 @@ const Blog = () => {
                       </div>
                     </div>
                   </footer>
-                  <p className="text-gray-500 dark:text-gray-400">
-                   {comment.content}
+                  <p className="text-gray-500 dark:text-gray-400 w-full h-full  ">
+                    {comment.content}
                   </p>
                 </article>
               );
@@ -223,7 +237,7 @@ const Blog = () => {
               alt="Comment"
             />
 
-            <span>100</span>
+            <span>{blog?.comments?.length}</span>
           </div>
 
           <div className=" flex-1 flex justify-evenly items-center">
