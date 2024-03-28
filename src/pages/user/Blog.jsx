@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,8 +11,11 @@ const Blog = () => {
   const [blog, setBlog] = useState({});
   const [blogs, setBlogs] = useState([]);
   const [commentBox, setCommentBox] = useState(false);
-  const [commentOption, setCommentOption] = useState(true);
+  const [showCommentOptions, setShowCommentOptions] = useState(null);
   const [comment, setComment] = useState("");
+
+  const commentRef = useRef();
+  const commentOptionRef = useRef();
 
   const handleFollow = () => {
     setIsFollowClicked(!isFollowClicked);
@@ -37,7 +40,6 @@ const Blog = () => {
     axios
       .get(`user/blogs`)
       .then((res) => {
-        console.log(res.data);
         setBlogs(res.data);
       })
       .catch((err) => {
@@ -54,13 +56,7 @@ const Blog = () => {
   }, [isFollowClicked]);
 
   const handleCommentOption = (index) => {
-    setCommentOption(!commentOption);
-    const comment = document.getElementById(index);
-    if (commentOption) {
-      comment.style.display = "block";
-    } else {
-      comment.style.display = "none";
-    }
+    setShowCommentOptions(showCommentOptions === index ? null : index);
   };
 
   const toggelCommentBox = () => {
@@ -71,17 +67,33 @@ const Blog = () => {
   };
 
   const handlePostComment = () => {
-    axios
-      .post(`user/comment/${blog._id}/${user._id}`,{comment})
-      .then((res) => {
-        toast.success("commented");
-      })
-      .catch((err) => toast.error("error"));
+    if (comment !== "") {
+      axios
+        .post(`user/comment/${blog._id}/${user._id}`, { comment })
+        .then((res) => {
+          toast.success("commented");
+        })
+        .catch((err) => toast.error("error"));
+    }
   };
 
+  useEffect(() => {
+    const handler = (e) => {
+      if (!commentRef.current.contains(e.target)) {
+        setCommentBox(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
+
   return (
-    <div className=" mx-[10px] mt-20 md:mx-[300px] min-h-[2600px] mb-5">
+    <div className=" mx-[10px] mt-10 md:mx-[300px] min-h-[2600px] mb-5">
       <section
+        ref={commentRef}
         className={` ${
           commentBox ? "block" : "hidden"
         } bg-white  z-40 dark:bg-gray-900 w-full md:w-[50%]   antialiased absolute border rounded-md`}
@@ -95,7 +107,7 @@ const Blog = () => {
         <div className="max-w-2xl mx-auto px-4 py-8">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
-              Discussion (20)
+              Comments ({blog?.comments?.length})
             </h2>
           </div>
           <form className="mb-6">
@@ -121,81 +133,91 @@ const Blog = () => {
               Post comment
             </button>
           </form>
-          <div className=" min-h-screen  scroll-m-0">
-            {blog?.comments?.map((comment, index) => {
-              return (
-                <article className="p-6 text-base bg-white rounded-lg  dark:bg-gray-900">
-                  <footer className="flex justify-between items-center mb-2">
-                    <div className="flex items-center">
-                      <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                        <img
-                          className="mr-2 w-6 h-6 rounded-full"
-                          src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-                          alt="Michael Gough"
-                        />
-                        {comment.userId}
-                      </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        <time
-                          pubdate
-                          datetime="2022-02-08"
-                          title="February 8th, 2022"
-                        >
-                          Feb. 8, 2022
-                        </time>
-                      </p>
-                    </div>
-                    <div className="">
-                      <button
-                        id="dropdownComment1Button"
-                        onClick={() => handleCommentOption(index)}
-                        className="inline-flex mb-2 items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                        type="button"
-                      >
-                        <svg
-                          className="w-4 h-4"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          viewBox="0 0 16 3"
-                        >
-                          <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                        </svg>
-                        <span className="sr-only">Comment settings</span>
-                      </button>
-                      <div
-                        id={index}
-                        className="hidden absolute -ml-16 z-50 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-                      >
-                        <ul
-                          className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                          aria-labelledby="dropdownMenuIconHorizontalButton"
-                        >
-                          <li>
-                            <Link className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                              Edit
-                            </Link>
-                          </li>
-                          <li>
-                            <Link className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                              Remove
-                            </Link>
-                          </li>
-                          <li>
-                            <Link className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                              Report
-                            </Link>
-                          </li>
-                        </ul>
+          <div className="min-h-screen scroll-m-0">
+            {blog?.comments
+              ?.sort((a, b) => new Date(b.created) - new Date(a.created))
+              .map((comment, index) => {
+                return (
+                  <article
+                    key={index}
+                    className="p-6 text-base bg-white rounded-lg dark:bg-gray-900"
+                  >
+                    <footer className="flex justify-between items-center mb-2">
+                      <div className="flex items-center">
+                        <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                          <img
+                            className="mr-2 w-6 h-6 rounded-full"
+                            src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                            alt="Michael Gough"
+                          />
+                          {comment?.postedby?.username}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {new Date(comment?.created).toDateString().slice(4)}
+                        </p>
                       </div>
-                    </div>
-                  </footer>
-                  <p className="text-gray-500 dark:text-gray-400 w-full h-full  ">
-                    {comment.content}
-                  </p>
-                </article>
-              );
-            })}
+                      <div className="">
+                        <button
+                          onClick={() => handleCommentOption(index)}
+                          className={`${
+                            comment?.postedby?.username === user?.username
+                              ? "block"
+                              : "hidden"
+                          } mb-2 items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
+                          type="button"
+                        >
+                          <svg
+                            className="w-4 h-4"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            viewBox="0 0 16 3"
+                          >
+                            <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                          </svg>
+                          <span className="sr-only">Comment settings</span>
+                        </button>
+                        <div
+                          ref={commentOptionRef}
+                          className={`${
+                            showCommentOptions === index ? "block" : "hidden"
+                          } absolute -ml-16 z-50 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600`}
+                        >
+                          <ul className="py-1 text-sm text-gray-700 dark:text-gray-200">
+                            <li>
+                              <Link
+                                to="#"
+                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                Edit
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="#"
+                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                Remove
+                              </Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="#"
+                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                              >
+                                Report
+                              </Link>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </footer>
+                    <p className="text-gray-500 dark:text-gray-400 w-full h-full">
+                      {comment.content}
+                    </p>
+                  </article>
+                );
+              })}
           </div>
         </div>
       </section>

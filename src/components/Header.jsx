@@ -1,21 +1,20 @@
-import { jwtDecode } from "jwt-decode";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useClickAway } from "react-use";
-import { addUser } from "../redux/user/userSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const [showDiv, setShowDiv] = useState(false);
   const [showMainBar, setShowMainBar] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const componentRef = React.useRef(null);
-  const componentRef2 = React.useRef(null);
-  const componentRef3 = React.useRef(null);
+  const componentRef = useRef();
+  const componentRef2 = useRef();
+  const searchBarRef = useRef();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.user);
 
@@ -27,11 +26,9 @@ const Header = () => {
     setShowMainBar(false);
   });
 
-  useClickAway(componentRef3, () => {
+  useClickAway(searchBarRef, () => {
     setShowSearch(false);
   });
-
-  
 
   const handleSignOut = () => {
     axios
@@ -40,7 +37,7 @@ const Header = () => {
         console.log(res.data);
         toast.success("Sign Out success");
         localStorage.clear();
-        navigate('/')
+        navigate("/");
       })
       .catch((err) => {
         toast.error(err.response.data);
@@ -51,52 +48,30 @@ const Header = () => {
     <div>
       <nav className="bg-white border-b dark:bg-gray-900  text-l">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <p className="flex items-center   w-3/4 md:w-fit">
-            <Link to={"/home"}>
-              <img
-                width={40}
-                src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708602018/b_zdbtfu.svg"
-                alt=""
-              />
-            </Link>
-            <form onClick={() => setShowSearch(true)} className=" mx-3  w-full">
-              <label
-                htmlFor="default-search"
-                className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-              >
-                Search
-              </label>
-              <div
-                ref={componentRef3}
-                className=" md:relative w-full justify-end "
-              >
-                <div className=" static md:absolute w-full  inset-y-0 start-0 flex items-center justify-end md:justify-normal ps-3 pointer-events-none">
-                  <svg
-                    className="w-8 h-6 md:w-4 md:h-4  text-gray-500 dark:text-gray-400"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                    />
-                  </svg>
-                </div>
-                <input
-                  // type="Search"
-                  id="default-search"
-                  className="hidden md:block w-full p-2.5 ps-10 text-sm rounded-full border-none outline-none bg-gray-100"
-                  placeholder="Search"
-                  required
+          <div className=" flex space-x-3 w-2/3">
+            <p className="flex items-center    w-3/4 md:w-fit">
+              <Link to={"/home"}>
+                <img
+                  width={40}
+                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708602018/b_zdbtfu.svg"
+                  alt=""
                 />
-              </div>
-            </form>
-          </p>
+              </Link>
+            </p>
+            <div className="hidden md:block ">
+              <SearchBar />
+            </div>
+            <div
+              onClick={() => setShowSearch(!showSearch)}
+              className=" cursor-pointer md:hidden w-full flex justify-end items-center "
+            >
+              <img
+                width={25}
+                src="https://res.cloudinary.com/dunf6rko6/image/upload/v1711450904/search_1_lfy0py.svg"
+                alt="search"
+              />
+            </div>
+          </div>
 
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button
@@ -216,40 +191,9 @@ const Header = () => {
         </div>
       </nav>
       {showSearch && (
-        <form className=" ml-3 mr-3 md:hidden mt-5">
-          <label
-            htmlFor="default-search"
-            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-          >
-            Search
-          </label>
-          <div ref={componentRef3} className=" relative w-full justify-end ">
-            <div className=" absolute  w-full  inset-y-0 start-0 flex items-center  md:justify-normal ps-3 pointer-events-none">
-              <svg
-                className="w-4 h-4  text-gray-500 dark:text-gray-400"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                />
-              </svg>
-            </div>
-            <input
-              // type="search"
-              id="default-search"
-              className=" w-full p-2.5 ps-10 text-sm rounded-full outline-none bg-gray-100"
-              placeholder="Search"
-              required
-            />
-          </div>
-        </form>
+        <div ref={searchBarRef}>
+          <SearchBar />
+        </div>
       )}
     </div>
   );
