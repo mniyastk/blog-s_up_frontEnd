@@ -171,7 +171,7 @@ const Home = () => {
                   }`}
                   onClick={() => handleClickDiv(category)}
                 >
-                  <p className=" font-bold text-sm sm:text-[14px] ">
+                  <p className=" capitalize font-bold text-sm sm:text-[14px] ">
                     {category}
                   </p>
                 </div>

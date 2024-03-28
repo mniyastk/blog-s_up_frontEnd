@@ -1,4 +1,4 @@
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { addUser } from "../redux/user/userSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Header = () => {
+const Header = ({scrollToFooter}) => {
   const [showDiv, setShowDiv] = useState(false);
   const [showMainBar, setShowMainBar] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -192,7 +192,7 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                <Link href="#" onClick={scrollToFooter} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
                   About
                 </Link>
               </li>
