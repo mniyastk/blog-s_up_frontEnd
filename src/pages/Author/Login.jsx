@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { addUser } from "../../redux/user/userSlice";
+import { addauthor } from "../../redux/author/authorSlice";
 
 function Login() {
   const [formValues, setFormValues] = useState({});
@@ -47,6 +48,7 @@ function Login() {
           } else {
             const user = JSON.stringify(res.data.user);
             localStorage.setItem("author", user);
+            dispatch(addauthor(res.data.user));
           }
 
           toast.success(res.data.Messg);

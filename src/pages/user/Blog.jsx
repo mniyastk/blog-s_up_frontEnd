@@ -13,6 +13,8 @@ const Blog = () => {
   const [commentBox, setCommentBox] = useState(false);
   const [showCommentOptions, setShowCommentOptions] = useState(null);
   const [comment, setComment] = useState("");
+  const [showEdit, setShowEdit] = useState(false);
+  const [editedComment, setEditedComment] = useState("");
 
   const commentRef = useRef();
   const commentOptionRef = useRef();
@@ -75,6 +77,11 @@ const Blog = () => {
         })
         .catch((err) => toast.error("error"));
     }
+  };
+  const handleEdit = (id) => {
+    setShowCommentOptions(false);
+    const comment = document.getElementById(id);
+    comment.style.display = "block";
   };
 
   useEffect(() => {
@@ -184,35 +191,31 @@ const Blog = () => {
                           } absolute -ml-16 z-50 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600`}
                         >
                           <ul className="py-1 text-sm text-gray-700 dark:text-gray-200">
-                            <li>
-                              <Link
-                                to="#"
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
+                            <li onClick={() => handleEdit(index)}>
+                              <p className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                 Edit
-                              </Link>
+                              </p>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
+                              <p className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                 Remove
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="#"
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
-                                Report
-                              </Link>
+                              </p>
                             </li>
                           </ul>
                         </div>
                       </div>
                     </footer>
-                    <p className="text-gray-500 dark:text-gray-400 w-full h-full">
+                    <div id={index} className=" hidden">
+                      <input
+                        type="text"
+                        defaultValue={comment.content}
+                        onChange={(e) => setEditedComment(e.target.value)}
+                      />
+                    </div>
+                    <p
+                      id={comment._id}
+                      className="text-gray-500  dark:text-gray-400 w-full h-full"
+                    >
                       {comment.content}
                     </p>
                   </article>
