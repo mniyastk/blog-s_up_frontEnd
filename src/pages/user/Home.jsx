@@ -12,8 +12,6 @@ const Home = () => {
   const [blogByCategory, setBlogByCategory] = useState([]);
   const location = useLocation();
 
-  
-
   useEffect(() => {
     axios
       .get("user/blogs")
@@ -78,7 +76,7 @@ const Home = () => {
 
   const handleLeft = () => {
     const tabMenu = document.getElementById("scrollTab");
-    tabMenu.scrollLeft = -150;
+    tabMenu.scrollLeft -= 150;
     iconVisibility();
   };
   const handleRight = () => {
@@ -156,9 +154,9 @@ const Home = () => {
             </div>
             <div
               id="scrollTab"
-              className="flex select-none    space-x-10 pt-2 sm:w-full  border-gray-200 overflow-x-auto "
+              className="flex select-none     space-x-10 pt-2 sm:w-full  border-gray-200 overflow-x-auto "
               style={{
-                transform: `translateX(-${0 * 20}%)`,
+                transform: `translate(0)`,
               }}
             >
               {category.map((category, index) => (
