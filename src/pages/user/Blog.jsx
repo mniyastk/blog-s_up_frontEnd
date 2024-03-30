@@ -165,7 +165,6 @@ const Blog = () => {
               </label>
               <textarea
                 id="comment"
-                rows="6"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
