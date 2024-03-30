@@ -22,6 +22,8 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   const author = useSelector((state) => state.author.author);
 
+  console.log(user, author);
+
   useClickAway(componentRef2, () => {
     setShowDiv(false);
   });

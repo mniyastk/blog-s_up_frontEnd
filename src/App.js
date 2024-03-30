@@ -42,7 +42,7 @@ function App() {
         if (userInfo) {
           const user = JSON.parse(userInfo);
           dispatch(addUser(user));
-        } else {
+        } else if (authorInfo) {
           const author = JSON.parse(authorInfo);
           dispatch(addauthor(author));
         }
