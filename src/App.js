@@ -24,6 +24,7 @@ import BlogCatogories from "./pages/Blogs/BlogCatogories";
 // import Cursor from "./components/Cursor";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { addUser } from "./redux/user/userSlice";
+import { addauthor } from "./redux/author/authorSlice";
 
 axios.defaults.baseURL = "http://localhost:3005/";
 axios.defaults.withCredentials = true;
@@ -36,10 +37,14 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const item = localStorage.getItem("user");
-        if (item) {
-          const user = JSON.parse(item);
+        const userInfo = localStorage.getItem("user");
+        const authorInfo = localStorage.getItem("author");
+        if (userInfo) {
+          const user = JSON.parse(userInfo);
           dispatch(addUser(user));
+        } else if (authorInfo) {
+          const author = JSON.parse(authorInfo);
+          dispatch(addauthor(author));
         }
       } catch (error) {
         toast.error("error");
@@ -52,7 +57,11 @@ function App() {
   }, [dispatch]);
 
   if (loading) {
-    return <div className=" w-screen h-screen flex justify-center items-center">Loading...</div>;
+    return (
+      <div className=" w-screen h-screen flex justify-center items-center">
+        Loading...
+      </div>
+    );
   }
 
   return (

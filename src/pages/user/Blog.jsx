@@ -1,4 +1,5 @@
 import axios from "axios";
+import EmojiPicker from "emoji-picker-react";
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
@@ -13,15 +14,29 @@ const Blog = () => {
   const [commentBox, setCommentBox] = useState(false);
   const [showCommentOptions, setShowCommentOptions] = useState(null);
   const [comment, setComment] = useState("");
+  const [showEdit, setShowEdit] = useState(false);
+  const [editedComment, setEditedComment] = useState("");
+
+  const [commentVisibility, setCommentVisibility] = useState({});
 
   const commentRef = useRef();
   const commentOptionRef = useRef();
+
+  const toggleCommentVisibility = (index) => {
+    setCommentVisibility((prevVisibility) => ({
+      ...prevVisibility,
+      [index]: !prevVisibility[index],
+    }));
+
+    console.log(commentVisibility);
+  };
 
   const handleFollow = () => {
     setIsFollowClicked(!isFollowClicked);
   };
 
   const user = useSelector((state) => state.user.user);
+  const author = useSelector((state) => state.author.author);
 
   const { blogId } = useParams();
 
@@ -34,7 +49,7 @@ const Blog = () => {
       .catch((err) => {
         toast.error("Error ");
       });
-  }, [blogId]);
+  }, [blogId, commentVisibility]);
 
   useEffect(() => {
     axios
@@ -67,13 +82,46 @@ const Blog = () => {
   };
 
   const handlePostComment = () => {
-    if (comment !== "") {
+    if (comment !== "" && user) {
       axios
         .post(`user/comment/${blog._id}/${user._id}`, { comment })
         .then((res) => {
           toast.success("commented");
         })
         .catch((err) => toast.error("error"));
+    } else if (comment !== "") {
+      axios
+        .post(`author/comment/${blog._id}/${author._id}`, { comment })
+        .then((res) => {
+          toast.success("commented");
+        })
+        .catch((err) => toast.error("error"));
+    }
+  };
+  const handleEdit = (id) => {
+    setShowCommentOptions(false);
+    const comment = document.getElementById(id);
+    comment.style.display = "block";
+    toggleCommentVisibility(id);
+  };
+
+  const handleSaveComment = (commentId, id) => {
+    if (editedComment) {
+      axios
+        .put(`user/editcomment/${blog._id}/${user._id}/${commentId}`, {
+          editedComment,
+        })
+        .then((res) => {
+          setCommentVisibility(true);
+          const comment = document.getElementById(id);
+          comment.style.display = "none";
+          toast.success("success");
+        })
+        .catch((err) => {
+          toast.error("error");
+        });
+    } else {
+      toast.error("No changes happen");
     }
   };
 
@@ -111,20 +159,28 @@ const Blog = () => {
             </h2>
           </div>
           <form className="mb-6">
-            <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div className="py-2 px-4 mb-1 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
               <label for="comment" className="sr-only">
                 Your comment
               </label>
               <textarea
                 id="comment"
-                rows="6"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
                 placeholder="Write a comment..."
                 required
               ></textarea>
+              
             </div>
+            <EmojiPicker
+                className="mb-1"
+                emojiStyle="google"
+                autoFocusSearch="true"
+                reactionsDefaultOpen="true"
+                onEmojiClick={(emoji) => setComment((pre) => pre + emoji.emoji)}
+              />
+              <br />
             <button
               onClick={handlePostComment}
               type="submit"
@@ -184,37 +240,44 @@ const Blog = () => {
                           } absolute -ml-16 z-50 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600`}
                         >
                           <ul className="py-1 text-sm text-gray-700 dark:text-gray-200">
-                            <li>
-                              <Link
-                                to="#"
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
+                            <li onClick={() => handleEdit(index)}>
+                              <p className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                 Edit
-                              </Link>
+                              </p>
                             </li>
                             <li>
-                              <Link
-                                to="#"
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
+                              <p className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                 Remove
-                              </Link>
-                            </li>
-                            <li>
-                              <Link
-                                to="#"
-                                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                              >
-                                Report
-                              </Link>
+                              </p>
                             </li>
                           </ul>
                         </div>
                       </div>
                     </footer>
-                    <p className="text-gray-500 dark:text-gray-400 w-full h-full">
-                      {comment.content}
-                    </p>
+                    <div
+                      id={index}
+                      className=" hidden space-x-2 w-full justify-center items-center h-full"
+                    >
+                      <input
+                        type="text"
+                        defaultValue={comment.content}
+                        onChange={(e) => setEditedComment(e.target.value)}
+                      />
+                      <button
+                        onClick={() => handleSaveComment(comment._id, index)}
+                        className="  h-full bg-blue-700 text-white text-sm py-[10px] focus:outline-none px-3"
+                      >
+                        Save
+                      </button>
+                    </div>
+                    <div
+                      id={index}
+                      className={commentVisibility[index] ? "hidden" : "block"}
+                    >
+                      <p className="text-gray-500  dark:text-gray-400 w-full h-full">
+                        {comment.content}
+                      </p>
+                    </div>
                   </article>
                 );
               })}
@@ -247,7 +310,7 @@ const Blog = () => {
             <p className=" text-[#616161] text-sm">Feb 20, 2024</p>
           </div>
         </div>
-        <p className=" my-5 text-[42px] leading-tight font-Sohnia font-semibold">
+        <p className=" my-5 text-[30px] md:text-[42px] leading-tight font-Sohnia font-semibold">
           {blog.title}
         </p>
         <div className=" flex h-10 border-y border-gray-400">
@@ -319,10 +382,10 @@ const Blog = () => {
             Recommended from Blog’s Up
           </p>
         </div>
-        <div className=" grid grid-cols-2 gap-8 ">
-          {blogs.map((item) => {
+        <div className=" grid grid-cols-1 md:grid-cols-2 gap-8 ">
+          {blogs.map((item, i) => {
             return (
-              <div className=" ">
+              <div key={i} className=" ">
                 <img className=" h-1/2 w-full" src={item.image} alt="lsfj" />
                 <div className=" flex my-3 items-center gap-2">
                   <div

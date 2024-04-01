@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useClickAway } from "react-use";
 import axios from "axios";
 import { toast } from "react-toastify";
 import SearchBar from "./SearchBar";
+import { removeUser } from "../redux/user/userSlice";
+import { removeAuthor } from "../redux/author/authorSlice";
 
 const Header = () => {
   const [showDiv, setShowDiv] = useState(false);
@@ -16,7 +18,11 @@ const Header = () => {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const author = useSelector((state) => state.author.author);
+
+  console.log(user, author);
 
   useClickAway(componentRef2, () => {
     setShowDiv(false);
@@ -34,9 +40,10 @@ const Header = () => {
     axios
       .delete("user/signout")
       .then((res) => {
-        console.log(res.data);
         toast.success("Sign Out success");
         localStorage.clear();
+        dispatch(removeUser());
+        dispatch(removeAuthor());
         navigate("/");
       })
       .catch((err) => {
@@ -48,7 +55,7 @@ const Header = () => {
     <div>
       <nav className="bg-white border-b dark:bg-gray-900  text-l">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <div className=" flex space-x-3 w-2/3">
+          <div className=" flex space-x-3 w-2/3 md:w-1/3">
             <p className="flex items-center    w-3/4 md:w-fit">
               <Link to={"/home"}>
                 <img
@@ -73,10 +80,10 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <div className="  flex items-center md:order-2  space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button
               type="button"
-              className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+              className=" flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
               onClick={() => setShowDiv(true)}
             >
               <span className="sr-only">Open user menu</span>
@@ -88,16 +95,16 @@ const Header = () => {
             </button>
             <div
               ref={componentRef2}
-              className={`z-50 ${
+              className={` z-50 ${
                 showDiv ? " block" : "hidden"
               }   text-base list-none absolute bg-white right-5 top-16 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
             >
-              <div className="px-4 py-3">
+              <div className="px-4 py-3 ">
                 <span className="block text-sm text-gray-900 dark:text-white">
-                  {user?.username}
+                  {user?.username || author?.username}
                 </span>
                 <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                  {user?.email}
+                  {user?.email || author?.email}
                 </span>
               </div>
               <ul className="py-2" aria-labelledby="user-menu-button">
@@ -152,9 +159,9 @@ const Header = () => {
           </div>
           <div
             ref={componentRef}
-            className={` items-center  justify-between ${
+            className={`  items-center  justify-between ${
               showMainBar ? " block" : "hidden"
-            } w-full md:flex md:w-auto md:order-1`}
+            } w- md:flex md:w-auto md:order-1`}
             id="navbar-user"
           >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
