@@ -40,6 +40,26 @@ const Blog = () => {
 
   const { blogId } = useParams();
 
+  const handlePostComment = (e) => {
+    e.preventDefault();
+    if (comment !== "" && user) {
+      axios
+        .post(`user/comment/${blog._id}/${user._id}`, { comment })
+        .then((res) => {
+          toast.success("commented");
+          setComment("");
+        })
+        .catch((err) => toast.error("error"));
+    } else if (comment !== "") {
+      axios
+        .post(`author/comment/${blog._id}/${author._id}`, { comment })
+        .then((res) => {
+          toast.success("commented");
+        })
+        .catch((err) => toast.error("error"));
+    }
+  };
+
   useEffect(() => {
     axios
       .get(`user/blog/${blogId}`)
@@ -49,7 +69,7 @@ const Blog = () => {
       .catch((err) => {
         toast.error("Error ");
       });
-  }, [blogId, commentVisibility]);
+  }, [blogId, commentVisibility, handlePostComment]);
 
   useEffect(() => {
     axios
@@ -81,23 +101,6 @@ const Blog = () => {
     setCommentBox(false);
   };
 
-  const handlePostComment = () => {
-    if (comment !== "" && user) {
-      axios
-        .post(`user/comment/${blog._id}/${user._id}`, { comment })
-        .then((res) => {
-          toast.success("commented");
-        })
-        .catch((err) => toast.error("error"));
-    } else if (comment !== "") {
-      axios
-        .post(`author/comment/${blog._id}/${author._id}`, { comment })
-        .then((res) => {
-          toast.success("commented");
-        })
-        .catch((err) => toast.error("error"));
-    }
-  };
   const handleEdit = (id) => {
     setShowCommentOptions(false);
     const comment = document.getElementById(id);
@@ -158,38 +161,8 @@ const Blog = () => {
               Comments ({blog?.comments?.length})
             </h2>
           </div>
-          <form className="mb-6">
-            <div className="py-2 px-4 mb-1 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-              <label for="comment" className="sr-only">
-                Your comment
-              </label>
-              <textarea
-                id="comment"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                placeholder="Write a comment..."
-                required
-              ></textarea>
-              
-            </div>
-            <EmojiPicker
-                className="mb-1"
-                emojiStyle="google"
-                autoFocusSearch="true"
-                reactionsDefaultOpen="true"
-                onEmojiClick={(emoji) => setComment((pre) => pre + emoji.emoji)}
-              />
-              <br />
-            <button
-              onClick={handlePostComment}
-              type="submit"
-              className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
-            >
-              Post comment
-            </button>
-          </form>
-          <div className="min-h-screen scroll-m-0">
+         
+          <div className=" h-[250px] overflow-y-auto ">
             {blog?.comments
               ?.sort((a, b) => new Date(b.created) - new Date(a.created))
               .map((comment, index) => {
@@ -282,6 +255,47 @@ const Blog = () => {
                 );
               })}
           </div>
+          <form className="mb-6 flex w-full justify-around items-center">
+            <div className=" ">
+              <img
+                width={30}
+                src="https://res.cloudinary.com/dunf6rko6/image/upload/v1711968271/emoji_hpqwgc.svg"
+                alt="emoji"
+              />
+            </div>
+
+            {/* <EmojiPicker
+              className="mb-1"
+              emojiStyle="google"
+              reactionsDefaultOpen="true"
+              onEmojiClick={(emoji) => setComment((pre) => pre + emoji.emoji)}
+            /> */}
+            <div className="   h-8 w-3/4 ">
+              <label for="comment" className="sr-only">
+                Your comment
+              </label>
+              <textarea
+                id="comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className=" rounded-lg border  w-full  text-sm "
+                placeholder="Write a comment..."
+                required
+              ></textarea>
+            </div>
+
+            <button
+              disabled={comment ? false : true}
+              className={`focus:outline-none `}
+            >
+              <img
+                width={30}
+                onClick={handlePostComment}
+                src="https://res.cloudinary.com/dunf6rko6/image/upload/v1711968585/send_odk5qu.svg"
+                alt="send"
+              />
+            </button>
+          </form>
         </div>
       </section>
       <div className={`${commentBox ? "blur-md" : "blur-none"}`}>
