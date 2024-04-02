@@ -1,8 +1,23 @@
-import React from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Account = () => {
   const user = useSelector((state) => state.user.user);
+  const [savedList, setSavedList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`user/savedlist/${user._id}`)
+      .then((res) => {
+        setSavedList(res.data);
+      })
+      .catch((err) => toast.error("Error"));
+  }, []);
+
+  console.log(savedList);
+
   return (
     <div className=" flex  h-screen">
       <div className=" w-2/3 py-10  h-screen overflow-y-scroll" id="account">
@@ -18,7 +33,7 @@ const Account = () => {
           <div className=" border-gray-400  my-3 border-b ">
             <div className=" border-b pb-1 border-black w-fit">Saved</div>
           </div>
-          {[1, 2, 3, 4, 5, 6].map((item, index) => {
+          {savedList.map((item, index) => {
             return (
               <div key={index}>
                 <div className="  mt-10">
@@ -32,16 +47,14 @@ const Account = () => {
                               "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1709975816/944271_qdk7dw.png)",
                           }}
                         ></div>
-                        <p>Francesco Franco</p>
-                        <p className=" text-gray-400">Jan 10, 2024</p>
+                        <p>{item.authorId}</p>
+                        <p className=" text-gray-400">
+                          {new Date(item?.createdAt).toDateString().slice(4)}
+                        </p>
                       </div>
-                      <p className=" font-bold">
-                        What is a Variational Autoencoder (VAE)?
-                      </p>
+                      <p className=" font-bold">{item.title}</p>
                       <p className=" font-Georgia text-gray-400 line-clamp-2 my-1 ">
-                        Suppose that you have an image of a man with a mustache
-                        and one of a man mustache and
-                        one...fkjaljfkajfjajlfjljfljsjflsjfls
+                        {item.content}
                       </p>
                       <div className="flex justify-end space-x-6 pr-5 items-center my-3">
                         <img
@@ -57,10 +70,7 @@ const Account = () => {
                       </div>
                     </div>
                     <div className=" w-1/3 h-fit">
-                      <img
-                        src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719787/1_E3kONRxJ8hFC3qowDOWUXg_cgstjz.jpg"
-                        alt=""
-                      />
+                      <img src={item.image} alt="item" />
                     </div>
                   </div>
                 </div>{" "}

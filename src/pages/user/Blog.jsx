@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useClickAway } from "react-use";
 
 const Blog = () => {
   const [isFollow, setIsFollow] = useState("Follow");
@@ -14,13 +15,15 @@ const Blog = () => {
   const [commentBox, setCommentBox] = useState(false);
   const [showCommentOptions, setShowCommentOptions] = useState(null);
   const [comment, setComment] = useState("");
-  const [showEdit, setShowEdit] = useState(false);
+  const [isEmoji, setIsEmoji] = useState(false);
+
   const [editedComment, setEditedComment] = useState("");
 
   const [commentVisibility, setCommentVisibility] = useState({});
 
   const commentRef = useRef();
   const commentOptionRef = useRef();
+  const emojiRef = useRef();
 
   const toggleCommentVisibility = (index) => {
     setCommentVisibility((prevVisibility) => ({
@@ -34,6 +37,10 @@ const Blog = () => {
   const handleFollow = () => {
     setIsFollowClicked(!isFollowClicked);
   };
+
+  useClickAway(emojiRef, () => {
+    setIsEmoji(false);
+  });
 
   const user = useSelector((state) => state.user.user);
   const author = useSelector((state) => state.author.author);
@@ -108,6 +115,13 @@ const Blog = () => {
     toggleCommentVisibility(id);
   };
 
+  const handleSaveList = () => {
+    setIsSave(!isSave);
+    axios
+      .post(`user/blog/save/${blogId}/${user?._id}`)
+      .then((res) => toast.success("Saved"));
+  };
+
   const handleSaveComment = (commentId, id) => {
     if (editedComment) {
       axios
@@ -155,14 +169,14 @@ const Blog = () => {
         >
           ❌
         </div>
-        <div className="max-w-2xl mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto px-4 ">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
               Comments ({blog?.comments?.length})
             </h2>
           </div>
-         
-          <div className=" h-[250px] overflow-y-auto ">
+
+          <div className=" max-h-[250px] overflow-y-scroll " id="Comments">
             {blog?.comments
               ?.sort((a, b) => new Date(b.created) - new Date(a.created))
               .map((comment, index) => {
@@ -171,7 +185,7 @@ const Blog = () => {
                     key={index}
                     className="p-6 text-base bg-white rounded-lg dark:bg-gray-900"
                   >
-                    <footer className="flex justify-between items-center mb-2">
+                    <footer className="flex justify-between items-center mb-1">
                       <div className="flex items-center">
                         <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
                           <img
@@ -192,7 +206,7 @@ const Blog = () => {
                             comment?.postedby?.username === user?.username
                               ? "block"
                               : "hidden"
-                          } mb-2 items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
+                          }  items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600`}
                           type="button"
                         >
                           <svg
@@ -255,30 +269,37 @@ const Blog = () => {
                 );
               })}
           </div>
-          <form className="mb-6 flex w-full justify-around items-center">
-            <div className=" ">
+          <form className="  flex w-full justify-around  space-x-2 items-center">
+            <div className=" cursor-pointer flex items-center">
               <img
-                width={30}
+                onClick={() => setIsEmoji(!isEmoji)}
+                width={40}
                 src="https://res.cloudinary.com/dunf6rko6/image/upload/v1711968271/emoji_hpqwgc.svg"
                 alt="emoji"
               />
             </div>
 
-            {/* <EmojiPicker
-              className="mb-1"
-              emojiStyle="google"
-              reactionsDefaultOpen="true"
-              onEmojiClick={(emoji) => setComment((pre) => pre + emoji.emoji)}
-            /> */}
-            <div className="   h-8 w-3/4 ">
-              <label for="comment" className="sr-only">
-                Your comment
-              </label>
+            {isEmoji && (
+              <div ref={emojiRef} className="absolute z-40 bottom-24 left-10">
+                <EmojiPicker
+                  searchDisabled="true"
+                  previewConfig={{ showPreview: false }}
+                  height={300}
+                  width={300}
+                  emojiStyle="google"
+                  onEmojiClick={(emoji) =>
+                    setComment((pre) => pre + emoji.emoji)
+                  }
+                />
+              </div>
+            )}
+            <div className=" w-full">
               <textarea
                 id="comment"
+                rows={1}
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
-                className=" rounded-lg border  w-full  text-sm "
+                className=" rounded-lg border p-2  w-full h-auto resize-none  text-sm "
                 placeholder="Write a comment..."
                 required
               ></textarea>
@@ -342,7 +363,7 @@ const Blog = () => {
           <div className=" flex-1 flex justify-evenly items-center">
             {!isSave ? (
               <img
-                onClick={() => setIsSave(!isSave)}
+                onClick={handleSaveList}
                 className=" h-5 cursor-pointer"
                 src="https://res.cloudinary.com/dunf6rko6/image/upload/v1709719788/3994430_bookmark_label_ribbon_save_web_icon_lrv92h.svg"
                 alt="save"
