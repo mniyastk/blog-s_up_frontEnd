@@ -80,7 +80,7 @@ const Blog = () => {
   };
 
   return (
-    <div className=" mx-[10px] mt-20 md:mx-[300px] min-h-[2600px] mb-5">
+    <div className=" mx-[10px] mt-20 md:mx-[300px] px-[20px] min-h-[2600px] mb-5">
       <section
         className={` ${
           commentBox ? "block" : "hidden"

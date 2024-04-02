@@ -52,13 +52,17 @@ function App() {
   }, [dispatch]);
 
   if (loading) {
-    return <div className=" w-screen h-screen flex justify-center items-center">Loading...</div>;
+    return (
+      <div className=" w-screen h-screen flex justify-center items-center">
+        Loading...
+      </div>
+    );
   }
 
   return (
     <div>
       {/* <Cursor /> */}
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/category" element={<BlogCatogories />} />

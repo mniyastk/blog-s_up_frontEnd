@@ -31,6 +31,7 @@ const Header = ({scrollToFooter}) => {
     setShowSearch(false);
   });
 
+  console.log(user);
   
 
   const handleSignOut = () => {
