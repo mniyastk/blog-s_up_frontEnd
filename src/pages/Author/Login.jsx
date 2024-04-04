@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { addUser } from "../../redux/user/userSlice";
+import { addauthor } from "../../redux/author/authorSlice";
 
 function Login() {
   const [formValues, setFormValues] = useState({});
@@ -49,6 +50,7 @@ function Login() {
           } else {
             const user = JSON.stringify(res.data.user);
             localStorage.setItem("author", user);
+            dispatch(addauthor(res.data.user));
           }
           toast.dismiss(loadingToastId);
 
@@ -59,7 +61,7 @@ function Login() {
           console.log(err.response.data);
           toast.dismiss(loadingToastId);
 
-          toast.error(err.response.data, {});
+          toast.error(err.response.data);
         });
     }
   };
