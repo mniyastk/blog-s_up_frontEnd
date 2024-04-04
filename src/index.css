@@ -14,5 +14,9 @@
   width: 0;
   background: transparent;
 }
+#Comments::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
 
 
