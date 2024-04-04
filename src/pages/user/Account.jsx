@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Account = () => {
@@ -33,7 +34,7 @@ const Account = () => {
           <div className=" border-gray-400  my-3 border-b ">
             <div className=" border-b pb-1 border-black w-fit">Saved</div>
           </div>
-          {savedList.map((item, index) => {
+          {savedList?.map((item, index) => {
             return (
               <div key={index}>
                 <div className="  mt-10">
@@ -53,9 +54,11 @@ const Account = () => {
                         </p>
                       </div>
                       <p className=" font-bold">{item.title}</p>
-                      <p className=" font-Georgia text-gray-400 line-clamp-2 my-1 ">
-                        {item.content}
-                      </p>
+                      <Link to={`/home/blog/${item._id}`}>
+                        <p className=" font-Georgia text-gray-400 line-clamp-2 my-1 ">
+                          {item.content}
+                        </p>
+                      </Link>
                       <div className="flex justify-end space-x-6 pr-5 items-center my-3">
                         <img
                           className=" h-6"
@@ -70,7 +73,9 @@ const Account = () => {
                       </div>
                     </div>
                     <div className=" w-1/3 h-fit">
-                      <img src={item.image} alt="item" />
+                      <Link to={`/home/blog/${item._id}`}>
+                        <img src={item.image} alt="item" />
+                      </Link>
                     </div>
                   </div>
                 </div>{" "}

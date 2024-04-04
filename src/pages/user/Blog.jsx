@@ -18,9 +18,7 @@ const Blog = () => {
   const [isEmoji, setIsEmoji] = useState(false);
 
   const [editedComment, setEditedComment] = useState("");
-
   const [commentVisibility, setCommentVisibility] = useState({});
-
   const commentRef = useRef();
   const commentOptionRef = useRef();
   const emojiRef = useRef();
@@ -53,7 +51,7 @@ const Blog = () => {
       axios
         .post(`user/comment/${blog._id}/${user._id}`, { comment })
         .then((res) => {
-          toast.success("commented");
+          toast.success("Comment Posted");
           setComment("");
         })
         .catch((err) => toast.error("error"));
@@ -132,13 +130,15 @@ const Blog = () => {
           setCommentVisibility(true);
           const comment = document.getElementById(id);
           comment.style.display = "none";
-          toast.success("success");
+          // toast.success("");
         })
         .catch((err) => {
           toast.error("error");
         });
     } else {
-      toast.error("No changes happen");
+      const comment = document.getElementById(id);
+      comment.style.display = "none";
+      setCommentVisibility(true);
     }
   };
 
@@ -156,12 +156,16 @@ const Blog = () => {
   });
 
   return (
-    <div className=" mx-[10px] mt-10 md:mx-[300px] min-h-[2600px] mb-5">
+    <div
+      className={` mx-[10px] mt-10 md:mx-[300px] ${
+        commentBox ? " h-screen overflow-hidden" : "min-h-[2600px]"
+      } mb-5`}
+    >
       <section
         ref={commentRef}
         className={` ${
           commentBox ? "block" : "hidden"
-        } bg-white  z-40 dark:bg-gray-900 w-full md:w-[50%]   antialiased absolute border rounded-md`}
+        } bg-white  z-40 dark:bg-gray-900  w-full md:w-[50%]   antialiased absolute border rounded-md`}
       >
         <div
           onClick={handleCloseCommentBox}
@@ -176,7 +180,7 @@ const Blog = () => {
             </h2>
           </div>
 
-          <div className=" max-h-[250px] overflow-y-scroll " id="Comments">
+          <div className=" min-h-[250px] overflow-y-scroll " id="Comments">
             {blog?.comments
               ?.sort((a, b) => new Date(b.created) - new Date(a.created))
               .map((comment, index) => {
@@ -228,7 +232,7 @@ const Blog = () => {
                         >
                           <ul className="py-1 text-sm text-gray-700 dark:text-gray-200">
                             <li onClick={() => handleEdit(index)}>
-                              <p className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                              <p className=" cursor-pointer block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                 Edit
                               </p>
                             </li>

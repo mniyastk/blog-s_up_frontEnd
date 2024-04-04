@@ -25,6 +25,8 @@ import BlogCatogories from "./pages/Blogs/BlogCatogories";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { addUser } from "./redux/user/userSlice";
 import { addauthor } from "./redux/author/authorSlice";
+import About from "./pages/Blogs/About";
+import Contact from "./pages/Blogs/Contact";
 
 axios.defaults.baseURL = "http://localhost:3005/";
 axios.defaults.withCredentials = true;
@@ -34,33 +36,50 @@ function App() {
   const user = useSelector((state) => state.user.user);
   const [loading, setLoading] = useState(true);
 
+  const isAuthor = localStorage.getItem("isAuthor");
+
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const userInfo = localStorage.getItem("user");
+      // try {
+      //   const userInfo = localStorage.getItem("user");
+      //   const authorInfo = localStorage.getItem("author");
+      //   if (userInfo) {
+      //     const user = JSON.parse(userInfo);
+      //     dispatch(addUser(user));
+      //   } else if (authorInfo) {
+      //     const author = JSON.parse(authorInfo);
+      //     dispatch(addauthor(author));
+      //   }
+      // } catch (error) {
+      //   toast.error("error");
+      // } finally {
+      //   setLoading(false);
+      // }
+
+      if (!isAuthor) {
+        axios
+          .get("/user/getuser", { withCredentials: true })
+          .then((res) => {
+            dispatch(addUser(res.data));
+            setLoading(false);
+          })
+          .catch((err) => {
+            setLoading(false);
+            toast.error("error");
+          });
+      } else {
         const authorInfo = localStorage.getItem("author");
-        if (userInfo) {
-          const user = JSON.parse(userInfo);
-          dispatch(addUser(user));
-        } else if (authorInfo) {
-          const author = JSON.parse(authorInfo);
-          dispatch(addauthor(author));
-        }
-      } catch (error) {
-        toast.error("error");
-      } finally {
-        setLoading(false);
+        const author = JSON.parse(authorInfo);
+        dispatch(addauthor(author));
+        setLoading(false)
       }
     };
-
     fetchData();
   }, [dispatch]);
 
   if (loading) {
     return (
-      <div className=" w-screen h-screen flex justify-center items-center">
-        Loading...
-      </div>
+      <div className=" w-screen h-screen flex justify-center items-center"></div>
     );
   }
 
@@ -83,6 +102,8 @@ function App() {
           />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Register />} />
         <Route path="/author" element={<AuthorLayout />}>
           <Route path="/author/blogs" element={<Blogs />} />

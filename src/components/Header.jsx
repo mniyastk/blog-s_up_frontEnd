@@ -22,6 +22,9 @@ const Header = () => {
   const user = useSelector((state) => state.user.user);
   const author = useSelector((state) => state.author.author);
 
+  const isAuthor = localStorage.getItem("isAuthor");
+  console.log(isAuthor);
+
   console.log(user, author);
 
   useClickAway(componentRef2, () => {
@@ -100,9 +103,19 @@ const Header = () => {
               }   text-base list-none absolute bg-white right-5 top-16 divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600`}
             >
               <div className="px-4 py-3 ">
-                <span className="block text-sm text-gray-900 dark:text-white">
-                  {user?.username || author?.username}
-                </span>
+                <div className=" flex justify-between">
+                  <span className="block text-sm text-gray-900 dark:text-white">
+                    {user?.username || author?.username}
+                  </span>
+                  <div
+                    className={`${
+                      isAuthor ? "block" : "hidden"
+                    } bg-green-400 rounded-sm flex justify-center items-center px-2 text-xs`}
+                  >
+                    Admin
+                  </div>
+                </div>
+
                 <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
                   {user?.email || author?.email}
                 </span>
@@ -174,7 +187,10 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                <Link
+                  to={"/about"}
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
                   About
                 </Link>
               </li>
@@ -189,7 +205,10 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <Link className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                <Link
+                  to={"/contact"}
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
                   Contact
                 </Link>
               </li>
