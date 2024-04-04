@@ -1,4 +1,6 @@
-import React, { useState, useRef } from "react";
+// import { jwtDecode } from "jwt-decode";
+import React, { useState, useEffect, useRef } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useClickAway } from "react-use";
@@ -8,7 +10,7 @@ import SearchBar from "./SearchBar";
 import { removeUser } from "../redux/user/userSlice";
 import { removeAuthor } from "../redux/author/authorSlice";
 
-const Header = () => {
+const Header = ({ scrollToFooter }) => {
   const [showDiv, setShowDiv] = useState(false);
   const [showMainBar, setShowMainBar] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
@@ -23,9 +25,6 @@ const Header = () => {
   const author = useSelector((state) => state.author.author);
 
   const isAuthor = localStorage.getItem("isAuthor");
-  console.log(isAuthor);
-
-  console.log(user, author);
 
   useClickAway(componentRef2, () => {
     setShowDiv(false);

@@ -1,92 +1,188 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 function Dashboard() {
+  const author = useSelector((state) => state.author.author);
+  const [authorinfo, setAuthorInfo] = useState(author);
+
+  console.log(authorinfo);
   return (
-    <div>
-      <div class="relative pt-32 pb-32 bg-lightBlue-500">
-        <div class="px-4 md:px-6 mx-auto w-full">
-          <div>
-            <div class="flex flex-wrap">
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div class="relative flex flex-col min-w-0 break-words bg-white rounded-lg mb-6 xl:mb-0 shadow-lg">
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                        <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                          Traffic
-                        </h5>
-                        <span class="font-bold text-xl">350,897</span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500">
-                          <i class="far fa-chart-bar"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-500 mt-4">
-                      <span class="text-emerald-500 mr-2">
-                        <i class="fas fa-arrow-up"></i> 3.48%
-                      </span>
-                      <span class="whitespace-nowrap">Since last month</span>
-                    </p>
-                  </div>
-                </div>
+    <>
+      <div class="flex flex-col justify-center items-center h-[100vh] pt-4">
+        <div class="min-w-[375px] md:min-w-[700px] xl:min-w-[800px] mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
+          <div class="relative flex flex-grow !flex-row   items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span class="flex items-center text-brand-500 dark:text-white">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 24 24"
+                    class="h-7 w-7"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M4 9h4v11H4zM16 13h4v7h-4zM10 4h4v16h-4z"></path>
+                  </svg>
+                </span>
               </div>
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div class="relative flex flex-col min-w-0 break-words bg-white rounded-lg mb-6 xl:mb-0 shadow-lg">
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                        <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                          NEW USERS
-                        </h5>
-                        <span class="font-bold text-xl">2,356</span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-orange-500">
-                          <i class="fas fa-chart-pie"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-500 mt-4">
-                      <span class="text-red-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 3.48%
-                      </span>
-                      <span class="whitespace-nowrap">Since last week</span>
-                    </p>
-                  </div>
-                </div>
+            </div>
+            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p class="font-dm text-sm font-medium text-gray-600">Followers</p>
+              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
+                $340.5
+              </h4>
+            </div>
+          </div>
+          <div class="relative flex flex-grow !flex-row   items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span class="flex items-center text-brand-500 dark:text-white">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 512 512"
+                    class="h-6 w-6"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M298.39 248a4 4 0 002.86-6.8l-78.4-79.72a4 4 0 00-6.85 2.81V236a12 12 0 0012 12z"></path>
+                    <path d="M197 267a43.67 43.67 0 01-13-31v-92h-72a64.19 64.19 0 00-64 64v224a64 64 0 0064 64h144a64 64 0 0064-64V280h-92a43.61 43.61 0 01-31-13zm175-147h70.39a4 4 0 002.86-6.8l-78.4-79.72a4 4 0 00-6.85 2.81V108a12 12 0 0012 12z"></path>
+                    <path d="M372 152a44.34 44.34 0 01-44-44V16H220a60.07 60.07 0 00-60 60v36h42.12A40.81 40.81 0 01231 124.14l109.16 111a41.11 41.11 0 0111.83 29V400h53.05c32.51 0 58.95-26.92 58.95-60V152z"></path>
+                  </svg>
+                </span>
               </div>
-              <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <div class="relative flex flex-col min-w-0 break-words bg-white rounded-lg mb-6 xl:mb-0 shadow-lg">
-                  <div class="flex-auto p-4">
-                    <div class="flex flex-wrap">
-                      <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
-                        <h5 class="text-blueGray-400 uppercase font-bold text-xs">
-                          SALES
-                        </h5>
-                        <span class="font-bold text-xl">924</span>
-                      </div>
-                      <div class="relative w-auto pl-4 flex-initial">
-                        <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-pink-500">
-                          <i class="fas fa-users"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <p class="text-sm text-blueGray-500 mt-4">
-                      <span class="text-orange-500 mr-2">
-                        <i class="fas fa-arrow-down"></i> 1.10%
-                      </span>
-                      <span class="whitespace-nowrap">Since yesterday</span>
-                    </p>
-                  </div>
-                </div>
+            </div>
+            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p class="font-dm text-sm font-medium text-gray-600">
+                Total Blogs
+              </p>
+              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
+                $642.39
+              </h4>
+            </div>
+          </div>
+          <div class="relative flex flex-grow !flex-row   items-center  rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span class="flex items-center text-brand-500 dark:text-white">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 24 24"
+                    class="h-7 w-7"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M4 9h4v11H4zM16 13h4v7h-4zM10 4h4v16h-4z"></path>
+                  </svg>
+                </span>
               </div>
+            </div>
+            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p class="font-dm text-sm font-medium text-gray-600">Likes</p>
+              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
+                $574.34
+              </h4>
+            </div>
+          </div>
+          <div class="relative flex flex-grow !flex-row  items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span class="flex items-center text-brand-500 dark:text-white">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 24 24"
+                    class="h-6 w-6"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p class="font-dm text-sm font-medium text-gray-600">
+                Comments
+              </p>
+              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
+                $1,000
+              </h4>
+            </div>
+          </div>
+          <div class="relative flex flex-grow !flex-row   items-center  rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span class="flex items-center text-brand-500 dark:text-white">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 24 24"
+                    class="h-7 w-7"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M4 9h4v11H4zM16 13h4v7h-4zM10 4h4v16h-4z"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p class="font-dm text-sm font-medium text-gray-600">New Tasks</p>
+              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
+                145
+              </h4>
+            </div>
+          </div>
+          <div class="relative flex flex-grow !flex-row   items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span class="flex items-center text-brand-500 dark:text-white">
+                  <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 512 512"
+                    class="h-6 w-6"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M208 448V320h96v128h97.6V256H464L256 64 48 256h62.4v192z"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p class="font-dm text-sm font-medium text-gray-600">
+                Total Projects
+              </p>
+              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
+                $2433
+              </h4>
             </div>
           </div>
         </div>
+        
+      
       </div>
-    </div>
+    </>
   );
 }
 
