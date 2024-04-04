@@ -67,7 +67,7 @@ function App() {
   return (
     <div>
       {/* <Cursor /> */}
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/category" element={<BlogCatogories />} />

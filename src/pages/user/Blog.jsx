@@ -389,7 +389,7 @@ const Blog = () => {
           </div>
         </div>
         <div className="my-8 space-y-4 font-Georgia text-xl leading-relaxed  text-[#39393a]">
-          <p>{blog?.content}</p>
+          <p >{blog?.content}</p>
           <p>
             I immediately asked myself, why hasn’t it been done before? And the
             answer is simple — Android didn’t allow to implement this, because

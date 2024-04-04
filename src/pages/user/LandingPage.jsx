@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import pic3 from "../../Assets/Icons/save-instagram.png";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function LandingPage() {
   const [blogData, setBlogData] = useState([]);
+  const [category, setCategory] = useState([]);
   const [toggle, setToggle] = useState(false);
   const handleMenu = () => {
     setToggle(!toggle);
@@ -15,6 +17,17 @@ function LandingPage() {
       .then((data) => setBlogData(data.data))
       .catch((err) => {
         console.log(err);
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get("user/blogs")
+      .then((res) => {
+        const category = res.data.map((item) => item.category);
+        setCategory(category);
+      })
+      .catch((err) => {
+        toast.error("error");
       });
   }, []);
 
@@ -132,42 +145,18 @@ function LandingPage() {
             <div className="   font-semibold">Discover More...</div>
             <div className=" md:hidden     mt-4 ">
               <div className=" flex justify-around flex-wrap cursor-pointer">
-                <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
-                  Programming
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Maths
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Self Improvment
-                </div>
-                <div className=" px-4 py-1   mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
-                  Politics
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Science
-                </div>
-                <div className=" px-4 py-1 mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Programming
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Maths
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Self Improvment
-                </div>
-                <div className=" px-4 py-1 mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Programming
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Maths
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Self Improvment
-                </div>
+                {category?.slice(0, 8).map((item, index) => {
+                  return (
+                    <div key={index}>
+                    <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
+                      {item}
+                    </div>
+                    </div>
+                  );
+                })}
               </div>
               <div className=" text-green-400 cursor-pointer inline-block">
-                See more topics
+                <Link to={"/category"}>See more topics</Link>
               </div>
             </div>
           </div>
@@ -209,42 +198,18 @@ function LandingPage() {
             </div>
             <div className="hidden md:block sm:pl-6    mt-4 ">
               <div className=" flex justify-around flex-wrap cursor-pointer">
-                <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
-                  Programming
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Maths
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Self Improvment
-                </div>
-                <div className=" px-4 py-1   mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
-                  Politics
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Science
-                </div>
-                <div className=" px-4 py-1 mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Programming
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Maths
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Self Improvment
-                </div>
-                <div className=" px-4 py-1 mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Programming
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Maths
-                </div>
-                <div className=" px-4 py-1  mb-2  mr-2   bg-[#F2F2F2] rounded-2xl">
-                  Self Improvment
-                </div>
+                {category?.slice(0, 8).map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
+                        {item}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
               <div className=" text-green-400 cursor-pointer inline-block">
-                See more topics
+                <Link to={"/category"}>See more topics</Link>
               </div>
             </div>
           </div>

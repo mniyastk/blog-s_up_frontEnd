@@ -38,6 +38,8 @@ function Login() {
 
     setFormErrors(validate(formValues));
     if (Object.keys(errors).length === 0) {
+      const loadingToastId = toast.loading("Loading");
+
       axios
         .post("http://localhost:3005/user/login", formValues)
         .then((res) => {
@@ -50,13 +52,16 @@ function Login() {
             localStorage.setItem("author", user);
             dispatch(addauthor(res.data.user));
           }
+          toast.dismiss(loadingToastId);
 
           toast.success(res.data.Messg);
           history("/home");
         })
         .catch((err) => {
           console.log(err.response.data);
-          toast.error(err.response.data.Messg);
+          toast.dismiss(loadingToastId);
+
+          toast.error(err.response.data);
         });
     }
   };
