@@ -7,7 +7,6 @@ function AuthorLayout() {
   const author = useSelector((state) => state.author.author);
   const dispatch = useDispatch();
 
-  const [authorinfo, setauthorinfo] = useState(author);
   const [flag, setFlag] = useState(true);
   const history = useNavigate();
 
@@ -76,11 +75,11 @@ function AuthorLayout() {
             >
               <div className="space-y-6 md:space-y-10 mt-10">
                 <h1 className="font-bold text-4xl text-center md:hidden">
-                  {authorinfo.username.slice(0, 1).toUpperCase()}
+                  {author.username.slice(0, 1).toUpperCase()}
                   <span className="text-teal-600">.</span>
                 </h1>
                 <h1 className="hidden capitalize md:block font-bold text-sm md:text-xl text-center">
-                  {authorinfo.username}
+                  {author.username}
                   <span className="text-teal-600">.</span>
                 </h1>
                 <div id="profile" className="space-y-3">
@@ -91,7 +90,7 @@ function AuthorLayout() {
                   />
                   <div>
                     <h2 className="font-medium capitalize text-xs md:text-sm text-center text-teal-500">
-                      {authorinfo.username}
+                      {author.username}
                     </h2>
                     <p className="text-xs text-gray-500 text-center">Author</p>
                   </div>

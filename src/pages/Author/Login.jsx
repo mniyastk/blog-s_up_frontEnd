@@ -46,10 +46,12 @@ function Login() {
           if (res.data.accType === "user") {
             const user = JSON.stringify(res.data.user);
             localStorage.setItem("user", user);
+            localStorage.removeItem("isAuthor");
             dispatch(addUser(res.data.user));
           } else {
             const user = JSON.stringify(res.data.user);
             localStorage.setItem("author", user);
+            localStorage.setItem("isAuthor", true);
             dispatch(addauthor(res.data.user));
           }
           toast.dismiss(loadingToastId);
