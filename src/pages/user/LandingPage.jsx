@@ -156,7 +156,7 @@ function LandingPage() {
                 })}
               </div>
               <div className=" text-green-400 cursor-pointer inline-block">
-                <Link to={"/category"}>See more topics</Link>
+                <Link >See more topics</Link>
               </div>
             </div>
           </div>

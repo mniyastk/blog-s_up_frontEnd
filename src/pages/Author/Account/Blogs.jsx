@@ -2,13 +2,20 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import EditBlog from "../../Blogs/EditBlog";
 
 function Blogs() {
   const [blogData, setBlogData] = useState([]);
   const author = useSelector((state) => state.author.author);
+  const [openMenuId, setOpenMenuId] = useState(null);
+  const [isDelete, setisDelete] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [editBlogData, setEditBlogData] = useState({});
 
   const id = author.authorId;
-   
+  const authorId = author._id;
+
   useEffect(() => {
     axios
       .get(`author/allblogs/${id}`)
@@ -18,22 +25,69 @@ function Blogs() {
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, [id, isDelete]);
+
+  const toggleMenu = (blogId) => {
+    setOpenMenuId(openMenuId === blogId ? null : blogId);
+  };
+
+  const handleEdit = (id) => {
+    const blog = blogData.find((item) => item._id === id);
+    setEditBlogData(blog);
+    setIsEdit(true);
+  };
+
+  const handleDelete = (id) => {
+    const userConfirm = window.confirm("Are you want to delete this post..?");
+    if (userConfirm) {
+      axios
+        .delete(`/author/delete/${id}/${authorId}`)
+        .then((res) => {
+          console.log(res.data);
+          setisDelete(true);
+          toast.success(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setisDelete(true);
+          toast.error(err);
+        });
+    }else{
+      toast.warn("Action Canceled")
+    }
+  };
 
   return (
     <>
       <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-slate-100 py-6 sm:py-12">
         <div className="min-h-28 ">
+          <div className=" z-50 absolute w-full">
+            {isEdit ? (
+              <div>
+                <EditBlog blog={editBlogData} />
+              </div>
+            ) : null}
+          </div>
           <div className="max-w-screen-lg mx-auto py-4">
-            <h2 className="font-bold text-center text-6xl text-slate-700 font-display">
-              Our Blog Post
-            </h2>
-            <p className="text-center mt-4 font-medium text-slate-500">
-              OUR NEWS FEED
-            </p>
+            {blogData.length > 0 ? (
+              <h2 className="font-bold text-center text-6xl text-slate-700 font-display">
+                Blog Post
+              </h2>
+            ) : (
+              <h2 className="font-bold text-center text-6xl text-slate-700 font-display">
+                <Link
+                  className=" underline text-blue-900 hover:text-blue-gray-400"
+                  to={"/author/newblog"}
+                >
+                  {" "}
+                  Create Your First Blog
+                </Link>
+              </h2>
+            )}
+
             <div className="flex gap-6    mt-20">
               {blogData?.map((data) => {
-                 return (
+                return (
                   <div
                     key={data._id}
                     className="bg-white w-1/3 shadow rounded-lg overflow-hidden"
@@ -41,38 +95,16 @@ function Blogs() {
                     <img
                       src={data.image}
                       className="object-cover  h-52 w-full"
-                      alt=""
+                      alt={data.title.slice(0, 20)}
                     />
                     <div className="p-6">
                       <span className="block text-slate-400 font-semibold text-sm">
-                    {new Date(data?.createdAt).toDateString().slice(4)}
+                        {new Date(data?.createdAt).toDateString().slice(4)}
                       </span>
-                      <h3 className="mt-3 font-bold text-lg pb-4 border-b border-slate-300">
+                      <h3 className="mt-3 line-clamp-2 truncate font-bold text-lg pb-4 border-b border-slate-300">
                         <Link to={`/home/blog/${data._id}`}>{data.title}</Link>
                       </h3>
-                      <div className="flex mt-4 gap-4 items-center">
-                        <span className="flex gap-1 items-center text-sm">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="1.5"
-                            stroke="currentColor"
-                            className="w-4 h-4"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
-                            />
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                            />
-                          </svg>
-                          35
-                        </span>
+                      <div className="flex justify-around mt-4 gap-4 items-center">
                         <span className="flex gap-1 items-center text-sm">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +139,38 @@ function Blogs() {
                           </svg>
                           {data.comments.length}
                         </span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          onClick={() => toggleMenu(data._id)}
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          className="w-4 h-4 text-gray-600 ml-2 cursor-pointer"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="1.5"
+                            d="M4 6h16M4 12h16M4 18h16"
+                          />
+                        </svg>
                       </div>
+                      {openMenuId === data._id && (
+                        <div className="mt-4 flex justify-around ">
+                          <div
+                            onClick={() => handleDelete(data._id)}
+                            className=" px-3 py-1 cursor-pointer bg-red-500 rounded-md text-[12px]"
+                          >
+                            Delete
+                          </div>
+                          <div
+                            onClick={() => handleEdit(data._id)}
+                            className=" px-3 py-1 cursor-pointer bg-green-500 rounded-md text-[12px]"
+                          >
+                            Edit
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 );

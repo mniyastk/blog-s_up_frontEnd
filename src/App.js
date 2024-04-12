@@ -11,7 +11,6 @@ import AuthorLayout from "./pages/Author/AuthorLayout";
 import Blogs from "./pages/Author/Account/Blogs";
 import Dashboard from "./pages/Author/Account/Dashboard";
 import Followers from "./pages/Author/Account/Followers";
-import Reports from "./pages/Author/Account/Reports";
 import Messages from "./pages/Author/Account/Messages";
 import NewBlog from "./pages/Author/Account/NewBlog";
 import Blog from "./pages/user/Blog";
@@ -25,6 +24,7 @@ import BlogCatogories from "./pages/Blogs/BlogCatogories";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { addUser } from "./redux/user/userSlice";
 import { addauthor } from "./redux/author/authorSlice";
+import AccountInfo from "./pages/Author/Account/AccountInfo";
 import About from "./pages/Blogs/About";
 import Contact from "./pages/Blogs/Contact";
 import { AnimatePresence } from "framer-motion";
@@ -107,6 +107,7 @@ function App() {
             <Route path="/author/reports" element={<Reports />} />
             <Route path="/author/messages" element={<Messages />} />
             <Route path="/author/newblog" element={<NewBlog />} />
+            <Route path="/author/accountinfo" element={<AccountInfo />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
           <Route path="/create-blog" element={<CreateBlog />} />

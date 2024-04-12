@@ -5,21 +5,21 @@ function Dashboard() {
   const author = useSelector((state) => state.author.author);
   const [authorinfo, setAuthorInfo] = useState(author);
 
-  console.log(authorinfo);
   return (
     <>
-      <div class="flex flex-col justify-center items-center h-[100vh] pt-4">
-        <div class="min-w-[375px] md:min-w-[700px] xl:min-w-[800px] mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
-          <div class="relative flex flex-grow !flex-row   items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
-            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                <span class="flex items-center text-brand-500 dark:text-white">
+      <div className="flex flex-col justify-center items-center h-[100vh] ">
+        <div className=" capitalize font-bold"> {authorinfo.username}'s Dashboard</div>
+        <div className="min-w-[375px] md:min-w-[700px] xl:min-w-[800px] mt-6 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
+          <div className="relative flex flex-grow !flex-row   items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span className="flex items-center text-brand-500 dark:text-white">
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 24 24"
-                    class="h-7 w-7"
+                    className="h-7 w-7"
                     height="1em"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
@@ -30,23 +30,25 @@ function Dashboard() {
                 </span>
               </div>
             </div>
-            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
-              <p class="font-dm text-sm font-medium text-gray-600">Followers</p>
-              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
-                $340.5
+            <div className="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p className="font-dm text-sm font-medium text-gray-600">
+                Followers
+              </p>
+              <h4 className="text-xl font-bold text-navy-700 dark:text-white">
+                345
               </h4>
             </div>
           </div>
-          <div class="relative flex flex-grow !flex-row   items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
-            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                <span class="flex items-center text-brand-500 dark:text-white">
+          <div className="relative flex flex-grow !flex-row   items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span className="flex items-center text-brand-500 dark:text-white">
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 512 512"
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     height="1em"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
@@ -58,25 +60,25 @@ function Dashboard() {
                 </span>
               </div>
             </div>
-            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
-              <p class="font-dm text-sm font-medium text-gray-600">
+            <div className="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p className="font-dm text-sm font-medium text-gray-600">
                 Total Blogs
               </p>
-              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
-                $642.39
+              <h4 className="text-xl font-bold text-navy-700 dark:text-white">
+                39
               </h4>
             </div>
           </div>
-          <div class="relative flex flex-grow !flex-row   items-center  rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
-            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                <span class="flex items-center text-brand-500 dark:text-white">
+          <div className="relative flex flex-grow !flex-row   items-center  rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span className="flex items-center text-brand-500 dark:text-white">
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 24 24"
-                    class="h-7 w-7"
+                    className="h-7 w-7"
                     height="1em"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
@@ -87,23 +89,23 @@ function Dashboard() {
                 </span>
               </div>
             </div>
-            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
-              <p class="font-dm text-sm font-medium text-gray-600">Likes</p>
-              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
-                $574.34
+            <div className="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p className="font-dm text-sm font-medium text-gray-600">Likes</p>
+              <h4 className="text-xl font-bold text-navy-700 dark:text-white">
+                574
               </h4>
             </div>
           </div>
-          <div class="relative flex flex-grow !flex-row  items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
-            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                <span class="flex items-center text-brand-500 dark:text-white">
+          <div className="relative flex flex-grow !flex-row  items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span className="flex items-center text-brand-500 dark:text-white">
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 24 24"
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     height="1em"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
@@ -114,25 +116,25 @@ function Dashboard() {
                 </span>
               </div>
             </div>
-            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
-              <p class="font-dm text-sm font-medium text-gray-600">
+            <div className="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p className="font-dm text-sm font-medium text-gray-600">
                 Comments
               </p>
-              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
-                $1,000
+              <h4 className="text-xl font-bold text-navy-700 dark:text-white">
+                1,000
               </h4>
             </div>
           </div>
-          <div class="relative flex flex-grow !flex-row   items-center  rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
-            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                <span class="flex items-center text-brand-500 dark:text-white">
+          <div className="relative flex flex-grow !flex-row   items-center  rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span className="flex items-center text-brand-500 dark:text-white">
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 24 24"
-                    class="h-7 w-7"
+                    className="h-7 w-7"
                     height="1em"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
@@ -143,23 +145,25 @@ function Dashboard() {
                 </span>
               </div>
             </div>
-            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
-              <p class="font-dm text-sm font-medium text-gray-600">New Tasks</p>
-              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
+            <div className="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p className="font-dm text-sm font-medium text-gray-600">
+                Messages
+              </p>
+              <h4 className="text-xl font-bold text-navy-700 dark:text-white">
                 145
               </h4>
             </div>
           </div>
-          <div class="relative flex flex-grow !flex-row   items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
-            <div class="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-              <div class="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                <span class="flex items-center text-brand-500 dark:text-white">
+          <div className="relative flex flex-grow !flex-row   items-center   rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+            <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
+              <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
+                <span className="flex items-center text-brand-500 dark:text-white">
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 512 512"
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     height="1em"
                     width="1em"
                     xmlns="http://www.w3.org/2000/svg"
@@ -169,18 +173,16 @@ function Dashboard() {
                 </span>
               </div>
             </div>
-            <div class="h-50 ml-4 flex w-auto flex-col justify-center">
-              <p class="font-dm text-sm font-medium text-gray-600">
+            <div className="h-50 ml-4 flex w-auto flex-col justify-center">
+              <p className="font-dm text-sm font-medium text-gray-600">
                 Total Projects
               </p>
-              <h4 class="text-xl font-bold text-navy-700 dark:text-white">
+              <h4 className="text-xl font-bold text-navy-700 dark:text-white">
                 $2433
               </h4>
             </div>
           </div>
         </div>
-        
-      
       </div>
     </>
   );
