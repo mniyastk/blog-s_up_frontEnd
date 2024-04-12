@@ -147,7 +147,7 @@ function AuthorLayout() {
                     <span className="">Blogs</span>
                   </Link>
                   <Link
-                    to={"/author/reports"}
+                    to={"/author/accountInfo"}
                     className="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
                   >
                     <svg
