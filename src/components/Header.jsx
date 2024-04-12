@@ -1,5 +1,4 @@
-// import { jwtDecode } from "jwt-decode";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,10 +9,11 @@ import SearchBar from "./SearchBar";
 import { removeUser } from "../redux/user/userSlice";
 import { removeAuthor } from "../redux/author/authorSlice";
 
-const Header = ({ scrollToFooter }) => {
+const Header = () => {
   const [showDiv, setShowDiv] = useState(false);
   const [showMainBar, setShowMainBar] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+
   const componentRef = useRef();
   const componentRef2 = useRef();
   const searchBarRef = useRef();
@@ -67,14 +67,13 @@ const Header = ({ scrollToFooter }) => {
                 />
               </Link>
             </p>
-            <div className="hidden md:block ">
+            <div className="hidden md:block  ">
               <SearchBar />
             </div>
-            <div
-              onClick={() => setShowSearch(!showSearch)}
-              className=" cursor-pointer md:hidden w-full flex justify-end items-center "
-            >
+            <div className="   md:hidden w-full flex justify-end items-center ">
               <img
+                className=" cursor-pointer"
+                onClick={() => setShowSearch(!showSearch)}
                 width={25}
                 src="https://res.cloudinary.com/dunf6rko6/image/upload/v1711450904/search_1_lfy0py.svg"
                 alt="search"
@@ -111,7 +110,7 @@ const Header = ({ scrollToFooter }) => {
                       isAuthor ? "block" : "hidden"
                     } bg-green-400 rounded-sm flex justify-center items-center px-2 text-xs`}
                   >
-                    Admin
+                    Author
                   </div>
                 </div>
 
@@ -171,12 +170,12 @@ const Header = ({ scrollToFooter }) => {
           </div>
           <div
             ref={componentRef}
-            className={`  items-center  justify-between ${
+            className={` relative items-center  justify-between ${
               showMainBar ? " block" : "hidden"
-            } w- md:flex md:w-auto md:order-1`}
+            } w-full md:flex md:w-auto md:order-1`}
             id="navbar-user"
           >
-            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className=" z-50 md:right-10 absolute w-full  flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <Link
                   to={"/home"}

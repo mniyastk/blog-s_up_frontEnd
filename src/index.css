@@ -18,5 +18,22 @@
   width: 0;
   background: transparent;
 }
+#searchdiv::-webkit-scrollbar {
+  /* width: 1px; */
+  /* color: aquamarine; */
+}
 
+#searchdiv::-webkit-scrollbar {
+  width: 5px; /* Set the width of the scrollbar */
+}
+
+
+
+#searchdiv::-webkit-scrollbar-thumb {
+  background-color: gray; 
+  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-top-left-radius: 50px;
+}
 

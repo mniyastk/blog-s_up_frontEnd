@@ -4,15 +4,12 @@ import { Outlet } from "react-router-dom";
 import Footer from "../Footer";
 
 const UserLayout = () => {
-  const footerRef = useRef();
-  const scrollToFooter = () => {
-    footerRef.current.scrollIntoView({ behavior: "smooth" });
-  };
+  
   return (
     <div>
-      <Header scrollToFooter={scrollToFooter} />
+      <Header  />
       <Outlet />
-      <Footer ref={footerRef} />
+      <Footer />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import Animation from "../../components/Animation";
 
 const Home = () => {
   const [topic, setTopic] = useState({});
@@ -86,6 +87,7 @@ const Home = () => {
   };
 
   return (
+    <Animation >
     <div className=" flex  flex-col items-center justify-center px-[10px] sm:px-[10px] font-Sohnia">
       <div className=" md:mt-10 w-[88%]   ">
         <div className="  shadow-md  sm:w-full sm:h-[70vh] 2xl:h-[80vh] hidden md:flex">
@@ -205,7 +207,7 @@ const Home = () => {
                                 {item.content}
                               </p>
                             </div>
-                            <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
+                            <div className=" w-1/4 ml-1 h-full sm:h-32 hover:animate-pulse">
                               <img
                                 className=" h-full w-full "
                                 src={item.image}
@@ -246,7 +248,7 @@ const Home = () => {
                                 {item.content}
                               </p>
                             </div>
-                            <div className=" w-1/4 ml-1 h-full sm:h-32 bg-red-300">
+                            <div className=" w-1/4 ml-1 h-full sm:h-32 ">
                               <img
                                 className=" h-full w-full "
                                 src={item.image}
@@ -349,7 +351,8 @@ const Home = () => {
         </div>
       </div>
     </div>
+    </Animation>
   );
 };
 
-export default Home;
+export default  Home;
