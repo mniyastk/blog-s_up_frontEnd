@@ -60,8 +60,7 @@ function Login() {
         .catch((err) => {
           console.log(err.response.data);
           toast.dismiss(loadingToastId);
-
-          toast.error(err.response.data);
+          toast.error('something went worng...');
         });
     }
   };

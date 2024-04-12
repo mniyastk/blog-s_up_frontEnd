@@ -11,7 +11,6 @@ import AuthorLayout from "./pages/Author/AuthorLayout";
 import Blogs from "./pages/Author/Account/Blogs";
 import Dashboard from "./pages/Author/Account/Dashboard";
 import Followers from "./pages/Author/Account/Followers";
-import Reports from "./pages/Author/Account/Reports";
 import Messages from "./pages/Author/Account/Messages";
 import NewBlog from "./pages/Author/Account/NewBlog";
 import Blog from "./pages/user/Blog";
@@ -25,6 +24,7 @@ import BlogCatogories from "./pages/Blogs/BlogCatogories";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { addUser } from "./redux/user/userSlice";
 import { addauthor } from "./redux/author/authorSlice";
+import AccountInfo from "./pages/Author/Account/AccountInfo";
 
 axios.defaults.baseURL = "http://localhost:3005/";
 axios.defaults.withCredentials = true;
@@ -70,8 +70,8 @@ function App() {
       <ToastContainer autoClose={2000} />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/category" element={<BlogCatogories />} />
         <Route path="/home" element={<UserLayout />}>
+          <Route path="/home/category" element={<BlogCatogories />} />
           <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
           <Route
             path="/home/blog/:blogId"
@@ -88,7 +88,7 @@ function App() {
           <Route path="/author/blogs" element={<Blogs />} />
           <Route index path="/author" element={<Dashboard />} />
           <Route path="/author/followers" element={<Followers />} />
-          <Route path="/author/reports" element={<Reports />} />
+          <Route path="/author/accountInfo" element={<AccountInfo />} />
           <Route path="/author/messages" element={<Messages />} />
           <Route path="/author/newblog" element={<NewBlog />} />
         </Route>
