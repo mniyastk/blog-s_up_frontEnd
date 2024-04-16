@@ -25,6 +25,9 @@ function AccountInfo() {
     setFromValues({ ...formValues, [name]: value });
   };
   const handleUpdate = () => {
+
+    if (formValues.username.length > 0) {
+   
     const loading = toast.loading("Updating");
     axios
       .put(`/author/updateaccount/${id}`, formValues)
@@ -39,6 +42,7 @@ function AccountInfo() {
         toast.dismiss(loading);
         toast.success(err);
       });
+
   };
 
   return (
@@ -82,6 +86,7 @@ function AccountInfo() {
                   <input
                     type="email"
                     name="email"
+                    onClick={() => toast.error("email cannot  change")}
                     value={formValues.email}
                     className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
                     placeholder={author.email}

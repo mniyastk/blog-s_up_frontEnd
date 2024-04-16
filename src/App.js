@@ -81,8 +81,9 @@ function App() {
       <AnimatePresence mode="wait">
         <Routes key={location.pathname} location={location}>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/category" element={<BlogCatogories />} />
           <Route path="/home" element={<UserLayout />}>
+          <Route path="/home/category" element={<BlogCatogories />} />
+
             <Route
               path="/home"
               element={<ProtectedRoute element={<Home />} />}
@@ -104,7 +105,8 @@ function App() {
             <Route path="/author/blogs" element={<Blogs />} />
             <Route index path="/author" element={<Dashboard />} />
             <Route path="/author/followers" element={<Followers />} />
-            {/* <Route path="/author/reports" element={<Reports />} /> */}
+
+            <Route path="/author/reports" element={<AccountInfo />} />
             <Route path="/author/messages" element={<Messages />} />
             <Route path="/author/newblog" element={<NewBlog />} />
             <Route path="/author/accountinfo" element={<AccountInfo />} />
