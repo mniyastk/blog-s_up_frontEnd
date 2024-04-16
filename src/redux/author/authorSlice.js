@@ -14,8 +14,11 @@ export const authorSlice = createSlice({
     removeAuthor: (state, action) => {
       state.author = null;
     },
+    updateAuthor: (state, action) => {
+      state.author.username = action.payload;
+    },
   },
 });
 
-export const { addauthor, removeAuthor } = authorSlice.actions;
+export const { addauthor, removeAuthor, updateAuthor } = authorSlice.actions;
 export default authorSlice.reducer;

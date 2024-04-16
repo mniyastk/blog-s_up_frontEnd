@@ -8,6 +8,7 @@ import Animation from "../../components/Animation";
 const Account = () => {
   const user = useSelector((state) => state.user.user);
   const [savedList, setSavedList] = useState([]);
+  const [followingList, setFollowingList] = useState([]);
   const [isSave, setIsSave] = useState(true);
   const [selectDiv, setSelectDiv] = useState("saved");
 
@@ -19,6 +20,24 @@ const Account = () => {
       })
       .catch((err) => toast.error("Error"));
   }, [isSave, user._id]);
+
+  useEffect(() => {
+    axios
+      .get(`user/getfollowing/${user._id}`)
+      .then((res) => {
+        setFollowingList(res.data);
+      })
+      .catch((err) => toast.error("Error"));
+  });
+
+  const handleUnfollow = (authorId) => {
+    axios
+      .delete(`/user/unfollow/${authorId}/${user?._id}`)
+      .then((res) => {
+        toast.success("unfollowed");
+      })
+      .catch((err) => toast.error);
+  };
 
   const handleUnSaveList = (blogId) => {
     setIsSave(false);
@@ -119,34 +138,42 @@ const Account = () => {
                   );
                 })}
             </div>
-            <div
-              className={`${selectDiv === "following" ? "block" : "hidden"}`}
-            >
-              <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
-                <li class="pb-3 sm:pb-4">
-                  <div class="flex items-center space-x-4 rtl:space-x-reverse">
-                    <div class="flex-shrink-0">
-                      <img
-                        class="w-8 h-8 rounded-full"
-                        src="/docs/images/people/profile-picture-1.jpg"
-                        alt="Neil image"
-                      />
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                        Neil Sims
-                      </p>
-                      <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                        email@flowbite.com
-                      </p>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                      <p className=" text-green-600">Following</p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            {followingList.map((item) => {
+              return (
+                <div
+                  className={`${
+                    selectDiv === "following" ? "block" : "hidden"
+                  }`}
+                >
+                  <ul class="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+                    <li class="pb-3 pt-2 sm:pb-4">
+                      <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                        <div class="flex-shrink-0">
+                          <img
+                            class="w-8 h-8 rounded-full"
+                            src="/docs/images/people/profile-picture-1.jpg"
+                            alt="Neil image"
+                          />
+                        </div>
+                        <div class="flex-1 min-w-0">
+                          <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            {item.username}
+                          </p>
+                          <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                            {item.email}
+                          </p>
+                        </div>
+                        <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                          <p onClick={()=>handleUnfollow(item._id)} className=" text-green-600 cursor-pointer">
+                            Unfollow
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className=" border-l ">
