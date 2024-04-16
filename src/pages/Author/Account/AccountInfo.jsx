@@ -15,26 +15,30 @@ function AccountInfo() {
   const [isEdit, setIsEdit] = useState(false);
   const handleEdit = () => {
     setIsEdit(!isEdit);
-    toast.info('Edit your details')
+    toast.info("Edit your details");
   };
   const handleOnchange = (e) => {
     const { name, value } = e.target;
     setFromValues({ ...formValues, [name]: value });
   };
   const handleUpdate = () => {
-    const loading = toast.loading("Updating");
-    axios
-      .put(`/author/updateaccount/${id}`, formValues)
-      .then((res) => {
-        console.log(res.data);
-        toast.dismiss(loading);
-        toast.success(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.dismiss(loading);
-        toast.success(err);
-      });
+    if (formValues.username.length > 0) {
+      const loading = toast.loading("Updating");
+      axios
+        .put(`/author/updateaccount/${id}`, formValues)
+        .then((res) => {
+          console.log(res.data);
+          toast.dismiss(loading);
+          toast.success(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.dismiss(loading);
+          toast.success(err);
+        });
+    } else {
+      toast.error("Please fill the empty fields");
+    }
   };
 
   return (
@@ -78,6 +82,7 @@ function AccountInfo() {
                   <input
                     type="email"
                     name="email"
+                    onClick={() => toast.error("email cannot  change")}
                     value={formValues.email}
                     className="w-11/12 focus:outline-none focus:text-gray-600 p-2"
                     placeholder={author.email}
