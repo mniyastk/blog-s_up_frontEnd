@@ -104,7 +104,7 @@ function App() {
             <Route path="/author/blogs" element={<Blogs />} />
             <Route index path="/author" element={<Dashboard />} />
             <Route path="/author/followers" element={<Followers />} />
-            <Route path="/author/reports" element={<Reports />} />
+            {/* <Route path="/author/reports" element={<Reports />} /> */}
             <Route path="/author/messages" element={<Messages />} />
             <Route path="/author/newblog" element={<NewBlog />} />
             <Route path="/author/accountinfo" element={<AccountInfo />} />

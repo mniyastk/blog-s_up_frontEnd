@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import axios from "axios";
+import { updateAuthor } from "../../../redux/author/authorSlice";
 
 function AccountInfo() {
   const author = useSelector((state) => state.author.author);
+
+  const dispatch = useDispatch();
   const id = author._id;
   const [formValues, setFromValues] = useState({
     username: "",
@@ -15,7 +18,7 @@ function AccountInfo() {
   const [isEdit, setIsEdit] = useState(false);
   const handleEdit = () => {
     setIsEdit(!isEdit);
-    toast.info('Edit your details')
+    toast.info("Edit your details");
   };
   const handleOnchange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +30,7 @@ function AccountInfo() {
       .put(`/author/updateaccount/${id}`, formValues)
       .then((res) => {
         console.log(res.data);
+        dispatch(updateAuthor(formValues.username));
         toast.dismiss(loading);
         toast.success(res.data);
       })
