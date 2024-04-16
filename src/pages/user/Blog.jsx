@@ -35,16 +35,24 @@ const Blog = () => {
     }));
   };
 
-  const handleFollow = () => {
+  const user = useSelector((state) => state.user.user);
+  const author = useSelector((state) => state.author.author);
+
+  const handleFollow = (authorId) => {
+    axios
+      .post(`/user/follow/${authorId}/${user._id}`)
+      .then((res) => {
+        toast.success("Followed");
+      })
+      .catch((err) => {
+        toast.error("Error");
+      });
     setIsFollowClicked(!isFollowClicked);
   };
 
   useClickAway(emojiRef, () => {
     setIsEmoji(false);
   });
-
-  const user = useSelector((state) => state.user.user);
-  const author = useSelector((state) => state.author.author);
 
   useEffect(() => {
     if (user.isAuthenticated) {
@@ -110,7 +118,7 @@ const Blog = () => {
       .get(`user/blogs`)
       .then((res) => {
         setBlogs(res.data);
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
       })
       .catch((err) => {
         toast.error("Error ");
@@ -388,7 +396,7 @@ const Blog = () => {
               <div className=" flex gap-5">
                 <p className=" text-lg">{blog.authorId}</p>
                 <p
-                  onClick={handleFollow}
+                  onClick={() => handleFollow(blog.author)}
                   className={` cursor-pointer ${
                     isFollow === "Follow" ? "text-green-500" : "text-gray-500"
                   }  text-lg`}
