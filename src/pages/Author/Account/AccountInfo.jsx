@@ -25,24 +25,22 @@ function AccountInfo() {
     setFromValues({ ...formValues, [name]: value });
   };
   const handleUpdate = () => {
-
     if (formValues.username.length > 0) {
-   
-    const loading = toast.loading("Updating");
-    axios
-      .put(`/author/updateaccount/${id}`, formValues)
-      .then((res) => {
-        console.log(res.data);
-        dispatch(updateAuthor(formValues.username));
-        toast.dismiss(loading);
-        toast.success(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.dismiss(loading);
-        toast.success(err);
-      });
-
+      const loading = toast.loading("Updating");
+      axios
+        .put(`/author/updateaccount/${id}`, formValues)
+        .then((res) => {
+          console.log(res.data);
+          dispatch(updateAuthor(formValues.username));
+          toast.dismiss(loading);
+          toast.success(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.dismiss(loading);
+          toast.success(err);
+        });
+    }
   };
 
   return (
