@@ -81,8 +81,8 @@ function App() {
       <AnimatePresence mode="wait">
         <Routes key={location.pathname} location={location}>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/category" element={<BlogCatogories />} />
           <Route path="/home" element={<UserLayout />}>
+            <Route path="/home/category" element={<BlogCatogories />} />
             <Route
               path="/home"
               element={<ProtectedRoute element={<Home />} />}

@@ -21,14 +21,14 @@ function AuthorLayout() {
     const response = window.confirm("Are you Want to Logout...?");
     if (response) {
       // dispatch(removeAuthor());
-      localStorage.clear()
+      localStorage.clear();
       history("/");
     }
   };
   return (
     <>
       <div className=" flex ">
-        <div className="font-poppins antialiased">
+        <div className="font-poppins antialiased absolute sm:static">
           {flag ? (
             <button
               onClick={handleHamburg}
@@ -75,7 +75,7 @@ function AuthorLayout() {
             >
               <div className="space-y-6 md:space-y-10 mt-10">
                 <h1 className="font-bold text-4xl text-center md:hidden">
-                  {author.username.slice(0, 1).toUpperCase()}
+                  {author?.username?.slice(0, 1).toUpperCase()}
                   <span className="text-teal-600">.</span>
                 </h1>
                 <h1 className="hidden capitalize md:block font-bold text-sm md:text-xl text-center">
@@ -116,7 +116,7 @@ function AuthorLayout() {
                     </svg>
                   </button>
                 </div> */}
-                <div id="menu" className="flex flex-col space-y-2">
+                <div id="menu" className="flex flex-col space-y-2 ">
                   <Link
                     to={"/author"}
                     className="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
@@ -243,7 +243,7 @@ function AuthorLayout() {
             </div>
           ) : null}
         </div>
-        <div className=" w-full ml-9">
+        <div className=" w-full h-screen overflow-y-auto">
           <Outlet />
         </div>
       </div>
