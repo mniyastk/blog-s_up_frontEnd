@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-
 import axios from "axios";
 import { updateAuthor } from "../../../redux/author/authorSlice";
 
 function AccountInfo() {
   const author = useSelector((state) => state.author.author);
-
   const dispatch = useDispatch();
   const id = author._id;
   const [formValues, setFromValues] = useState({
@@ -25,24 +23,22 @@ function AccountInfo() {
     setFromValues({ ...formValues, [name]: value });
   };
   const handleUpdate = () => {
-
     if (formValues.username.length > 0) {
-   
-    const loading = toast.loading("Updating");
-    axios
-      .put(`/author/updateaccount/${id}`, formValues)
-      .then((res) => {
-        console.log(res.data);
-        dispatch(updateAuthor(formValues.username));
-        toast.dismiss(loading);
-        toast.success(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.dismiss(loading);
-        toast.success(err);
-      });
-
+      const loading = toast.loading("Updating");
+      axios
+        .put(`/author/updateaccount/${id}`, formValues)
+        .then((res) => {
+          console.log(res.data);
+          dispatch(updateAuthor(formValues.username));
+          toast.dismiss(loading);
+          toast.success(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.dismiss(loading);
+          toast.success(err);
+        });
+    }
   };
 
   return (
