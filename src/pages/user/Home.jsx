@@ -72,6 +72,8 @@ const Home = () => {
     const rightBtn = document.getElementById("btnRight");
     const scrollLeftValue = Math.ceil(tabMenu.scrollLeft);
     const scrollableWidth = tabMenu.scrollWidth - tabMenu.clientWidth;
+
+    console.log(scrollLeftValue);
     leftBtn.style.visibility = scrollLeftValue > 0 ? "visible" : "hidden";
     rightBtn.style.visibility =
       scrollableWidth === scrollLeftValue ? "hidden" : "visible";
@@ -79,12 +81,20 @@ const Home = () => {
 
   const handleLeft = () => {
     const tabMenu = document.getElementById("scrollTab");
-    tabMenu.scrollLeft -= 150;
+    // tabMenu.scrollLeft -= 150;
+    tabMenu.scroll({
+      left: tabMenu.scrollLeft - 150,
+      behavior: 'smooth'
+    });
     iconVisibility();
   };
   const handleRight = () => {
     const tabMenu = document.getElementById("scrollTab");
-    tabMenu.scrollLeft += 150;
+    // tabMenu.scrollLeft += 150;
+    tabMenu.scroll({
+      left: tabMenu.scrollLeft + 150,
+      behavior: 'smooth'
+    });
     iconVisibility();
   };
 
