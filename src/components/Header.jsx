@@ -54,8 +54,8 @@ const Header = () => {
   };
 
   return (
-    <div>
-      <nav className="bg-white border-b dark:bg-gray-900  text-l">
+    <div className=" sticky z-50 top-0">
+      <nav className=" bg-white border-b dark:bg-gray-900  text-l">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <div className=" flex space-x-3 w-2/3 md:w-1/3">
             <p className="flex items-center    w-3/4 md:w-fit">
@@ -192,13 +192,21 @@ const Header = () => {
                   About
                 </Link>
               </li>
+              {author?.isAuthenticated && (
+                <li>
+                  <Link
+                    to={"/author/newblog"}
+                    className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    Write
+                  </Link>
+                </li>
+              )}
               <li>
-                <Link to={'/author/newblog'} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                  Write
-                </Link>
-              </li>
-              <li>
-                <Link to={'/home/category'} className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                <Link
+                  to={"/home/category"}
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
                   Explore
                 </Link>
               </li>

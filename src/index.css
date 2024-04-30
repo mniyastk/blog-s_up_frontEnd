@@ -18,22 +18,29 @@
   width: 0;
   background: transparent;
 }
-#searchdiv::-webkit-scrollbar {
-  /* width: 1px; */
-  /* color: aquamarine; */
-}
 
 #searchdiv::-webkit-scrollbar {
-  width: 5px; /* Set the width of the scrollbar */
+  width: 5px;
 }
-
-
+#sidebar::-webkit-scrollbar {
+  width: 8px;
+}
 
 #searchdiv::-webkit-scrollbar-thumb {
-  background-color: gray; 
+  background-color: gray;
+  border-bottom-right-radius: 50px;
+  border-bottom-left-radius: 50px;
+  border-top-right-radius: 50px;
+  border-top-left-radius: 50px;
+}
+#sidebar::-webkit-scrollbar-thumb {
+  background-color: #009688;
   border-bottom-right-radius: 50px;
   border-bottom-left-radius: 50px;
   border-top-right-radius: 50px;
   border-top-left-radius: 50px;
 }
 
+#sidebar::-webkit-scrollbar-track {
+  background-color: rgb(172, 169, 169);
+}

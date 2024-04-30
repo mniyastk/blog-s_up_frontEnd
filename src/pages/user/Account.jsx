@@ -152,7 +152,7 @@ const Account = () => {
                           <img
                             class="w-8 h-8 rounded-full"
                             src="/docs/images/people/profile-picture-1.jpg"
-                            alt="Neil image"
+                            alt="Neil"
                           />
                         </div>
                         <div class="flex-1 min-w-0">
@@ -167,6 +167,7 @@ const Account = () => {
                           <p onClick={()=>handleUnfollow(item._id)} className=" text-green-600 cursor-pointer">
                             Unfollow
                           </p>
+                          <input type="file" />
                         </div>
                       </div>
                     </li>
