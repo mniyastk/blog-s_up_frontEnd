@@ -48,7 +48,7 @@ function Register() {
 
   const handleUser = () => {
     axios
-      .post("http://localhost:3005/user/register", formValues)
+      .post("user/register", formValues)
       .then((res) => {
         toast.success("Account Created Successfully");
         history("/home");
@@ -61,7 +61,7 @@ function Register() {
   };
   const hanldeAuthor = () => {
     axios
-      .post("http://localhost:3005/author/register", formValues)
+      .post("author/register", formValues)
       .then((res) => {
         toast.success("Account Created Successfully");
         history("/home");
