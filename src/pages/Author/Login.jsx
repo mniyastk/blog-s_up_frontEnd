@@ -41,7 +41,7 @@ function Login() {
       const loadingToastId = toast.loading("Loading");
 
       axios
-        .post("http://localhost:3005/user/login", formValues)
+        .post("user/login", formValues)
         .then((res) => {
           if (res.data.accType === "user") {
             const user = JSON.stringify(res.data.user);
