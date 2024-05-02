@@ -51,7 +51,6 @@ function App() {
           })
           .catch((err) => {
             setLoading(false);
-            toast.error("error");
           });
       } else {
         axios
@@ -62,7 +61,6 @@ function App() {
           })
           .catch((err) => {
             setLoading(false);
-            toast.error("error");
           });
       }
     };
