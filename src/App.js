@@ -29,7 +29,7 @@ import About from "./pages/Blogs/About";
 import Contact from "./pages/Blogs/Contact";
 import { AnimatePresence } from "framer-motion";
 
-axios.defaults.baseURL = "http://localhost:3005/";
+axios.defaults.baseURL = "https://server.blogsup.shop/api/";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -51,7 +51,6 @@ function App() {
           })
           .catch((err) => {
             setLoading(false);
-            toast.error("error");
           });
       } else {
         axios
@@ -62,7 +61,6 @@ function App() {
           })
           .catch((err) => {
             setLoading(false);
-            toast.error("error");
           });
       }
     };

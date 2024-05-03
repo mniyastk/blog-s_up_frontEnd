@@ -164,10 +164,12 @@ const Account = () => {
                           </p>
                         </div>
                         <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                          <p onClick={()=>handleUnfollow(item._id)} className=" text-green-600 cursor-pointer">
+                          <p
+                            onClick={() => handleUnfollow(item._id)}
+                            className=" text-green-600 cursor-pointer"
+                          >
                             Unfollow
                           </p>
-                          <input type="file" />
                         </div>
                       </div>
                     </li>
