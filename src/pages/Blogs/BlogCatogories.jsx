@@ -18,70 +18,39 @@ function BlogCatogories() {
   }, []);
   return (
     <div className=" px-[60px] min-h-screen">
-      {/* <div className="  flex justify-between items-center mt-1 pb-3 border-b-2  border-b-gray-300">
-        <div className=" flex justify-between items-center">
-          <img
-            className=" w-[100px] h-[50px]"
-            src="https://res.cloudinary.com/dunf6rko6/image/upload/v1708602018/b_zdbtfu.svg"
-            alt="Logo"
-          />
-          <span>Blog'sUp</span>
-        </div>
-        <div>
-          <ul className=" flex justify-between ">
-            <li>
-              <Link to={"/login"} className=" mr-5">
-                Write
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/register"}
-                className=" mr-5 bg-[#1A8917] px-5 py-2 rounded-2xl text-white"
-              >
-                Sign up
-              </Link>
-            </li>
-            <li>
-              <Link to={"/login"} className=" mr-5">
-                Sign in
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div> */}
       <div className=" text-center mt-6">
         <h2 className=" text-[30px] font-semibold">Explore Topics</h2>
       </div>
-      <section class="py-10 relative bg-white sm:py-16 lg:py-24 lg:pt-36">
+      <section className="py-10 relative bg-white sm:py-16 lg:py-24 lg:pt-36">
         <svg
           id="visual"
           viewBox="0 0 2000 600"
-          class="w-full   absolute top-0 left-0 z-0 "
+          className="w-full   absolute top-0 left-0 z-0 "
           xmlns="http://www.w3.org/2000/svg"
           version="1.1"
         >
           <path
             d="M0 18L65 18L65 66L129 66L129 37L194 37L194 44L258 44L258 25L323 25L323 35L387 35L387 36L452 36L452 38L516 38L516 34L581 34L581 26L645 26L645 68L710 68L710 32L774 32L774 27L839 27L839 29L903 29L903 31L968 31L968 83L1032 83L1032 65L1097 65L1097 57L1161 57L1161 66L1226 66L1226 90L1290 90L1290 66L1355 66L1355 32L1419 32L1419 35L1484 35L1484 18L1548 18L1548 94L1613 94L1613 96L1677 96L1677 72L1742 72L1742 88L1806 88L1806 42L1871 42L1871 46L1935 46L1935 33L2000 33L2000 18L2000 0L2000 0L1935 0L1935 0L1871 0L1871 0L1806 0L1806 0L1742 0L1742 0L1677 0L1677 0L1613 0L1613 0L1548 0L1548 0L1484 0L1484 0L1419 0L1419 0L1355 0L1355 0L1290 0L1290 0L1226 0L1226 0L1161 0L1161 0L1097 0L1097 0L1032 0L1032 0L968 0L968 0L903 0L903 0L839 0L839 0L774 0L774 0L710 0L710 0L645 0L645 0L581 0L581 0L516 0L516 0L452 0L452 0L387 0L387 0L323 0L323 0L258 0L258 0L194 0L194 0L129 0L129 0L65 0L65 0L0 0Z"
             fill="#eaeaea"
-            stroke-linecap="square"
-            stroke-linejoin="miter"
+            strokeLinecap="square"
+            strokeLinejoin="miter"
           ></path>
         </svg>
 
-        <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 text-center  ">
-          <div class="max-w-2xl mx-auto text-center">
-            <h2 class="text-2xl font-bold  text-black sm:text-4xl sm:leading-tight">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 text-center  ">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-2xl font-bold  text-black sm:text-4xl sm:leading-tight">
               Here is the available topics for You...
             </h2>
           </div>
 
-          <div class=" grid items-center max-w-4xl grid-cols-2 gap-4 mx-auto mt-12 md:mt-20 md:grid-cols-4  ">
+          <div className=" grid items-center max-w-4xl grid-cols-2 gap-4 mx-auto mt-12 md:mt-20 md:grid-cols-4  ">
             {category?.map((item, index) => {
               return (
                 <div
                   key={index}
-                  class="bg-white capitalize font-semibold cursor-pointer h-12 flex shadow-lg items-center justify-center"
+                  onClick={() => toast.info("Comming soon....!")}
+                  className="bg-white capitalize font-semibold cursor-pointer h-12 flex shadow-lg items-center justify-center"
                 >
                   <Link className=" text-blue-500e cursor-pointer">{item}</Link>
                 </div>

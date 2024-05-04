@@ -62,7 +62,9 @@ function Login() {
         .catch((err) => {
           console.log(err.response.data);
           toast.dismiss(loadingToastId);
-          toast.error('something went worng...');
+          toast.error(
+            err.response.data ? err.response.data : "something went worng..."
+          );
         });
     }
   };
@@ -129,7 +131,7 @@ function Login() {
               </label>
             </div>
 
-            <div className="mb-6 text-blue-500">
+            <div onClick={()=>toast.info('available Soon...!')} className="mb-6 text-blue-500">
               <Link to={""} className="hover:underline">
                 Forgot Password?
               </Link>

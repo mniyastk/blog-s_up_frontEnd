@@ -125,7 +125,10 @@ function EditBlog({ blog }) {
             >
               Post
             </div>
-            <div onClick={()=>window.location.reload()} className="btn border rounded-md  p-1 px-4 font-semibold cursor-pointer hover:bg-gray-500 text-gray-200 ml-2 bg-red-500">
+            <div
+              onClick={() => window.location.reload()}
+              className="btn border rounded-md  p-1 px-4 font-semibold cursor-pointer hover:bg-gray-500 text-gray-200 ml-2 bg-red-500"
+            >
               Cancel
             </div>
           </div>
