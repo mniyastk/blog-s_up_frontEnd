@@ -1,37 +1,44 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { removeAuthor } from "../../redux/author/authorSlice";
+import { useMediaQuery } from "@react-hook/media-query";
 
 function AuthorLayout() {
   const author = useSelector((state) => state.author.author);
-  const dispatch = useDispatch();
+  const sidebarRef = useRef(null);
+  const isSmallScreen = useMediaQuery("(max-width: 767px)");
 
   const [flag, setFlag] = useState(true);
   const history = useNavigate();
-
-  const handleHamburg = () => {
-    setFlag(false);
-  };
-  const handleHamburgClose = () => {
-    setFlag(true);
-  };
-
   const handleLogout = () => {
     const response = window.confirm("Are you Want to Logout...?");
     if (response) {
-      // dispatch(removeAuthor());
       localStorage.clear();
       history("/");
     }
   };
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        flag &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(event.target)
+      ) {
+        setFlag(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [flag]);
   return (
     <>
       <div className=" flex ">
-        <div className="font-poppins antialiased absolute sm:static">
+        <div className="font-poppins z-50 antialiased absolute sm:static">
           {flag ? (
             <button
-              onClick={handleHamburg}
+              onClick={() => setFlag(false)}
               className="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden"
             >
               <svg
@@ -42,14 +49,14 @@ function AuthorLayout() {
               >
                 <path
                   fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  d="M4.707 4.293a1 1 0 011.414 0L10 8.586l4.879-4.879a1 1 0 111.414 1.414L11.414 10l4.879 4.879a1 1 0 01-1.414 1.414L10 11.414l-4.879 4.879a1 1 0 01-1.414-1.414L8.586 10 3.707 5.121a1 1 0 010-1.414z"
                   clipRule="evenodd"
                 ></path>
               </svg>
             </button>
           ) : (
             <button
-              onClick={handleHamburgClose}
+              onClick={() => setFlag(true)}
               className="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500   focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden"
             >
               <svg
@@ -69,8 +76,11 @@ function AuthorLayout() {
 
           {flag ? (
             <div
+              ref={isSmallScreen ? sidebarRef : null}
               id="sidebar"
-              className="bg-white  h-screen md:block shadow-xl px-3 w-30 md:w-60 lg:w-60 overflow-x-hidden transition-transform duration-300 ease-in-out"
+              className={`bg-white  h-screen md:block shadow-xl px-3 w-30 md:w-60 lg:w-60 overflow-x-hidden transition-transform duration-300 ease-in-out ${
+                isSmallScreen ? "" : "hidden"
+              }`}
               x-show="sidenav"
             >
               <div className="space-y-6 md:space-y-10 mt-10">
@@ -95,27 +105,7 @@ function AuthorLayout() {
                     <p className="text-xs text-gray-500 text-center">Author</p>
                   </div>
                 </div>
-                {/* <div className="flex border-2 border-gray-200 rounded-md focus-within:ring-2 ring-teal-500">
-                  <input
-                    type="text"
-                    className="w-full rounded-tl-md rounded-bl-md px-2 py-3 text-sm text-gray-600 focus:outline-none"
-                    placeholder="Search"
-                  />
-                  <button className="rounded-tr-md rounded-br-md px-2 py-3 hidden md:block">
-                    <svg
-                      className="w-4 h-4 mr-3  fill-current"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clipRule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
-                </div> */}
+
                 <div id="menu" className="flex flex-col space-y-2 ">
                   <Link
                     to={"/author"}
@@ -243,8 +233,10 @@ function AuthorLayout() {
             </div>
           ) : null}
         </div>
-        <div className=" w-full h-screen overflow-y-auto">
-          <Outlet />
+        <div className=" w-full h-screen     overflow-y-auto">
+          <div className=" px-2">
+            <Outlet />
+          </div>
         </div>
       </div>
     </>
