@@ -2,7 +2,7 @@ import Login from "./pages/Author/Login";
 import { Route, Routes, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/user/Home";
 import UserLayout from "./components/layout/UserLayout";
@@ -20,7 +20,6 @@ import Account from "./pages/user/Account";
 import axios from "axios";
 import CreateBlog from "./pages/Blogs/CreateBlog";
 import BlogCatogories from "./pages/Blogs/BlogCatogories";
-// import Cursor from "./components/Cursor";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { addUser } from "./redux/user/userSlice";
 import { addauthor } from "./redux/author/authorSlice";
@@ -29,7 +28,8 @@ import About from "./pages/Blogs/About";
 import Contact from "./pages/Blogs/Contact";
 import { AnimatePresence } from "framer-motion";
 
-axios.defaults.baseURL = "https://server.blogsup.shop/api/";
+// axios.defaults.baseURL = "https://server.blogsup.shop/api/";
+axios.defaults.baseURL = "http://localhost:3005/";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -46,6 +46,7 @@ function App() {
         axios
           .get("/user/getuser", { withCredentials: true })
           .then((res) => {
+            console.log("from user");
             dispatch(addUser(res.data));
             setLoading(false);
           })
@@ -56,6 +57,7 @@ function App() {
         axios
           .get("/author/getauthor", { withCredentials: true })
           .then((res) => {
+            console.log("from author");
             dispatch(addauthor(res.data));
             setLoading(false);
           })
@@ -69,7 +71,9 @@ function App() {
 
   if (loading) {
     return (
-      <div className=" w-screen h-screen flex justify-center items-center"></div>
+      <div>
+        <LandingPage />
+      </div>
     );
   }
 

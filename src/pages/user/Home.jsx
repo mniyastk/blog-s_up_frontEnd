@@ -84,7 +84,7 @@ const Home = () => {
     // tabMenu.scrollLeft -= 150;
     tabMenu.scroll({
       left: tabMenu.scrollLeft - 150,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
     iconVisibility();
   };
@@ -93,7 +93,7 @@ const Home = () => {
     // tabMenu.scrollLeft += 150;
     tabMenu.scroll({
       left: tabMenu.scrollLeft + 150,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
     iconVisibility();
   };
@@ -202,7 +202,7 @@ const Home = () => {
                               }}
                             ></div>
                             <p className=" text-sm sm:text-l font-Sohnia ">
-                              Bijeesh M
+                              {item?.author?.username}
                             </p>
                             <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
                               {new Date(item.createdAt).toDateString().slice(4)}
@@ -243,7 +243,7 @@ const Home = () => {
                               }}
                             ></div>
                             <p className=" text-sm sm:text-l font-Sohnia ">
-                              {item.authorId}
+                              {item?.author?.username}
                             </p>
                             <p className=" text-gray-500 text-sm md:text-l font-Sohnia">
                               {new Date(item.createdAt).toDateString().slice(4)}
@@ -301,7 +301,7 @@ const Home = () => {
                                   "url(https://res.cloudinary.com/dunf6rko6/image/upload/v1708688153/dho7c8iv0o4ns4jza1yp.webp)",
                               }}
                             ></div>
-                            <p className=" text-sm">{item.authorId}</p>
+                            <p className=" text-sm">{item?.author?.username}</p>
                           </div>
                           <Link to={`/home/blog/${item._id}`}>
                             <p className=" text-md font-bold ">{item.title}</p>

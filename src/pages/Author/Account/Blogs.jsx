@@ -15,6 +15,7 @@ function Blogs() {
 
   const id = author.authorId;
   const authorId = author._id;
+  console.log(author);
 
   useEffect(() => {
     axios
@@ -93,9 +94,9 @@ function Blogs() {
                     className="bg-white w-1/3 shadow rounded-lg overflow-hidden"
                   >
                     <img
-                      src={data.image}
+                      src={data?.image}
                       className="object-cover  h-52 w-full"
-                      alt={data.title.slice(0, 20)}
+                      alt={data?.title.slice(0, 20)}
                     />
                     <div className="p-6">
                       <span className="block text-slate-400 font-semibold text-sm">

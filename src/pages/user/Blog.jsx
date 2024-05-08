@@ -18,6 +18,7 @@ const Blog = () => {
   const [comment, setComment] = useState("");
   const [isEmoji, setIsEmoji] = useState(false);
   const [isPosted, setIsPosted] = useState(false);
+  const [isPosting, setIsPosting] = useState(false);
   const [comments, setComments] = useState([]);
 
   const [editedComment, setEditedComment] = useState("");
@@ -25,6 +26,7 @@ const Blog = () => {
   const commentRef = useRef();
   const commentOptionRef = useRef();
   const emojiRef = useRef();
+  const commentSectionRef = useRef(null);
 
   const { blogId } = useParams();
 
@@ -39,11 +41,10 @@ const Blog = () => {
   const author = useSelector((state) => state.author.author);
 
   const handleFollow = (authorId) => {
+    console.log(authorId);
     axios
       .post(`/user/follow/${authorId}/${user._id}`)
-      .then((res) => {
-        toast.success("Followed");
-      })
+      .then((res) => {})
       .catch((err) => {
         toast.error("Error");
       });
@@ -81,13 +82,17 @@ const Blog = () => {
   }, [blogId, user.isAuthenticated, user._id]);
 
   const handlePostComment = (e) => {
+    setIsPosting(true);
     e.preventDefault();
     if (comment !== "" && user) {
       axios
         .post(`user/comment/${blog._id}/${user._id}`, { comment })
         .then((res) => {
-          toast.success("Comment Posted");
           setIsPosted(!isPosted);
+          setIsPosting(false);
+          if (commentSectionRef.current) {
+            commentSectionRef.current.scrollTop = 0;
+          }
           setComment("");
         })
         .catch((err) => toast.error("error"));
@@ -95,7 +100,8 @@ const Blog = () => {
       axios
         .post(`author/comment/${blog._id}/${author._id}`, { comment })
         .then((res) => {
-          toast.success("commented");
+          setIsPosted(!isPosted);
+          setComment("");
         })
         .catch((err) => toast.error("error"));
     }
@@ -155,7 +161,6 @@ const Blog = () => {
     axios
       .delete(`/user/removecomment/${blogId}/${commentId}`)
       .then((res) => {
-        toast.success("Removed");
         setShowCommentOptions(false);
       })
       .catch((err) => {
@@ -165,15 +170,16 @@ const Blog = () => {
 
   const handleSaveList = () => {
     setIsSave(!isSave);
-    axios
-      .post(`user/blog/save/${blogId}/${user?._id}`)
-      .then((res) => toast.success("Saved"));
+    axios.post(`user/blog/save/${blogId}/${user?._id}`).then((res) => {});
   };
   const handleUnSaveList = () => {
     setIsSave(false);
     axios
       .delete(`user/blog/unsave/${blogId}/${user?._id}`)
-      .then((res) => toast.success("Unsaved"));
+      .then((res) => {})
+      .catch((err) => {
+        toast.error("Unsave failed");
+      });
   };
 
   const handleSaveComment = (commentId, id) => {
@@ -186,7 +192,6 @@ const Blog = () => {
           setCommentVisibility(true);
           const comment = document.getElementById(id);
           comment.style.display = "none";
-          // toast.success("");
         })
         .catch((err) => {
           toast.error("error");
@@ -237,7 +242,11 @@ const Blog = () => {
               </h2>
             </div>
 
-            <div className=" h-[250px] overflow-y-scroll " id="Comments">
+            <div
+              ref={commentSectionRef}
+              className=" h-[250px] overflow-y-scroll "
+              id="Comments"
+            >
               {comments
                 ?.sort((a, b) => new Date(b.created) - new Date(a.created))
                 .map((comment, index) => {
@@ -377,7 +386,11 @@ const Blog = () => {
                 <img
                   width={30}
                   onClick={handlePostComment}
-                  src="https://res.cloudinary.com/dunf6rko6/image/upload/v1711968585/send_odk5qu.svg"
+                  src={
+                    !isPosting
+                      ? "https://res.cloudinary.com/dunf6rko6/image/upload/v1711968585/send_odk5qu.svg"
+                      : "https://res.cloudinary.com/dunf6rko6/image/upload/v1714731877/Spinner_1x-1.0s-200px-200px_eizpjp.gif"
+                  }
                   alt="send"
                 />
               </button>
@@ -394,7 +407,7 @@ const Blog = () => {
             ></div>
             <div className="  ml-5 my-1 ">
               <div className=" flex gap-5">
-                <p className=" text-lg">{blog.authorId}</p>
+                <p className=" text-lg">{blog?.author?.username}</p>
                 <p
                   onClick={() => handleFollow(blog.author)}
                   className={` cursor-pointer ${
@@ -532,7 +545,7 @@ const Blog = () => {
           </div>
           <hr className=" border-gray-300 my-6" />
           <Link to={"/home#scrollElement"}>
-            <button className=" text-sm border border-black rounded-full focus:outline-none py-2 px-4 mb-10">
+            <button className=" text-sm border border-black rounded-full focus:outline-none py-2 px-4 mb-1 mt-10">
               See more recommendation
             </button>
           </Link>

@@ -33,9 +33,7 @@ const Account = () => {
   const handleUnfollow = (authorId) => {
     axios
       .delete(`/user/unfollow/${authorId}/${user?._id}`)
-      .then((res) => {
-        toast.success("unfollowed");
-      })
+      .then((res) => {})
       .catch((err) => toast.error);
   };
 
@@ -44,7 +42,6 @@ const Account = () => {
     axios
       .delete(`user/blog/unsave/${blogId}/${user?._id}`)
       .then((res) => {
-        toast.success("Unsaved");
         setIsSave(!isSave);
       })
       .catch((err) => {
