@@ -4,6 +4,9 @@ module.exports = withMT({
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      screens: {
+        'xs': '300px',
+      },
       colors: {
         primary: {
           50: "#eff6ff",
