@@ -28,8 +28,7 @@ import About from "./pages/Blogs/About";
 import Contact from "./pages/Blogs/Contact";
 import { AnimatePresence } from "framer-motion";
 
-// axios.defaults.baseURL = "https://server.blogsup.shop/api/";
-axios.defaults.baseURL='http://localhost:3005'
+axios.defaults.baseURL = "https://server.blogsup.shop/api/";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -46,7 +45,6 @@ function App() {
         axios
           .get("/user/getuser", { withCredentials: true })
           .then((res) => {
-            console.log("from user");
             dispatch(addUser(res.data));
             setLoading(false);
           })
@@ -57,7 +55,6 @@ function App() {
         axios
           .get("/author/getauthor", { withCredentials: true })
           .then((res) => {
-            console.log("from author");
             dispatch(addauthor(res.data));
             setLoading(false);
           })

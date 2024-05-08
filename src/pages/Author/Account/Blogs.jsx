@@ -13,20 +13,18 @@ function Blogs() {
   const [isEdit, setIsEdit] = useState(false);
   const [editBlogData, setEditBlogData] = useState({});
 
-  const id = author.authorId;
-  const authorId = author._id;
-  console.log(author);
+  const authorId = author?._id;
 
   useEffect(() => {
     axios
-      .get(`author/allblogs/${id}`)
+      .get(`author/allblogs/${authorId}`)
       .then((res) => {
         setBlogData(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [id, isDelete]);
+  }, [authorId, isDelete]);
 
   const toggleMenu = (blogId) => {
     setOpenMenuId(openMenuId === blogId ? null : blogId);

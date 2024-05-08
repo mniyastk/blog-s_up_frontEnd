@@ -40,10 +40,10 @@ const Blog = () => {
   const user = useSelector((state) => state.user.user);
   const author = useSelector((state) => state.author.author);
 
-  const handleFollow = (authorId) => {
-    console.log(authorId);
+  const handleFollow = (author) => {
+    console.log(author);
     axios
-      .post(`/user/follow/${authorId}/${user._id}`)
+      .post(`/user/follow/${author._id}/${user._id}`)
       .then((res) => {})
       .catch((err) => {
         toast.error("Error");
