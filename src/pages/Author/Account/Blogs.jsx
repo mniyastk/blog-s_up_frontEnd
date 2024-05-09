@@ -13,19 +13,18 @@ function Blogs() {
   const [isEdit, setIsEdit] = useState(false);
   const [editBlogData, setEditBlogData] = useState({});
 
-  const id = author.authorId;
-  const authorId = author._id;
+  const authorId = author?._id;
 
   useEffect(() => {
     axios
-      .get(`author/allblogs/${id}`)
+      .get(`author/allblogs/${authorId}`)
       .then((res) => {
         setBlogData(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [id, isDelete]);
+  }, [authorId, isDelete]);
 
   const toggleMenu = (blogId) => {
     setOpenMenuId(openMenuId === blogId ? null : blogId);
@@ -93,9 +92,9 @@ function Blogs() {
                     className="bg-white w-1/3 shadow rounded-lg overflow-hidden"
                   >
                     <img
-                      src={data.image}
+                      src={data?.image}
                       className="object-cover  h-52 w-full"
-                      alt={data.title.slice(0, 20)}
+                      alt={data?.title.slice(0, 20)}
                     />
                     <div className="p-6">
                       <span className="block text-slate-400 font-semibold text-sm">
