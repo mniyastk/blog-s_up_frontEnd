@@ -28,7 +28,7 @@ import About from "./pages/Blogs/About";
 import Contact from "./pages/Blogs/Contact";
 import { AnimatePresence } from "framer-motion";
 
-axios.defaults.baseURL = "https://server.blogsup.shop/api/";
+axios.defaults.baseURL = "https://server.blogsup.shop/";
 axios.defaults.withCredentials = true;
 
 function App() {
