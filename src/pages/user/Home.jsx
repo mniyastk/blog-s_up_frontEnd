@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import Animation from "../../components/Animation";
 import { Set } from "immutable";
+import LazyLoadedImage from "../../components/LazyLoadedImage";
 
 const Home = () => {
   const [topic, setTopic] = useState({});
@@ -188,7 +189,10 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-              <div className=" max-h-[1550px] overflow-y-auto" id="categoryDiv">
+              <div
+                className=" lazy-container max-h-[1550px] overflow-y-auto"
+                id="categoryDiv"
+              >
                 {blogByCategory && blogCategory !== "For you"
                   ? blogByCategory.map((item, index) => {
                       return (
@@ -219,10 +223,9 @@ const Home = () => {
                                 </p>
                               </div>
                               <div className=" w-1/4 ml-1 h-full sm:h-32 hover:animate-pulse">
-                                <img
-                                  className=" h-full w-full "
+                                <LazyLoadedImage
                                   src={item.image}
-                                  alt="topic"
+                                  alt={"blog"}
                                 />
                               </div>
                             </div>
@@ -260,10 +263,11 @@ const Home = () => {
                                 </p>
                               </div>
                               <div className=" w-1/4 ml-1 h-full sm:h-32 ">
-                                <img
-                                  className=" h-full w-full "
+                                <LazyLoadedImage
+                                  h={"h-full"}
+                                  w={"w-full"}
                                   src={item.image}
-                                  alt="topic"
+                                  alt={"blog"}
                                 />
                               </div>
                             </div>
@@ -310,10 +314,11 @@ const Home = () => {
 
                         <div className=" w-1/3 h-full sm:h-20 bg-red-500 ">
                           <Link to={`/home/blog/${item._id}`}>
-                            <img
-                              className=" h-full w-full "
+                            <LazyLoadedImage
+                              h={"h-full"}
+                              w={"w-full"}
                               src={item.image}
-                              alt=""
+                              alt={"recent"}
                             />
                           </Link>
                         </div>
