@@ -6,6 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useClickAway } from "react-use";
 import Animation from "../../components/Animation";
+import LazyLoadedImage from "../../components/LazyLoadedImage";
 
 const Blog = () => {
   const [isFollow, setIsFollow] = useState("Follow");
@@ -499,7 +500,12 @@ const Blog = () => {
             {blogs.map((item, i) => {
               return (
                 <div key={i} className=" ">
-                  <img className=" h-1/2 w-full" src={item.image} alt="lsfj" />
+                  <LazyLoadedImage
+                    h={"h-1/2"}
+                    w={"w-full"}
+                    src={item.image}
+                    alt={"recommended"}
+                  />
                   <div className=" flex my-3 items-center gap-2">
                     <div
                       className=" h-6 w-6 rounded-full bg-cover bg-center"

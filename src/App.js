@@ -8,11 +8,11 @@ import Home from "./pages/user/Home";
 import UserLayout from "./components/layout/UserLayout";
 import Register from "./pages/Author/Register";
 import AuthorLayout from "./pages/Author/AuthorLayout";
-import Blogs from "./pages/Author/Account/Blogs";
-import Dashboard from "./pages/Author/Account/Dashboard";
-import Followers from "./pages/Author/Account/Followers";
-import Messages from "./pages/Author/Account/Messages";
-import NewBlog from "./pages/Author/Account/NewBlog";
+import Blogs from "./pages/Blogs/Account/Blogs";
+import Dashboard from "./pages/Blogs/Account/Dashboard";
+import Followers from "./pages/Blogs/Account/Followers";
+import Messages from "./pages/Blogs/Account/Messages";
+import NewBlog from "./pages/Blogs/Account/NewBlog";
 import Blog from "./pages/user/Blog";
 import LandingPage from "./pages/user/LandingPage";
 import "./App.css";
@@ -23,12 +23,13 @@ import BlogCatogories from "./pages/Blogs/BlogCatogories";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { addUser } from "./redux/user/userSlice";
 import { addauthor } from "./redux/author/authorSlice";
-import AccountInfo from "./pages/Author/Account/AccountInfo";
+import AccountInfo from "./pages/Blogs/Account/AccountInfo";
 import About from "./pages/Blogs/About";
 import Contact from "./pages/Blogs/Contact";
 import { AnimatePresence } from "framer-motion";
 
-axios.defaults.baseURL = "https://server.blogsup.shop/api/";
+// axios.defaults.baseURL = "https://server.blogsup.shop/";
+axios.defaults.baseURL = "http://localhost:3005";
 axios.defaults.withCredentials = true;
 
 function App() {
