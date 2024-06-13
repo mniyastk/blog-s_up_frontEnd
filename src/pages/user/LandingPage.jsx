@@ -12,12 +12,14 @@ function LandingPage() {
         setToggle(!toggle);
     };
     useEffect(() => {
-        axios
-            .get("user/blogs")
-            .then((data) => setBlogData(data.data))
-            .catch((err) => {
-                console.log(err);
-            });
+        setTimeout(() => {
+            axios
+                .get("user/blogs")
+                .then((data) => setBlogData(data.data))
+                .catch((err) => {
+                    console.log(err);
+                });
+        }, 5000);
     }, []);
     useEffect(() => {
         axios
@@ -30,6 +32,8 @@ function LandingPage() {
                 toast.error("error");
             });
     }, []);
+
+    console.log(blogData);
 
     return (
         <div>
@@ -107,26 +111,41 @@ function LandingPage() {
                 <div className=" sm:px-[80px] px-[40px] my-12 h-auto   ">
                     <h4 className=" text-[30px] font-medium">Trending</h4>
                     <div className=" mt-10 sm:flex  justify-between flex-wrap w-full ">
-                        {blogData?.slice(0, 6).map((data) => {
-                            return (
-                                <div key={data._id} className=" sm:w-[30%] mr-5 mb-8 ">
-                                    <div className="flex items-center">
-                                        <img
-                                            className=" h-[35px] w-[35px] rounded-full"
-                                            src={data.image}
-                                            alt="trending images"
-                                        />
-                                        <span className=" ml-4">{data.title}</span>
+                        {blogData.length !== 0 ? (
+                            blogData?.slice(0, 6).map((data) => {
+                                return (
+                                    <div key={data._id} className=" sm:w-[30%] mr-5 mb-8 ">
+                                        <div className="flex items-center">
+                                            <img
+                                                className=" h-[35px] w-[35px] rounded-full"
+                                                src={data.author?.avatar}
+                                                alt="trending images"
+                                            />
+                                            <span className=" ml-4">{data.title}</span>
+                                        </div>
+                                        <p className="   font-semibold line-clamp-3   ">
+                                            <Link to={`/home/blog/${data?._id}`}> {data.content}</Link>
+                                        </p>
+                                        <span className=" text-gray-700">
+                                            {new Date(data?.createdAt).toDateString().slice(4)}
+                                        </span>
                                     </div>
-                                    <p className="   font-semibold line-clamp-3   ">
-                                        <Link to={`/home/blog/${data?._id}`}> {data.content}</Link>
-                                    </p>
-                                    <span className=" text-gray-700">
-                                        {new Date(data?.createdAt).toDateString().slice(4)}
-                                    </span>
-                                </div>
-                            );
-                        })}
+                                );
+                            })
+                        ) : (
+                            <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-full gap-10">
+                                {[1, 2, 3, 4, 5, 6].map(() => {
+                                    return (
+                                        <div className="flex flex-col gap-4 w-25 md:w-full">
+                                            <div className="skeleton h-2 md:h-4 w-1/3 md:w-1/3"></div>
+                                            <div className="skeleton h-2 md:h-4 w-full"></div>
+                                            <div className="skeleton h-2 md:h-4 w-full"></div>
+                                            <div className="skeleton h-2 md:h-4 w-full"></div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -136,15 +155,30 @@ function LandingPage() {
                         <div className="   font-semibold">Discover More...</div>
                         <div className=" md:hidden     mt-4 ">
                             <div className=" flex justify-around flex-wrap cursor-pointer">
-                                {category?.slice(0, 8).map((item, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
-                                                {item}
+                                {blogData.length !== 0 ? (
+                                    category?.slice(0, 8).map((item, index) => {
+                                        return (
+                                            <div key={index}>
+                                                <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
+                                                    {item}
+                                                </div>
                                             </div>
-                                        </div>
-                                    );
-                                })}
+                                        );
+                                    })
+                                ) : (
+                                    <div className=" grid grid-cols-1  md:grid-cols-3 w-full gap-10">
+                                        {[1, 2, 3].map(() => {
+                                            return (
+                                                <div className="flex flex-col gap-4 w-25 md:w-full">
+                                                    <div className="skeleton h-2 md:h-4 w-1/3 md:w-1/3"></div>
+                                                    <div className="skeleton h-2 md:h-4 w-full"></div>
+                                                    <div className="skeleton h-2 md:h-4 w-full"></div>
+                                                    <div className="skeleton h-2 md:h-4 w-full"></div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
                             </div>
                             <div className=" text-green-400 cursor-pointer inline-block">
                                 <Link>See more topics</Link>
@@ -153,46 +187,73 @@ function LandingPage() {
                     </div>
                     <div className="sm:flex  sm:justify-between ">
                         <div className="sm:flex sm:justify-between sm:flex-wrap sm:w-full">
-                            {blogData.slice(0, 5).map((data) => {
-                                return (
-                                    <div key={data._id} className="flex sm:w-full   sm:mr-5  justify-between mb-5">
-                                        <div className="sm:w-full  ">
-                                            <Link to={`/home/blog/${data?._id}`}>
-                                                <div className="flex items-center   ">
-                                                    <img
-                                                        className=" h-[35px] w-[35px] rounded-full"
-                                                        src={data.image}
-                                                        alt="trending images"
-                                                    />
-                                                    <div className=" ml-3">{data.category}</div>
-                                                </div>
-                                                <p className=" w-full    font-semibold line-clamp-2 sm:line-clamp-3 sm:max-w-[380px]   max-w-[180px]  mt-2 mb-2 ">
-                                                    {data.content}
-                                                </p>
-                                                <div className=" flex justify-between ">
-                                                    <span>{new Date(data?.createdAt).toDateString().slice(4)}</span>
-                                                    <img src={pic3} alt="pic3" />
-                                                </div>
-                                            </Link>
-                                        </div>
-                                        <div className=" w-[200px] ml-3 ">
-                                            <img src={data.image} alt="pic2" />
-                                        </div>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                        <div className="hidden md:block sm:pl-6    mt-4 ">
-                            <div className=" flex justify-around flex-wrap cursor-pointer">
-                                {category?.slice(0, 8).map((item, index) => {
+                            {blogData.length !== 0 ? (
+                                blogData.slice(0, 5).map((data) => {
                                     return (
-                                        <div key={index}>
-                                            <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
-                                                {item}
+                                        <div key={data._id} className="flex sm:w-full   sm:mr-5  justify-between mb-5">
+                                            <div className="sm:w-full  ">
+                                                <Link to={`/home/blog/${data?._id}`}>
+                                                    <div className="flex items-center   ">
+                                                        <img
+                                                            className=" h-[35px] w-[35px] rounded-full"
+                                                            src={data?.author?.avatar}
+                                                            alt="trending images"
+                                                        />
+                                                        <div className=" ml-3">{data.category}</div>
+                                                    </div>
+                                                    <p className=" w-full    font-semibold line-clamp-2 sm:line-clamp-3 sm:max-w-[380px]   max-w-[180px]  mt-2 mb-2 ">
+                                                        {data.content}
+                                                    </p>
+                                                    <div className=" flex gap-10 ">
+                                                        <span>{new Date(data?.createdAt).toDateString().slice(4)}</span>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                            <div className=" w-[200px] ml-3 ">
+                                                <img src={data.image} alt="pic2" />
                                             </div>
                                         </div>
                                     );
-                                })}
+                                })
+                            ) : (
+                                <div className=" grid grid-cols-1  w-full gap-10">
+                                    {[1, 2, 3, 4, 5].map(() => {
+                                        return (
+                                            <div className="flex flex-col gap-4 w-25 md:w-full">
+                                                <div className="skeleton h-2 md:h-4 w-1/3 md:w-1/3"></div>
+                                                <div className="skeleton h-2 md:h-4 w-full"></div>
+                                                <div className="skeleton h-2 md:h-4 w-full"></div>
+                                                <div className="skeleton h-2 md:h-4 w-full"></div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            )}
+                        </div>
+                        <div className="hidden md:block sm:pl-6    mt-4 ">
+                            <div className=" flex justify-around flex-wrap cursor-pointer ">
+                                {category.length !== 0 ? (
+                                    category?.slice(0, 8).map((item, index) => {
+                                        return (
+                                            <div key={index}>
+                                                <div className=" px-4 py-1 mb-2  mr-2  bg-[#F2F2F2] rounded-2xl">
+                                                    {item}
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                ) : (
+                                    <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 w-full">
+                                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
+                                            return (
+                                                <div
+                                                    key={i}
+                                                    className="skeleton h-5  w-[100px] px-4 py-1 mb-2  mr-28  rounded-2xl"
+                                                ></div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
                             </div>
                             <div className=" text-green-400 cursor-pointer inline-block">
                                 <Link to={"/category"}>See more topics</Link>

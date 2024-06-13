@@ -103,7 +103,7 @@ const PageNotFound = () => {
                 src="https://res.cloudinary.com/dunf6rko6/image/upload/v1710239599/icons8-page-not-found-66_ej06uy.png"
                 alt="not fond"
             />
-            <p> 404 Page not found!</p>
+            <p> 404 Page not found !</p>
         </div>
     );
 };
