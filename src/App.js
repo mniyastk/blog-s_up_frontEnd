@@ -33,7 +33,6 @@ function App() {
     const location = useLocation();
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
-
     const isUser = localStorage.getItem("isUser");
 
     useEffect(() => {
