@@ -26,7 +26,8 @@ import Register from "./pages/user/Register";
 import Login from "./pages/user/Login";
 import AuthorLayout from "./pages/user/AuthorLayout";
 
-axios.defaults.baseURL = "https://blog-s-up.onrender.com/";
+// axios.defaults.baseURL = "https://blog-s-up.onrender.com/";
+axios.defaults.baseURL = "http://localhost:3005/";
 axios.defaults.withCredentials = true;
 
 function App() {
