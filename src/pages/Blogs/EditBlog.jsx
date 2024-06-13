@@ -12,10 +12,8 @@ function EditBlog({ blog }) {
   });
 
   const id = blog._id;
-  const [setSelectedFile] = useState(null);
   const changeFile = (e) => {
     const file = e.target.files[0];
-    setSelectedFile(file);
     formValues.image = file.name;
   };
 
@@ -41,7 +39,7 @@ function EditBlog({ blog }) {
     if (Object.keys(check).length === 0) {
       const loading = toast.loading("Posting...");
       axios
-        .put(`author/update/${id}`, formValues)
+        .put(`user/updateblog/${id}`, formValues)
         .then((res) => {
           console.log(res.data);
 
@@ -105,7 +103,7 @@ function EditBlog({ blog }) {
               <span className="mt-2 text-base leading-normal">
                 {formValues.image}
               </span>
-              <input type="file" className="hidden" onChange={changeFile} />
+              <input type="file"  className="hidden" onChange={changeFile} />
             </label>
           </div>
           <textarea
